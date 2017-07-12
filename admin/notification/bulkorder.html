@@ -1,0 +1,253 @@
+<style type="text/css">
+.collapsible-body p {
+    padding: 0rem!important;
+}
+</style>
+
+<div ng-controller="bulkCtrl">
+
+  <ul class="collapsible" data-collapsible="accordion">
+
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Bulk Orders</div>
+      <div class="collapsible-body">
+            <div class="row">
+              <div class="col s12 l1"><p>Name</p></div>
+              <div class="col s12 l2"><p>Email</p></div>
+              <div class="col s12 l1"><p>Mobile No</p></div>
+              <div class="col s12 l2"><p>Company</p></div>
+              <div class="col s12 l2"><p>Timestamps</p></div>
+              <div class="col s12 l4"><p>Description</p></div>
+            </div>
+              
+            <div class="row" ng-repeat="bulk in bulkorder">
+              <div class="col s12 l1"><p>{{bulk['name']}}</p></div>
+              <div class="col s12 l2"><p>{{bulk['email']}}</p></div>
+              <div class="col s12 l1"><p>{{bulk['mobile']}}</p></div>
+              <div class="col s12 l2"><p>{{bulk['company']}}</p></div>
+              <div class="col s12 l5"><p>{{bulk['created_at']}}</p></div>
+              <div class="col s12 l5"><p>{{bulk['description']}}</p></div>
+            </div>       
+      </div>
+    </li>
+
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Callback Request</div>
+      <div class="collapsible-body">
+        <div class="row">
+          <table>
+            <tr>
+              <th><div class="col s12 l3"><p>Name</p></div></th>
+              <th><div class="col s12 l3"><p>Mobile No</p></div></th>
+              <th><div class="col s12 l3"><p>Time stamp</p></div></th>
+            </tr>
+   
+            <tr ng-repeat="callback in callbackrequest">
+              <td><div class="col s12 l3"><p>{{callback['name']}}</p></div></td>
+              <td><div class="col s12 l3"><p>{{callback['mobile']}}</p></div></td>
+              <td><div class="col s12 l3"><p>{{callback['created_at']}}</p></div></td>
+            </tr>
+          </table>
+        </div>      
+      </div>
+    </li>
+
+
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Designer Request</div>
+      <div class="collapsible-body">
+        <div class="card">
+          <div class="card-content">
+
+            <div class="row">
+              <div class="col s12 l2"><p>Name</p></div>
+              <div class="col s12 l2"><p>Email</p></div>
+              <div class="col s12 l2"><p>Mobile No</p></div>
+              <div class="col s12 l2"><p>Timestamps</p></div>
+              <div class="col s12 l4"><p>Description</p></div>
+            </div>
+
+        
+          <div class="row" ng-repeat="designreq in designerrequest">
+            <div class="col s12 l2"><p>{{designreq['name']}}</p></div>
+            <div class="col s12 l2"><p>{{designreq['email']}}</p></div>
+            <div class="col s12 l2"><p>{{designreq['mobile']}}</p></div>
+            <div class="col s12 l2"><p>{{designreq['created_at']}}</p></div>
+            <div class="col s12 l4"><p>{{designreq['description']}}</p></div>
+          </div>
+        
+          </div>
+        </div>
+      </div>
+    </li>
+
+
+  <li>
+    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Item Request</div>
+    <div class="collapsible-body">
+  <div class="card">
+    <div class="card-content">
+      <div class="row">
+        <div class="col s12 l1"><p>id</p></div>
+        <div class="col s12 l2"><p>Name</p></div>
+              <div class="col s12 l1"><p>Mobile No</p></div>
+        <div class="col s12 l2"><p>Email</p></div>
+
+          <div class="col s12 l2"><p>Timestamps</p></div>
+        <div class="col s12 l4"><p>Description</p></div>
+      </div>
+
+        
+        <div class="row" ng-repeat="itemreq in itemrequest">
+          <div class="col s12 l1">  <b><a href="item/{{itemreq['id']}}">{{itemreq['id']}}</a></b></div>
+          <div class="col s12 l2"><p>{{itemreq['name']}}</p></div>
+          <div class="col s12 l1"><p>{{itemreq['mobile']}}</p></div>
+          <div class="col s12 l2"><p>{{itemreq['email']}}</p></div>
+          <div class="col s12 l2"><p>{{itemreq['created_at']}}</p></div>
+          <div class="col s12 l4"><p>{{itemreq['description']}}</p></div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  </li>
+  <li>
+    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Package Requests</div>
+    <div class="collapsible-body">
+
+      <div class="row">
+        <div class="col s12 l1"><p>id</p></div>
+        <div class="col s12 l2"><p>Name</p></div>
+        <div class="col s12 l2"><p>Mobile No</p></div>
+        <div class="col s12 l2"><p>Email</p></div>
+        <div class="col s12 l1"><p>Timestamps</p></div>
+        <div class="col s12 l4"><p>Description</p></div>
+      </div>
+     
+      <div class="row" ng-repeat="packreq in packagerequest">
+        <div class="col s12 l1">  <b><a href="package/{{packreq['id']}}">{{packreq['id']}}</a></b></div>
+        <div class="col s12 l2"><p>{{packreq['name']}}</p></div>
+        <div class="col s12 l2"><p>{{packreq['mobile']}}</p></div>
+        <div class="col s12 l2"><p>{{packreq['email']}}</p></div>
+        <div class="col s12 l1"><p>{{packreq['created_at']}}</p></div>
+        <div class="col s12 l4"><p>{{packreq['description']}}</p></div>
+      </div>
+        
+    </div>
+  </li>
+
+  </ul>
+
+
+<div class="card" style="background-color:#ECECEC" ng-repeat="itemreq in itemorderrequest | orderBy:'-index'">
+<div class="orderview card-content" style="margin-top: 1.5rem;" >
+  <h6 class="center-align">Order Id : {{itemreq.index}}  </h6>
+  <table>
+    <thead>
+      <tr>
+        <th data-field="id">Id</th>
+        <th data-field="name">Name</th>
+        <th data-field="code">Code</th>
+        <th data-field="brand">Brand</th>
+        <th data-field="price">Price</th>
+      </tr>
+    </thead>
+<span>
+    <tbody ng-repeat="product in itemreq.data">
+     
+        <tr ng-if="product['item_id']!=null">
+            <td><a href="/item/{{itemreq['id']}}" >{{product['item_id']}}</a></td>
+            <td>{{product['item_name']}}</td>
+            <td>{{product['item_code']}}</td>
+            <td>{{product['item_brand']}}</td>
+            <td>{{product['item_price']}}</td>  
+        </tr>
+        
+        <tr ng-if="product['package_id']!=null">
+            <td><a href="/package/{{product['package_id']}}" >{{product['package_id']}}</a></td>
+            <td>{{product['package_name']}}</td>
+            <td>{{product['package_code']}}</td>
+            <td>N.A</td>
+            <td>{{product['package_price']}}</td>
+        </tr>
+
+    </tbody>
+  </table>
+  <hr />
+
+  <h5> Transaction details </h5>
+  <table>
+    <thead>
+      <tr>
+        <th data-field="bankref">Bank Reference no</th>
+        <th data-field="bank"> Bank </th>
+        <th data-field="mode">Mode of transaction</th>
+        <th data-field="status">Status</th>
+        <th data-field="message">Status message</th>
+        <th data-field="amount"> Amount</th>
+        <th data-field="timestamp"> Time </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{itemreq.data[0]['bank_ref_no']}}</td>
+        <td>{{itemreq.data[0]['card_name']}}</td>
+        <td>{{itemreq.data[0]['payment_mode']}}</td>
+        <td>{{itemreq.data[0]['transaction_status']}}</td>
+        <td>{{itemreq.data[0]['status_message']}}</td>
+        <td>{{itemreq.data[0]['amount']}}</td>
+        <td>{{itemreq.data[0]['created_at']}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr />
+
+  <h6 class="center-align"> Address </h6>
+  <div class= "row" >
+    <div class="col s12 l6">
+      <h6>Shipping address</h6>
+      <hr />
+      <div class= "row">
+
+        <span>{{itemreq.data[0]['shipping_name']}}</span>
+        <hr />
+        <p>{{itemreq.data[0]['shipping_address']}}</p>
+        <p>{{itemreq.data[0]['shipping_city']}} - {{itemreq.data[0]['shipping_pin']}}<p>
+
+        <p>{{itemreq.data[0]['shipping_state']}}</p>
+        <p> Phone No : {{itemreq.data[0]['shipping_mobile']}}</p>
+        <p>Email : {{itemreq.data[0]['shipping_email']}}</p>
+      </div>
+    </div>
+
+    <div class="col s12 l6">
+      <h6>Billing address</h6>
+      <hr />
+      <div class= "row">
+        <span>{{itemreq.data[0]['billing_name']}}</span>
+        <hr>
+        <p>{{itemreq.data[0]['billing_address']}}</p>
+        <p>{{itemreq.data[0]['billing_city']}} - {{itemreq.data[0]['billing_pin']}}<p>
+        <p>{{itemreq.data[0]['billing_state']}}</p>
+        <p> Phone No : {{itemreq.data[0]['billing_mobile']}}</p>
+        <p>Email : {{itemreq.data[0]['billing_email']}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+</span>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('.collapsible').collapsible({
+    accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+  });
+});
+
+</script>
+

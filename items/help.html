@@ -1,0 +1,18 @@
+@if(count($user->items) < 3)
+<div class="card">
+  <div class="card-content">
+    Hi <b>{{ explode(" ", $user->name)[0] }}</b>,<br/>
+    Looks like you haven't uploaded any item yet. Please go through instructions before you add one.
+    <ul>
+      <li>Add multiple arrangements for items which can be rearranged/expanded etc</li>
+      <li>Upload as many images as much you want for each arrangement</li>
+
+      <li>Length, Width, Height Acceptable formats: <br />
+          6 5  (=80 inches)<br />
+          6' 5" or 6'5" or 6.5  (=80 inches)<br />
+          15 (=15 inches)
+      </li>
+    </ul>
+  </div>
+</div>
+@endif

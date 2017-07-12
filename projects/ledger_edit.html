@@ -1,0 +1,121 @@
+@extends('layout.admin')
+
+@section('main')
+
+<div class="card">
+  <div class="card-content grey-text row">
+
+  <h6> Project's spendings </h6>
+  <form id="project_info" name="project_info" action="/project/{{$ledger_data->id}}/ledger_Edit" class="" enctype="multipart/form-data" method="post">
+    {{csrf_field()}}
+    <div class="row">
+      <div class="input-field col s12  m12 l4">
+        <input  name= "name" id="payee_name" type="text" value="{{$ledger_data->name}}" class="validate">
+        <label for="payee_name">Payee Name</label>
+      </div>
+      <div class="input-field col s12  m12 l4">
+        <input id="last_name" type="text" name= "particulars" value="{{$ledger_data->particulars}}" class="validate">
+        <label for="last_name">Particulars</label>
+      </div>
+      <div class="input-field col s12  m12 l4">
+        <input  name= "amount" id="amount" type="text" value="{{$ledger_data->amount}}" class="validate">
+        <label for="amount">Amount</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12  m12 l4">
+        <input id="tax_amount"  name= "tax_amount" type="text" value="{{$ledger_data->tax_amount}}" class="validate">
+        <label for="tax_amount">Tax amount</label>
+      </div>
+      <div class="input-field col s12 m12 l4">
+        <input type="text" id="bank" name="bank" value="{{$ledger_data->bank}}">
+        <label for="bank">Bank</label>
+      </div>
+      <div class="input-field col s12 m12 l4">
+        <input type="text" name="check_no" id="check_no" value="{{$ledger_data->cheque_number}}">
+        <label for="check_no">Cheque Number</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12 m12 l4">
+        <input type="text" name="concern_person" id="concern_person" value="{{$ledger_data->concern_person}}">
+        <label for="concern_person">Concern Person</label>
+      </div>
+      <div class="input-field col s12 m12 l4">
+        <input id="pay_date" name="pay_date" type="date" value="{{$ledger_data->date }}" class="datepicker" >
+        <label for="pay_date">Date</label>
+      </div>
+      <div class="input-field col s12  m12 l4">
+        <input  name= "bill_no" id="bill_no" type="text" value="{{$ledger_data->bill_no}}" class="validate">
+        <label for="bill_no">BIll No</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12  m12 l4">
+        <div class="row">
+          <select class="browser-default" name="type_of_transaction">
+              <option value="Credit">Credit</option>
+              <option value="Debit">Debit</option>
+          </select>
+        </div>
+      </div>
+      <div class="input-field col s12  m12 l4">
+        <div class="row">
+          <select class="browser-default" name="mode_of_transaction">
+              <option value="others" selected>mode_of_transaction</option>
+              <option value="Cash">Cash</option>
+              <option value="Cheque">Cheque</option>
+              <option value="Account">Account</option>
+              <option value="others">Others</option>
+          </select>
+        </div>
+      </div>
+      <div class="input-field col s12  m12 l4">
+        <input id="remarks"  name= "remarks" type="text" value="{{$ledger_data->remarks}}" class="validate">
+        <label for="remarks">Remarks</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12  m12 l4">
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>Upload File</span>
+            <input type="file" name="image[]" multiple / >
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" id="path" name="path" type="text" placeholder="Upload files">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div  class="row">
+      <div class="input-field">
+          <a href="/project/{{$ledger_data->id}}/ledger_Delete" class="waves-effect waves-light btn left">Delete</a>
+      </div>
+      <div class="input-field">
+          <button class="btn left" type="submit" style="margin-left:1100px; margin-top:-35px"  value="">Edit</button>
+      </div>
+     </div>
+  </form>
+  </div>
+</div>
+
+@stop
+
+@section('inline-script')
+<script type="text/javascript">
+$('.datepicker').pickadate({
+  today: '',
+  min: new Date(2015,1,1),
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 50, // Creates a dropdown of 15 years to control year
+  format: 'yyyy-mm-dd'
+});
+var $input = $('.datepicker').pickadate();
+</script>
+@stop

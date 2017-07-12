@@ -1,0 +1,149 @@
+<div class="card">
+  <div class="card-content">
+    <form class="" id="new_product_form" action="/package/new" method="post">
+      <input type="hidden" name="_token" id="csrf-token" value="" />
+      <div class="row">
+        <div class="col l4 input-filed">
+          <input type="radio" name="type" value="Silver" class="with-gap" id="type_silver" checked>
+          <label for="type_silver">Silver</label>
+        </div>
+        <div class="col l4 input-filed">
+          <input type="radio" name="type" value="Gold" class="with-gap" id="type_gold">
+          <label for="type_gold">Gold</label>
+        </div>
+        <div class="col l4 input-filed">
+          <input type="radio" name="type" value="Platinum" class="with-gap" id="type_platinum">
+          <label for="type_platinum">Platinum</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col l6 input-field">
+          <input type="text" name="name" id="name" >
+          <label for="name">Name</label>
+        </div>
+        <div class="col l6 input-field">
+          <input type="text" name="style" id="style" >
+          <label for="style">Style</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l4 input-field">
+          <input type="text" name="section" id="section" >
+          <label for="section">Section</label>
+        </div>
+        <div class="col l4 input-field">
+          <input type="text" name="length" id="length" >
+          <label for="length">Length</label>
+        </div>
+        <div class="col l4 input-field">
+          <input type="text" name="width" id="width" >
+          <label for="width">Width</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l4 input-field">
+          <input type="text" name="code" id="code" >
+          <label for="code">ID</label>
+        </div>
+        <div class="col l4 input-field">
+          <input type="text" name="price" id="price" >
+          <label for="price">Price</label>
+        </div>
+        <div class="col l4 input-field">
+          <input type="text" name="availability" id="availability" >
+          <label for="availability">Processing Time</label>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col l12">
+          <div class="input-field">
+            <textarea id="description" name="description" class="materialize-textarea"></textarea>
+            <label for ="description">Description</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col l12">
+          <button type="submit" class="btn waves-effect teal lighten-2 right">Go</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-content">
+
+    <h6><a ui-sref="home.packages.urlcustomize"> To customize url click here : </a></h6>
+
+  </div>
+</div>
+
+<script src="/bower_components/typeahead.js/dist/typeahead.bundle.min.js" charset="utf-8"></script>
+<!--<script src="/materialize-tags/js/materialize-tags.min.js" charset="utf-8"></script>-->
+
+
+<script type="text/javascript">
+
+$('#images-preview').hide();
+
+</script>
+
+<style media="screen">
+twitter-typeahead {
+  display: inline !important;
+}
+
+.twitter-typeahead {
+  width: 100%;
+}
+
+.typeahead-content {
+  box-shadow: 0 1px 2px rgba(0,0,0,.26);
+  background-color: #fff;
+  cursor: pointer;
+  margin-top: -15px;
+  min-width: 100px;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  white-space: nowrap;
+  z-index: 1001;
+  will-change: width,height;
+}
+
+.typeahead-highlight {
+  font-weight: 900;
+}
+
+.typeahead-suggestion {
+  padding: 5px 0px 10px 10px;
+}
+
+.typeahead-suggestion:hover {
+  background-color: #42A5F5;
+}
+
+.typeahead-cursor {
+    background-color: #42A5F5!important;
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-cover {
+  float: left;
+  position: absolute;
+  z-index: 1000;
+  background-color: #92AD40;
+  padding: 5px;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+</style>
+

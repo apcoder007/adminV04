@@ -1,0 +1,106 @@
+<div class="row" style="margin-bottom:5rem;padding-top:1rem">
+  <div class="card row">
+    <form id="upload-user" name="upload-user" action="/campaign/upload_csv1" method="post" enctype="multipart/form-data">
+      
+      <div class = "file-field input-field col s12">
+        <div class="btn">
+          <span>Upload</span>
+          <input type="file" name="file" accept=".xlsx" >
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" id='upath' name="upath" type="text" placeholder="Upload .xlsx file (InsertNew/UpdateExisting)">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row" style="margin-bottom:5rem;padding-top:1rem">
+  <div class="card row">
+    <form id="selected-user" name="selected-user" action="/campaign/send" method="post" enctype="multipart/form-data">
+      
+      <div class="row" style="padding:20px 20px;">
+
+      <div class="col s6">
+        <div class="input-field col s12">
+          <select name = "campaign_id">
+            <option value="" disabled selected>Choose your option</option>
+            
+            <option ng-repeat="campaign in campaigns"  value="{{campaign['id']}}">{{campaign['name']}}</option> 
+          </select>
+          <label>Campaign Select</label>
+        </div>
+      </div>
+
+        <div class="col s6">
+          <div class="input-field">
+              <button class="btn right" type="submit"  value="">Send</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" >
+              <div class="col l12">
+            <table>
+                 <thead>
+                   <tr>
+                     <th data-field="box">
+                        <div class="col s12">
+                       <input type="checkbox" id="selectall" />
+                       <label for = "selectall" >All </label>
+                       </div>
+                     </th>
+                       <th data-field="name">Name</th>
+                       <th data-field="email">Email</th>
+                       <th data-field="society">Society</th>
+
+                   </tr>
+                 </thead>
+
+                 <tbody>
+
+
+                
+                   <tr ng-repeat="maillist in maillists">
+                     <td>
+                       <div class="col s12">
+                       <input type="checkbox" id="{{maillist['id']}}" name = "selecteduser[]" value="{{maillist['id']}}"/>
+                       <label for="{{maillist['id']}}"></label>
+
+                       </div>
+                     </td>
+                     <td>{{maillist['name']}}</td>
+                     <td>{{maillist['email']}}</td>
+                     <td>{{maillist['society_name']}}</td>
+                   </tr>
+                
+                 </tbody>
+               </table>
+             </div>
+           </div>
+
+
+
+         </form>
+       </div>
+     </div>
+
+<script type="text/javascript">
+  $('#upath').on('change', function(){
+    $('#upload-user').submit();
+  })
+
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+
+
+  $("#selectall").change(function () {
+    $("input:checkbox").prop('checked', $(this).prop("checked"));
+});
+</script>
+
+<style media="screen">
+td{
+  padding: 3px 2px;
+}
+</style>

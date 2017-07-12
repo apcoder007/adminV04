@@ -1,0 +1,108 @@
+  <style media="screen">
+    .fixed{
+      width: 73%;
+      position: fixed;
+      left: 25%;
+      margin-left: 1%;
+      z-index: 10;
+    }
+  </style>
+
+  <div class="fixed" id='vendor_selector'>
+    <div class="card row">
+      <div class="card-content">
+  
+        <form action="" method="get">
+          <select class="browser-default" name="vendor_id" ng-change="selectSubmission(selectedvendor)" ng-model="selectedvendor">
+        
+            <div ng-if="">
+              <option value="" selected disabled>Select vendor</option>
+            </div>
+
+            <div ng-if="selectedvendor">
+
+              <option ng-repeat="vendors in selectvendors" value="{{vendors['id']}}" ng-if="vendors['id']==selectedvendor" selected>
+                <span id="vendors.id" >{{vendors.name}}</span>
+              </option>
+
+              <option ng-repeat="vendors in selectvendors" value="{{vendors['id']}}">
+               <span id="vendors.id">{{vendors.name}}</span>
+              </option>
+             </div>
+        
+          </select>
+       </form>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div ng-if="selectedvendor">
+
+    <div style="padding-top:7.5rem;">
+      <div ng-include='"vendor/upload.html"'></div>
+    </div>
+
+    <div>
+      <div ng-include='"vendor/products.html"'></div>
+    </div>
+
+    <div style="position: fixed;display: block;right: 1rem;bottom: 1rem;">
+      <a class="btn-floating btn-large waves-effect waves-light grey" style="opacity:0" id="bottom-right-btn"><i class="material-icons">keyboard_arrow_up</i></a>
+    </div>
+
+  </div>
+
+
+
+  <script type="text/javascript">
+    $('select').material_select();
+
+  function storeScroll(){
+    localStorage.setItem('scrollY', window.scrollY);
+    console.log(sessionStorage.getItem('scrollY'));
+    return false;
+  }
+  $(document).ready(function(){
+      $('#bottom-right-btn').click(function(){
+        $('html, body').animate({scrollTop: $('body').offset().top}, 300);
+      });
+
+      var down = false;
+      var up= true;
+      if(window.localStorage.getItem('scrollY') > 0){
+        window.scrollTo(0, window.localStorage.getItem('scrollY'));
+      }
+      $(document).scroll(function(){
+        console.log(window.scrollY);
+        if(window.scrollY > 30)
+        {
+          if(down){
+            return;
+          }
+          $('#vendor_selector').animate({
+            marginTop: '-2rem'
+          }, 700);
+          $('#bottom-right-btn').animate({
+            opacity: 0.6
+          }, 500);
+          down = true;
+          up = false;
+        }
+        else {
+          if(up){
+            return;
+          }
+          $('#vendor_selector').animate({
+            marginTop: 0
+          }, 700);
+          $('#bottom-right-btn').animate({
+            opacity: 0
+          }, 500);
+          up = true;
+          down = false;
+        }
+      })
+  })
+  </script>

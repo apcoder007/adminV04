@@ -1,0 +1,71 @@
+<style media="screen">
+  .row input{
+    height: auto;
+  }
+  .input-field label{
+    top:-0.8rem;
+  }
+  .input-field label.active{
+    top: 0.2rem;
+  }
+</style>
+<div class="row" style="margin-top:5rem">
+
+    <form id="edit_project_basic" style="padding-top:5px" name="edit_project_basic" style="margin-top:3rem;margin-bottom:3rem" class= "l6" method="post" ng-submit="EditBasicInfo(edit_project_basic)">
+        {{basic.society}}
+        <div class="row">
+          <div class="col s12 m6 l4">
+            <div class="input-field">
+              <label for="society">Society</label>
+              <input class="form-control" type="text" name="society" id="society" ng-model="basic.society">
+            </div>
+          </div>
+
+          <div class="col s12 m6 l4">
+            <div class="input-field">
+              <label for="name">Project name</label>
+              <input type="text" name="name" id="name" ng-model="basic.projectname">
+            </div>
+          </div>
+        </div>
+
+        <fieldset style="margin-top:40px;border-color:#e0e0e0">
+          <legend>Site details</legend>
+          <div class="row">
+            <div class="col s12 m12 l6">
+              <div class="input-field">
+                <label for="contact_person">Contact Person</label>
+                <input type="text" name="contact_person" id="contact_person" ng-model="basic.contact_person">
+              </div>
+            </div>
+
+            <div class="col s12 m8 l4">
+              <div class="input-field">
+                <label for="mobile">Mobile number</label>
+                <input type="text" name="mobile" id="mobile" ng-model="basic.mobile">
+              </div>
+            </div>
+
+
+            <div class="col s12">
+              <div class="input-field">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" ng-model="basic.address"/>
+              </div>
+            </div>
+
+
+          </div>
+        </fieldset>
+        <div class="input-field">
+        <button class="btn right" type="submit" value="">update</button>
+        </div>
+      </form>
+
+  </div>
+
+  <script type="text/javascript">
+    $(function() {
+    Materialize.updateTextFields();
+    });
+  </script>

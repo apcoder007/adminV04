@@ -1,0 +1,98 @@
+<style media="screen">
+  .row input{
+    height: auto;
+  }
+</style>
+<div class="row" style="margin-top:5px">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content grey-text row">
+        <span class="right">
+        <!-- <a href="/package/{{$package->id}}"><i class="tiny material-icons grey-text">clear</i></a> -->
+        </span>
+        <div class="card-title grey-text">
+          <h6>{{packageiddetails[0]['name']}}<br /><br /><small>{{packageiddetails[0]['type']}}</small></h6>
+        </div>
+        <form class="" action="" style="margin-top:3rem;" method="post">
+        <div class="row">
+          <div class="col l4 input-filed">
+            <input type="radio" name="type" value="Silver" class="with-gap" id="type_silver" {{packageiddetails[0]['type'] == "Silver" ? 'checked' : 'No' }} >
+            <label for="type_silver">Silver</label>
+          </div>
+          <div class="col l4 input-filed">
+            <input type="radio" name="type" value="Gold" class="with-gap" id="type_gold" {{packageiddetails[0]['type'] == "Gold" ? 'checked' : 'No' }}>
+            <label for="type_gold">Gold</label>
+          </div>
+          <div class="col l4 input-filed">
+            <input type="radio" name="type" value="Platinum" class="with-gap" id="type_platinum" {{packageiddetails[0]['type'] == "Platinum" ? 'checked' : 'No' }} >
+            <label for="type_platinum">Platinum</label>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col s2">Name:</label>
+          <input type="text" class="col s10" name="name" value="{{packageiddetails[0]['name'] ? packageiddetails[0]['name'] : 'N.A'}}" autofocus>
+        </div>
+          <div class="row">
+            <label class="col s2">Style</label>
+          <input type="text"class="col s10"  name="style" id="style" value="{{packageiddetails[0]['style'] ? packageiddetails[0]['style'] : 'N.A'}}" autofocus>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l4 input-field">
+          <input type="text" name="section" id="section" value="{{packageiddetails[0]['section'] ? packageiddetails[0]['section'] : 'N.A'}}">
+          <label for="section">Section</label>
+        </div>
+        <div class="col l4 input-field">
+          <input type="text" name="length" id="length" value="{{packageiddetails[0]['length'] ? packageiddetails[0]['length'] : 'N.A'}}">
+          <label for="length">Length</label>
+        </div>
+        <div class="col l4 input-field">
+          <input type="text" name="width" id="width" value="{{packageiddetails[0]['width'] ? packageiddetails[0]['width'] : 'N.A'}}">
+          <label for="width">Width</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l4 input-field">
+          <input type="text" name="code" id="code" value="{{packageiddetails[0]['code'] ? packageiddetails[0]['code'] : 'N.A'}}">
+          <label for="code">ID</label>
+        </div>
+        <div class="col l4 input-field">
+          <input type="text" name="price" id="price" value="{{packageiddetails[0]['price'] ? packageiddetails[0]['price'] : 'N.A'}}">
+          <label for="price">Price</label>
+        </div>
+        <div class="col l4 input-field">
+          <input type="text" name="availability" id="availability" value="{{packageiddetails[0]['availability'] ? packageiddetails[0]['availability'] : 'N.A'}}">
+          <label for="availability">Processing Time</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l12">
+          <div class="input-field">
+            <textarea id="description" name="description" class="materialize-textarea">{{packageiddetails[0]['description'] ? packageiddetails[0]['description'] : 'N.A'}}</textarea>
+            <label for ="description">Description</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l12">
+        <div class="input-field">
+        <button class="btn right" type="submit"  value="">Update</button>
+        </div>
+      </div>
+    </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+    Materialize.updateTextFields();
+    });
+  </script>

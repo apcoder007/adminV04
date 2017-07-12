@@ -1,0 +1,28 @@
+<form class="card" method="POST" action="/admin/roleNpermission/permission" >
+  <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+  <div class="card-content">
+    <span class="card-title grey-text">Create a new permission</span>
+    <div class="row">
+      <div class="input-field col l4">
+        <input type="text" id="permission_name" name="name" >
+        <label for="permission_name">Name</label>
+      </div>
+      <div class="input-field col l8">
+        <input type="text" id="permission_display_name" name="display_name">
+        <label for="permission_display_name">Display Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col l12">
+        <textarea id="permission_description" name="description" class="materialize-textarea"></textarea>
+        <label for="permission_description">Description</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col l12">
+        <button class="btn waves-effect grey lighten-1 right" type="submit" name="action">Go</button>
+      </div>
+    </div>
+  </div>
+</form>
+<pre>{{ var_dump($errors) }}</pre>

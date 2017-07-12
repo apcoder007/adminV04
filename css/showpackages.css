@@ -1,0 +1,287 @@
+small .row{
+  margin-bottom: 10px;
+
+}
+
+
+.imageremove{
+  position: fixed;
+  z-index: 1001;
+  overflow: visible;
+  opacity: 1;
+  width: 36%;
+  display: none;
+}
+
+.tagremove{
+  position: fixed;
+  z-index: 1001;
+  overflow: visible;
+  opacity: 1;
+  width: 36%;
+  display: none;
+}
+
+.itemremove{
+  position: fixed;
+  z-index: 1001;
+  overflow: visible;
+  opacity: 1;
+  width: 36%;
+  display: none;
+}
+
+.auxilliary-board{
+  position: fixed;
+  z-index: 1;
+  overflow: visible;
+  opacity: 0;
+  width: 36%;
+  left: 20;
+}
+
+.auxilliary-board.appear{
+  opacity: 1;
+  z-index: 1001;
+}
+.auxilliary-board > i{
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  background: red;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.auxilliary-board > .card-content1 > .test4 > .card-content2 > *:not(:first-child){
+  display: none;
+}
+.auxilliary-board > .card-content1 > .test5 > .card-content3 > *:not(:first-child){
+  display: none;
+}
+
+ul.tag-suggestions{
+  display: none;
+  position: absolute;
+  background: grey;
+  padding: 0 5px;
+  z-index: 1;
+}
+ul.tag-suggestions > li{
+  margin: 5px 0;
+  background: #636363;
+  padding: 0 5px 0 0;
+  cursor: pointer;
+}
+ul.tag-suggestions > li > img{
+  width: 65px!important;
+  height: 65px;
+  object-fit: cover;
+  display: inline-block!important;
+  vertical-align: middle;
+}
+
+.tag{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: green;
+  border: solid #666;
+}
+
+.deleteconfirm{
+    position: fixed;
+    z-index: 2000;
+    max-height: 70%;
+    margin-top: -5%;
+    margin-right: 39%;
+    margin-left: -10%;
+    overflow-y: auto;
+    display: none;
+
+}
+#modal1{
+  height: 95%!important ;
+  width: 80%!important;
+}
+
+
+.modal .modal-footer{
+  margin-top: -4%;
+  height: 50%!important;
+}
+.modal{
+  max-height: 95%;
+  margin-top: -5%;
+}
+.image-box{
+  padding: 0.2rem !important;
+  margin: 0 !important;
+  position: relative;
+}
+
+.item-box{
+  padding: 0.2rem !important;
+  margin: 0 !important;
+  position: relative;
+
+}
+
+.image-box:hover .image-wrapper{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.image-wrapper{
+  padding: 1px;
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  height:70px;
+}
+.helper{
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.image-wrapper  img{
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+    opacity: 0.8;
+}
+.image-box:hover{
+    cursor: pointer;
+}
+
+.image-box:hover img{
+  opacity: 1;
+}
+.image-wrapper1{
+  padding: 1px;
+  width: 100%;
+  height:100%;
+    text-align: center;
+
+}
+.remove-btn i{
+  background-color: white;
+  border-radius: 50%;
+}
+.image-wrapper1  img{
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: bottom;
+    opacity: 0.8;
+
+}
+.remove-btn1 i{
+  background-color: white;
+  border-radius: 50%;
+}
+
+.imagebx, .itembx{
+  max-height: 100%;
+  width: 100%;
+  display: none;
+  margin-bottom: 1rem;
+  position: relative;
+  text-align: center;
+  height: 100px
+}
+.imagebx .text-container, .itembx .text-container{
+  position: absolute;
+  text-align: center;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  left: 0;
+}
+
+.imagebx img, .itembx img{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.imagebx:hover{
+  cursor: pointer;
+}
+.itmimg{
+  position: relative;
+}
+/*#remove-image-list */
+.btnn{
+  margin-top: -0.5rem;
+  margin-right: -0.4rem;
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  text-align: right;
+
+}
+.btnn1{
+  margin-top: -0.5rem;
+  margin-right: -0.4rem;
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  text-align: right;
+}
+.btnn2{
+  margin-top: -0.5rem;
+  margin-right: -0.4rem;
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  text-align: right;
+}
+.buttn{
+  margin-top: 5rem;
+}
+#remove-image-list{
+  padding: 1px;
+  padding-left: 1rem;
+  height: 30%;
+}
+#remove-tags-list{
+  padding: 1px;
+  padding-left: 1rem;
+  height: 30%;
+}
+.categor{
+  max-height: 45%;
+  overflow-y: auto;
+}
+
+#search-results{
+  max-height: 35%;
+  overflow-y: auto;
+}
+.modal-content{
+  padding: 0px!important;
+}
+#modal1{
+  font-size: x-small;
+}
+.collection-item{
+  padding: 0.4rem;
+  line-height: 0.4rem;
+  margin-bottom: 1px;
+  cursor: pointer;
+}
+.collection-item.active{
+  background-color: rgba(103, 192, 167, 0.8);;
+}
+.l2{
+  padding-top: 2rem;
+}
+.foter{
+  padding-top: 5px;
+}
+#medium-image-container{
+  width: 100%;
+}
+

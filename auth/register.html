@@ -1,0 +1,82 @@
+<div class="card">
+
+  <form method="POST" name="registerForm" ng-submit="submitRegister(registerForm)" class="row" ng-submit="register.$valid && submitRegister(registerForm)">
+    <input type="hidden" name="_token" id="" value="" />
+    <div class="row">
+      <div class="input-field col l8 m8 s12">
+        <input id="email" name="email" type="text" ng-model="employee.email" value="" class="" >
+        <label for="email">Email</label>
+      </div>
+      <div class="input-field col l4 m4 s12">
+        <input id="dob" name="employee.dob" type="date" ng-model="employee.dob" value="" class="">
+        <label for="dob">Date of Birth</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col l5">
+        <input id="address_line1" name="address_line1" type="text" value="" ng-model="employee.address_line1" class=""  >
+        <label for="address_line1">Address Line 1</label>
+      </div>
+      <div class="input-field col l5">
+        <input id="address_line2" name="address_line2" type="text" value="" ng-model="employee.address_line2" class="" >
+        <label for="address_line2">Address Line 2</label>
+      </div>
+      <div class="input-field col l2">
+        <input id="pin" name="pin" type="text" ng-model="employee.pin" value="" class="" >
+        <label for="pin">PIN</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col l5">
+        <input id="doj" name="doj" type="date" ng-model="employee.joiningdate" value="" class="">
+        <label for="doj">Date of Joining</label>
+      </div>
+      <div class="input-field col l5">
+        <input id="alt_email" name="alt_email" type="text" ng-model="employee.alt_email" value="" class="" >
+        <label for="alt_email">Alternate Email</label>
+      </div>
+      <div class="input-field col l2">
+        <input id="mobile" name="mobile" type="text" ng-model="employee.mobile" value="" class="" >
+        <label for="mobile">Mobile</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col"></div>
+      <div class="input-field col right">
+        <button class="btn waves-effect grey darken-1" type="submit" name="action">Submit</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<!-- <script src="/bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> -->
+
+
+<script type="text/javascript">
+  
+
+  $(document).ready(function(){
+    var $dob_input = $('#dob').pickadate({
+      selectMonths: true,
+      selectYears: 40,
+      max: -5110,
+      format: 'yyyy-mm-dd'
+    })
+    var dob_picker = $dob_input.pickadate('picker');
+    dob_picker.set('view', new Date(1988,7,1));
+
+    var $doj_input = $('#doj').pickadate({
+      selectMonths: true,
+      selectYears: 2,
+      max: true,
+      format: 'yyyy-mm-dd'
+    })
+    
+  });
+</script>
+

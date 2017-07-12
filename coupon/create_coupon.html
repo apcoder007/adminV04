@@ -1,0 +1,113 @@
+
+<div class="card">
+  <div class="card-content">
+    <form class="" id="new_coupon_form" action="/coupon/new" method="post">
+      <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+
+      <div class="row">
+      <div class="col l4 input-field">
+        <input type="text" class="col s6" name="code" id="code" value="" autofocus>
+        <label for="section">Name</label>
+      </div>
+    </div>
+      <div class="row">
+      <div class="col l4 input-field">
+        <input type="text" name="discount_percent" id="discount_percent" value="">
+        <label for="section">Discount percentage</label>
+      </div>
+    </div>
+
+
+    <div class="row">
+    <div class="col l4 input-field">
+      <input type="text" name="discount_amount" id="discount_amount" value="">
+      <label for="section">Discount  Amount</label>
+    </div>
+  </div>
+
+
+      <div class="row">
+        <div class="col l2 input-field">
+          <label for="name">Valid From</label>
+          <input type="date" id="valid_from" name="valid_from" class="datepicker">
+
+        </div>
+        <div class="col l2 input-field">
+          <label for="style">Valid To</label>
+          <input type="date" id="valid_to" name="valid_to" class="datepicker1">
+
+        </div>
+      </div>
+
+      <div class="row">
+      <div class="col l12">
+        <button type="submit" class="btn waves-effect teal lighten-2 right">Create</button>
+      </div>
+    </div>
+  </form>
+
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title grey-text">Coupons</span>
+<div class="row">
+  <div class="col s12 l1"><p>Name</p></div>
+  <div class="col s12 l2"><p>Discount Percentage</p></div>
+    <div class="col s12 l2"><p>Discount Amount</p></div>
+  <div class="col s12 l2"><p>valid from</p></div>
+  <div class="col s12 l2"><p>valid to</p></div>
+</div>
+    
+    <div class="row" ng-repeat="copons in allCoupons">
+      <div class="col s12 l1"><p>{{copons['code']}}</p></div>
+      <div class="col s12 l2"><p>{{copons['discount_percent']}}</p></div>
+      <div class="col s12 l2"><p>{{copons['discount_amount']}}</p></div>
+      <div class="col s12 l2"><p>{{copons['valid_from']}}</p></div>
+      <div class="col s12 l2"><p>{{copons['valid_to']}}</p></div>
+      <!-- <span class="left"><small><a href="/coupon/edit_coupon/{{copons['id']}}">Edit</a></small></span> -->
+      <span class="left"><small><a  href="">Edit</a></small></span>
+
+
+      <span class="right"><small><a href="/coupon/delete_coupon/{{copons['id']}}">Delete</a></small></span>
+    </div>
+    
+  </div>
+</div>
+
+
+<script type="text/javascript">
+$('.datepicker').pickadate({
+  today: '',
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 15, // Creates a dropdown of 15 years to control year
+  format: 'yyyy-mm-dd'
+});
+var $input = $('.datepicker').pickadate();
+
+// Use the picker object directly.
+var picker = $input.pickadate('picker');
+
+
+
+$('.datepicker1').pickadate({
+  today: '',
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 15, // Creates a dropdown of 15 years to control year
+  format: 'yyyy-mm-dd'
+});
+
+  $(document).ready(function(){
+
+
+    $('.temp').click(function(){
+      // alert($input);
+    });
+
+    });
+
+
+</script>
+

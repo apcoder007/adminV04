@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-content">
+    <!--<form class="" action="/project/{{$project->id}}/timeline" enctype="multipart/form-data" method="post">-->
+    <form class="" name="timeline" ng-submit="writeTimeline(timeline)" enctype="multipart/form-data" method=  "post" novalidate>
+      
+      <div class="input-field">
+        <textarea name="message" id="message" class="materialize-textarea" ng-model="tmessage"></textarea>
+        <label for="message">Write on timeline</label>
+      </div>
+
+      <div class="inputbutton">
+
+        <input type="file"  id="profiles" name="profiles[]" ng-model="tmfiles" style="display:none;" multiple / >
+        <label for="profiles" ><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Files and Images" ng-click="showFileBrowser()">attach_file</i></label>
+
+        <input type="file"  id="panoramaimage" name="panoramaimages[]" ng-model="tmpara" multiple accept="image/*" style="display:none;"  / >
+        <label for="panoramaimage" >  <i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Only Panorama view" ng-click="showPanoramaBrowser()">insert_photo</i></label>
+
+        <button class="btn waves-effect right grey" type="submit" name="button">Submit</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+<style media="screen">
+.inputbutton i{
+    cursor: pointer;
+}
+
+</style>
+
+
+<!--<script type="text/javascript">
+  showFileBrowser(){
+    $('input[type="file"]').trigger('click');
+  }
+
+  showPanoramaBrowser(){
+      $('input[type="file"]').trigger('click');
+
+  }
+
+
+  $(document).ready(function() {
+  $('select').material_select();
+});
+</script>-->

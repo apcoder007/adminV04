@@ -1,0 +1,45 @@
+
+<!-- <div class="card">
+  @if(count($selected_vendor->items) > 0)
+  <div class="card-content" >
+    <table class="bordered" id='product_table'>
+      <thead>
+        <tr>
+          <th>Index</th>
+          <th>Code</th>
+          <th>Name</th>
+          <th>MRP</th>
+          <th>Categories</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($selected_vendor->items as $serial => $entry)
+        <tr>
+          <td>{{ $serial }}</td>
+          <td><a href="/item/{{ $entry['id'] }}" onclick="storeScroll()">{{ $entry->code }}</a></td>
+          <td>{{ $entry->name }}</td>
+          <td>{{ $entry->mrp ? $entry->mrp->value : 'N.A' }}</td>
+          <td>{{ implode(", ", array_column($entry->categories->toArray(), 'name')) }}</td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+  @else
+  <div class="card-content">
+    <p>This vendor hasn't uploaded any product yet.</p>
+  </div>
+  @endif
+  </div>
+</div> -->
+
+<style media="screen">
+#product_table tbody tr td{
+  padding-bottom: 8px;
+  padding-top: 8px;
+  font-size: smaller;
+}
+form.col{
+  padding-left: 0px !important;
+}
+</style>

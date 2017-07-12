@@ -1,0 +1,160 @@
+@extends('layout.admin')
+
+@section('main')
+<div class="card">
+  <form class="card-content" action="/item/uncategorized/update" method="POST">
+    {{csrf_field()}}
+    <span class="card-title grey-text">Uncategorized Items</span>
+    <button type="submit" class="btn" style="position:fixed;top:100;right:30;display:none;z-index:1">Save Changes</button>
+    <table class="bordered">
+      <col width="55%">
+      <col width="10%">
+      <col width="10%">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Vendor</th>
+          <th>SKU</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($uncategorized as $key => $item)
+        <tr>
+          <td>{{$item->name}}</td>
+          <td>{{$item->vendor->name}}</td>
+          <td>{{$item->code}}</td>
+          <td>
+            <span>{{$item->categories}}</span>
+            <div class="input-wrapper">
+              <input type="text" name="category_name[{{$item->id}}]" placeholder="Type Category">
+              <div class="suggestions"></div>
+            </div>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </form>
+</div>
+<style media="screen">
+table{
+  font-size: small;
+}
+td:hover span{
+  display: none;
+}
+td:hover .input-wrapper{
+  display: block;
+}
+.input-wrapper{
+  display: none;
+  position: relative;
+}
+input{
+  margin: 0!important;
+  height: auto!important;
+  font-size: small!important;
+}
+.suggestions{
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  border-left: solid thin;
+  border-right: solid thin;
+}
+.suggestions div{
+  padding: 1px;
+  border-bottom: solid thin;
+}
+.suggestions div.active{
+  background-color: #dddddd;
+}
+.forced-visible{
+  display: block!important;
+}
+.forced-hidden{
+  display: none!important;
+}
+</style>
+@stop
+
+@section('inline-script')
+<script type="text/javascript">
+var categories = [];
+var active = 0;
+var selected = false;
+var highlightSuggestion = function(wrapper){
+  $('.suggestions div').removeClass('active');
+  $(wrapper.children('.suggestions').children()[active]).addClass('active');
+}
+var selectSuggestion = function(wrapper){
+  selected = true;
+  $('button[type="submit"]').show();
+  if($(wrapper.children('.suggestions').children()[active]).text().length < 1){
+    return;
+  }
+  $(wrapper.children('input')).val($(wrapper.children('.suggestions').children()[active]).text());
+  $(wrapper.children('.suggestions')).html('');
+}
+var showSuggestions = function(wrapper, query){
+  active = 0;
+  suggestions = categories.filter(function(category){
+    return category.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+  });
+  wrapper.children('.suggestions').html('');
+  suggestions.forEach(function(suggestion){
+    markup = '<div cat-id="'+suggestion.id+'">'+suggestion.name+'</div>';
+    wrapper.children('.suggestions').append($(markup));
+  });
+  highlightSuggestion(wrapper);
+}
+$(document).ready(function(){
+  $.get('/categories/all', function(response){ categories = response; });
+
+  $('input').focus(function(){
+    selected = false;
+    $('.suggestions').html('');
+    active = 0;
+    $(this).parent().addClass('forced-visible');
+    $(this).parent().prev().addClass('forced-hidden');
+  });
+  $('input').blur(function(){
+    if($(this).val().length < 1){
+      $(this).parent().removeClass('forced-visible');
+      $(this).parent().prev().removeClass('forced-hidden');
+    }
+  })
+
+  $('input').keyup(function(evt){
+    if([9, 38, 40].indexOf(evt.keyCode) < 0){
+      showSuggestions($(this).parent(), $(this).val());
+    }
+    if(selected && evt.keyCode == 9){
+      evt.preventDefault();
+      $('input').eq($('input').index(this) + 1).parent().addClass('forced-visible');
+      $('input').eq($('input').index(this) + 1).focus();
+    }
+  });
+
+  $('input').keydown(function(evt){
+    if(evt.keyCode == 40){
+      evt.preventDefault();
+      active = active < $('.suggestions').children().length - 1 ? active + 1 : active;
+    }
+    if(evt.keyCode == 38){
+      evt.preventDefault();
+      active = active < 1 ? active : active - 1;
+    }
+    if(evt.keyCode == 9){
+      evt.preventDefault();
+      selectSuggestion($(this).parent());
+    }
+    if([38, 40].indexOf(evt.keyCode) > -1){
+      highlightSuggestion($(this).parent());
+    }
+  });
+
+});
+</script>
+@stop

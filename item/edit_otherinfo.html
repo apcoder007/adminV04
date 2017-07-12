@@ -1,0 +1,43 @@
+@extends('layout.admin')
+
+@section('main')
+<style media="screen">
+  .row input{
+    height: auto;
+  }
+</style>
+<div class="row" style="margin-top:5rem">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content grey-text row">
+        <span class="right"><a href="/item/{{$item->id}}"><i class="tiny material-icons grey-text">clear</i></a></span>
+        <div class="card-title grey-text">
+          <h6>{{$item->name}}<br /><br /><small>{{$item->brand}}, {{$item->vendor->name}}</small></h6>
+        </div>
+          <form class="" action="" style="margin-top:3rem;" method="post">
+            {{csrf_field()}}
+             <div class="row">
+               <div class="input-field col s12">
+                 <textarea id="care" name="care" class="materialize-textarea" >{{$item->care ? $item->care : 'N.A'}}</textarea>
+                 <label for="care">Care:</label>
+               </div>
+             </div>
+             <div class="row">
+               <div class="input-field col s12">
+                 <textarea id="Description" name="Description" class="materialize-textarea" >{{$item->description  ? $item->description  : 'N.A'}}</textarea>
+                 <label for="Description">Description:</label>
+               </div>
+             </div>
+            <div class="input-field">
+            <button class="btn right" type="submit"  value="">Update</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+@stop

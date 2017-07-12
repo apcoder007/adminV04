@@ -1,0 +1,36 @@
+
+<style media="screen">
+  .row input{
+    height: auto;
+  }
+</style>
+<div class="row" style="margin-top:5rem;margin-bottom:5rem;padding-top:3rem;text-align:center">
+<div class="col s6" style = "display:inline-block;padding-right:10px">  <a ui-sref="home.campaign.create" class="waves-effect waves-light btn">Create Email</a> </div>
+<div  class = "col s6" style = "display:inline-block;padding-left:10px">  <a ui-sref="home.campaign.upload" class="waves-effect waves-light btn">Send Email</a> </div>
+</div>
+
+
+<div class = "col s12" style="text-align:center"> <h5> Campaigns </h5> </div>
+<table>
+     <thead>
+       <tr>
+           <th data-field="name">Name</th>
+           <th data-field="subject">Subject</th>
+           <th data-field="description">Description</th>
+           <th data-field="edit">Edit</th>
+       </tr>
+     </thead>
+
+     <tbody>
+    
+       <tr ng-repeat="campaign in allcompaign">
+         <td>{{campaign['name']}}</td>
+         <td>{{campaign['subject']}}</td>
+         <td>{{campaign['description']}}</td>
+         <td> <medium><a href="/campaign/{{campaign['id']}}/edit_campaign">Edit</a></medium></td>
+       </tr>
+   
+     </tbody>
+   </table>
+
+   

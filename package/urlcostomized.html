@@ -1,0 +1,151 @@
+<div class="card">
+  <div class="card-content">
+    <h6>Sections : </h6>
+    <div class="row">
+        
+        <div class="col l6" ng-repeat="section in packageurlsections">
+            {{section['section']}}
+        </div>
+      
+      </div>
+
+      <div ng-repeat="packagurl in packagecustomurls">
+      <div ng-if="packagurl['type']=='SECTION'">
+
+      <form  action="" method="post" style="padding-top:30px">
+          
+          <input type="hidden" name="type" value="SECTION">
+
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="Placeholder" id="first_name" type="text" name="name" value="{{packagurl['urlname']}}" class="validate">
+            <label for="first_name">Url Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="last_name" type="text" name="view" value="{{packagurl['urlview']}}"  class="validate">
+            <label for="last_name">Url view</label>
+          </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="keywords" type="text" name="keywords" value="{{packagurl['keywords']}}"  class="validate">
+              <label for="keywords">Keywords</label>
+            </div>
+            <div class="input-field col s6">
+              <button class="btn btnrt" type="submit"  value="">Update</button>
+            </div>
+        </div>
+      </form>
+      </div>
+      </div>
+      <small><a href=""class="waves-effect waves-light btn">DEL</a></small>
+
+    
+      <div class="addnew">
+      <h6>Add New </h6>
+    </div>
+    <form  action="/package/create_keywords" method="post" style="padding-top:30px">
+        
+        <input type="hidden" name="type" value="SECTION">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Placeholder" id="first_name" type="text" name="name"  class="validate">
+          <label for="first_name">Url Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" type="text" name="view"   class="validate">
+          <label for="last_name">Url view</label>
+        </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="keywords" type="text" name="keywords"  class="validate">
+            <label for="keywords">Keywords</label>
+          </div>
+          <div class="input-field col s6">
+            <button class="btn btnrt" type="submit"  value="">Create</button>
+          </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-content">
+    <h6>Styles :</h6>
+      <div class="row">
+        
+        <div class="col l4" ng-repeat="style in packageurlstyle">
+            {{style['style']}}
+        </div>
+        
+      </div>
+
+
+        <div ng-repeat="packagurl in packagecustomurls">
+        <div ng-if="packageurl['type']=='STYLE'">
+      <form  action="" method="post" style="padding-top:30px"> 
+            <input type="hidden" name="type" value="STYLE">
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="Placeholder" id="first_name" type="text" name="name" value="{{packagurl['urlname']}}" class="validate">
+              <label for="first_name">Url Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="last_name" type="text" name="view" value="{{packagurl['urlview']}}"  class="validate">
+              <label for="last_name">Url view</label>
+            </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="keywords" type="text" name="keywords" value="{{packagurl['keywords']}}"  class="validate">
+                <label for="keywords">Keywords</label>
+              </div>
+              <div class="input-field col s6">
+                <button class="btn btnrt" type="submit"  value="">Update</button>
+              </div>
+          </div>
+        </form>
+        </div>
+        </div>
+        <small><a href=""class="waves-effect waves-light btn">DEL</a></small>
+
+      
+        <div class="addnew">
+        <h6>Add New </h6>
+      </div>
+      <form  action="/package/create_keywords" method="post" style="padding-top:30px">
+          
+          <input type="hidden" name="type" value="STYLE">
+
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="Placeholder" id="first_name" type="text" name="name"  class="validate">
+            <label for="first_name">Url Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="last_name" type="text" name="view"   class="validate">
+            <label for="last_name">Url view</label>
+          </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="keywords" type="text" name="keywords"  class="validate">
+              <label for="keywords">Keywords</label>
+            </div>
+            <div class="input-field col s6">
+              <button class="btn btnrt" type="submit"  value="">Create</button>
+            </div>
+        </div>
+      </form>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function() {
+    Materialize.updateTextFields();
+    });
+</script>

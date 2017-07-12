@@ -1,0 +1,24 @@
+<div class="card row">
+  <form id="upload-product" name="upload-product" action="vendor/upload_csv1" method="post" enctype="multipart/form-data">
+    
+    <!--<input type="hidden" name="vendor_id" value="{{ $selected_vendor->id }}">-->
+    <div class = "file-field input-field col s12">
+      <div class="btn">
+        <span>Upload</span>
+        <input type="file" name="file" accept=".xlsx" >
+      </div>
+      <div class="file-path-wrapper">
+        <!--<input class="file-path validate" id='path' name="path" type="text" placeholder="Upload .xlsx file (InsertNew/UpdateExisting)">-->
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+<script type="text/javascript">
+  $('#path').on('change', function(){
+    $('#upload-product').submit();
+  })
+</script>
+

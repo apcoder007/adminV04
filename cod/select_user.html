@@ -1,0 +1,41 @@
+
+<div class="card grey lighten-3">
+  <div class="card-content">
+    <span class="card-title grey-text">Users</span>
+    <p>
+    <form class="col l10" method="POST" action="/cod/select">
+      <input type="hidden" name="_token" id="csrf-token" value="{{ }}" />
+        <!--<input type="hidden" name="user" id="user" value="{{$user->id}}" />-->
+        <input type="hidden" name="user" id="user" value="" />
+ 
+      <div class="row">
+
+            <div class="row" ng-repeat="alluser in allcodusers">
+
+              <div class="col s6 " >
+                 <div class=" col s6">
+                        
+                        <div ng-if="allcodeuserroles.indexOf(alluser['id']) == -1">
+                        <input type="checkbox" class="filled-in" id="{{ alluser['email'] }}" name="cod[]" value="{{ alluser['id'] }}" ng-checked="allcoderoles.indexOf(alluser['id']) != -1" />
+                          <label for="{{ alluser['email'] }}">{{ alluser['name'] }}</label>
+                        </div>
+
+
+                      </div>
+
+
+                  <div class=" col s6"> {{alluser['email']}}</div>
+
+                </div>
+            </div>
+        
+      </div>
+      <div class="row">
+        <div class="input-field col">
+          <button class="btn waves-effect grey lighten-1" type="submit" name="action">Save</button>
+        </div>
+      </div>
+    </form>
+  </p>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<style media="screen">
+  .row input{
+    height: auto;
+  }
+</style>
+
+<div class="card">
+  <div class="card-content">
+    <!-- <form class="" id="edit_coupon_form" action="/coupon/edit_coupon/{{$coupon->id}}" method="post"> -->
+    <form class="" id="edit_coupon_form" action="" method="post">
+      <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+
+      <div class="row">
+      <div class="col l4 input-field">
+        <label for="section">Name</label>
+        <input type="text" class="col s6" name="name" value="{{coupon['name'] ? coupon['name'] : 'N.A'}}" id="name" >
+      </div>
+    </div>
+      <div class="row">
+      <div class="col l4 input-field">
+        <input type="text" name="discount_percent" id="discount_percent" value="{{coupon['discount_percent'] ? coupon['discount_percent'] : 'N.A'}}">
+        <label for="section">Discount percentage</label>
+      </div>
+    </div>
+
+
+      <!-- <div class="row">
+        <div class="col l6 input-field">
+          <label for="name">Valid From</label>
+          <input type="date" id="valid_from" name="valid_from" value="{{coupon['valid_from']}}" class="datepicker">
+        </div>
+
+        <div class="col l6 input-field">
+          <label for="style">Valid To</label>
+          <input type="date" id="valid_to" name="valid_to" value="{{coupon['valid_to']}}" class="datepicker1">
+        </div>
+      </div> -->
+
+      <div class="row">
+      <div class="col l12">
+        <button type="submit" class="btn waves-effect teal lighten-2 right">Edit</button>
+      </div>
+    </div>
+  </form>
+
+  </div>
+</div>
+
+
+<!-- <script type="text/javascript">
+$('.datepicker').pickadate({
+  today: '',
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 15, // Creates a dropdown of 15 years to control year
+  format: 'yyyy-mm-dd'
+});
+var $input = $('.datepicker').pickadate();
+
+// Use the picker object directly.
+var picker = $input.pickadate('picker');
+
+
+
+$('.datepicker1').pickadate({
+  today: '',
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 15, // Creates a dropdown of 15 years to control year
+  format: 'yyyy-mm-dd'
+});
+
+  $(document).ready(function(){
+
+
+    $('.temp').click(function(){
+      // alert($input);
+    });
+
+    });
+
+
+</script> -->
+

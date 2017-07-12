@@ -1,0 +1,215 @@
+@extends('layout.admin')
+
+@section('main')
+<style media="screen">
+  .row input{
+    height: auto;
+  }
+</style>
+<div class="row" style="margin-top:5rem">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content grey-text row">
+        <span class="right"><a href="/item/{{$item->id}}"><i class="tiny material-icons grey-text">clear</i></a></span>
+        <div class="card-title grey-text">
+          <h6>{{$item->name}}<br /><br /><small>{{$item->brand}}, {{$item->vendor->name}}</small></h6>
+        </div>
+        <form class="" action="" style="margin-top:3rem;" method="post">
+          {{csrf_field()}}
+          <div class="row">
+            <label class="col s2">Name:</label>
+            <input type="text" class="col s10" name="name" value="{{$item->name ? $item->name : 'N.A'}}" autofocus>
+          </div>
+          <div class="row">
+            <label class="col s2">Material :</label>
+            <input type="text" class="col s10" name="material" value="{{$item->material ? $item->material : 'N.A'}}" autofocus>
+          </div>
+          <div class="row">
+            <label class="col s2">Weight:</label>
+            <input type="text" class="col s10" name="weight" value="{{$item->weight ? $item->weight : 'N.A'}}" autofocus>
+          </div>
+          <div class="row">
+            <label class="col s2">Color:</label>
+            <input type="text" class="col s10" name="color" value="{{$item->color ? $item->color : 'N.A'}}" autofocus>
+          </div>
+          <div class="row">
+            <label class="col s2">Fragrance:</label>
+            <input type="text" class="col s10" name="fragrance" value="{{$item->fragrance ? $item->fragrance : 'N.A'}}" autofocus>
+          </div>
+          <div class="row">
+            <label class="col s2">Inventory:</label>
+            <input type="text" class="col s10" name="inventory" value="{{$item->inventory ? $item->inventory : 'N.A'}}" autofocus>
+          </div>
+          <div class="row">
+            <label class="col s2">Set Content:</label>
+            <input type="text" class="col s10" name="set_content" value="{{$item->set_content ? $item->set_content : 'N.A'}}" autofocus>
+          </div>
+          <div class="row">
+            <label class="col s2">Size :</label>
+            <input type="text" class="col s10" name="size" value="{{$item->size ? $item->size : 'N.A'}}" autofocus>
+          </div>
+          <div class="row">
+            <label class="col s2">Package Weight:</label>
+            <input type="text" class="col s10" name="package_weight" value="{{$item->package_weight ? $item->package_weight : 'N.A'}}" autofocus>
+          </div>
+          <div class="row">
+            <label class="col s2">Package Length:</label>
+            <input type="text" class="col s10" name="package_length" value="{{$item->package_length ? $item->package_length : 'N.A'}}" autofocus>
+          </div>
+
+          <div class="row">
+            <label class="col s2">package height:</label>
+            <input type="text" class="col s10" name="package_height" value="{{$item->package_height ? $item->package_height : 'N.A'}}" autofocus>
+          </div>
+          <div class="row">
+            <label class="col s2">package width:</label>
+            <input type="text" class="col s10" name="package_width" value="{{$item->package_width ? $item->package_width: 'N.A'}}" autofocus>
+          </div>
+          <div class="input-field">
+          <button class="btn right" type="submit"  value="">Update</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col l6">
+    <div class="card" style="overflow:visible">
+      <div class="card-content grey-text">
+        <div class="card-title grey-text">
+          <h6>Categories</h6>
+        </div>
+        <form name="categoriesForm"class="" action="" method="post">
+          <div class="row categories-field">
+            @foreach($item->categories as $key => $category)
+            <div class="chip" cat-id="{{$category->id}}">{{$category->name}}<i class="material-icons">close</i></div>
+            @endforeach
+            <div style="display:inline-block;position:relative">
+              <input type="text" name="categories" placeholder="Add Category">
+              <ul class="card">
+              </ul>
+            </div>
+            <button class="btn right" type="submit" style="display:none;">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style media="screen">
+.categories-field > div{
+  margin-top: 12px;
+  margin-right: 6px;
+}
+.categories-field ul{
+  position:absolute;
+  width:100%;
+  top:11px;
+  display: none;
+}
+
+.categories-field li{
+  padding: 4px;
+}
+
+.categories-field li.highlight{
+  background-color: #aaaaaa;
+  color: white;
+}
+
+.categories-field i{
+  display: none;
+}
+</style>
+
+@stop
+
+@section('inline-script')
+<script type="text/javascript">
+var categories = {!! $categories !!}
+var suggested_categories = [];
+var specialKeys = [9, 16, 17, 20, 37, 38, 39, 40];
+var highlight = 0;
+$(document).ready(function(){
+
+  $.ajaxSetup({ headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' } });
+
+  $('form[name="categoriesForm"]').submit(function(evt){
+    var data = {};
+    data.existingCategories = [];
+    data.newCategories = [];
+    evt.preventDefault();
+    $.each($('.chip'), function(index, chip){
+      if($(chip).attr('cat-id') == 0){
+        data.newCategories.push($($(chip).find('span')).text());
+      }
+      else{
+        data.existingCategories.push($(chip).attr('cat-id'));
+      }
+    });
+    $.post('/item/{{$item->id}}/categories', data, function(response){
+      location.reload();
+    });
+  })
+
+  $('.categories-field input').focus(function(){
+    $('.categories-field ul').show();
+    $('.categories-field i').show();
+  });
+
+  $('.categories-field input').keydown(function(evt){
+    if(evt.keyCode == 38){
+      evt.preventDefault();
+      highlight = highlight < 1 ? highlight : highlight - 1;
+    }
+    if(evt.keyCode == 40){
+      evt.preventDefault();
+      highlight = highlight > suggested_categories.length-2 ? highlight : highlight + 1;
+    }
+    if(evt.keyCode == 9){
+      evt.preventDefault();
+      highlighted = $('.categories-field li.highlight');
+      if(highlighted.length < 1){
+        markup = '<div class="chip" cat-id="0"><span>'+$(this).val()+'</span><i class="material-icons" style="display:block;">close</i></div>';
+      }
+      else{
+        markup = '<div class="chip" cat-id="'+highlighted.attr('cat-id')+'">'+highlighted.text()+'<i class="material-icons" style="display:block;">close</i></div>';
+      }
+      $(this).parent().before($(markup));
+      $(this).val('');
+      $(this).siblings('ul').html('');
+      $('.categories-field button').show();
+    }
+
+    $('.categories-field li').removeClass('highlight');
+    $($('.categories-field li')[highlight]).addClass('highlight');
+  })
+
+  $('.categories-field input').keyup(function(evt){
+    if(specialKeys.indexOf(evt.keyCode) > -1 || $(this).val().length < 1){
+      return;
+    }
+
+    highlight = 0;
+    $('.categories-field ul').html('');
+    suggested_categories = [];
+    categories.forEach(function(category, index){
+      if(category.name.toLowerCase().indexOf($('.categories-field input').val().toLowerCase()) < 0){
+        return;
+      }
+      suggested_categories.push(category);
+      markup = '<li cat-id="'+category.id+'">' + category.name + '</li>';
+      $('.categories-field ul').append($(markup));
+    });
+    $('.categories-field li').removeClass('highlight');
+    $($('.categories-field li')[highlight]).addClass('highlight');
+  });
+
+  $('.categories-field input').blur(function(){
+    $('.categories-field ul').hide();
+  });
+});
+</script>
+@stop

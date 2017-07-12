@@ -1,0 +1,149 @@
+@extends('layout.admin')
+
+
+@section('main')
+
+<div class="row" style="margin-top:5rem;margin-bottom:5rem;">
+
+    <div class="card row">
+
+<div class="col s12">
+    <h5 class="center-align"> Blacklist mails</h5>
+    <div class="row">
+      <div class="col s12 l3"><p>Name</p></div>
+      <div class="col s12 l3"><p>Email</p></div>
+      <div class="col s12 l2"><p>Society Name</p></div>
+   </div>
+  @foreach($blacklists as $blacklist)
+  <div class="row">
+    <div class="col s12 l3"><p>{{$blacklist['name']}}</p></div>
+    <div class="col s12 l3"><p>{{$blacklist['email']}}</p></div>
+    <div class="col s12 l2"><p>{{$blacklist['society_name']}}</p></div>
+ </div>
+
+  @endforeach
+</div>
+</div>
+</div>
+
+<div class="row" style="margin-bottom:5rem;">
+
+    <div class="card row">
+<form class="col l10" method="POST" action="/campaign/send">
+  <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+    <input type="hidden" name="user" id="user" value="{{$user->id}}" />
+    <div class="row" style="padding:20px 20px;">
+
+    <div class="col s6">
+      <div class="input-field col s12">
+        <select name = "campaign_id">
+          <option value="" disabled selected>Choose your option</option>
+            @foreach($campaigns as $campaign)
+              <option  value="{{$campaign->id}}">{{$campaign->name}}</option>
+            @endforeach
+          </select>
+          <label>Campaign Select</label>
+        </div>
+      </div>
+
+      <div class="col s6">
+        <div class="input-field">
+            <button class="btn right" type="submit"  value="">Send</button>
+        </div>
+      </div>
+    </div>
+  <div class="row" >
+          <div class="col l12">
+        <table>
+             <thead>
+               <tr>
+                 <th data-field="box">
+                    <div class="col s12">
+                   <input type="checkbox" id="selectall" />
+                   <label for = "selectall" >All </label>
+                   </div>
+                 </th>
+                   <th data-field="name">Name</th>
+                   <th data-field="email">Email</th>
+                   <th data-field="society">Society</th>
+
+               </tr>
+             </thead>
+
+             <tbody>
+
+
+            @foreach($genuines as $genuine)
+               <tr>
+                 <td>
+                   <div class="col s12">
+                     <input type="checkbox" id="{{$genuine['id']}}" name = "selecteduser[]" value="{{$genuine['id']}}"/>
+                     <label for="{{$genuine['id']}}"></label>
+
+                   </div>
+                 </td>
+                 <td> {{$genuine['name']}}</td>
+                 <td>{{$genuine['email']}}</td>
+                 <td>{{$genuine['society_name']}} </td>
+               </tr>
+            @endforeach
+
+                         @foreach($entries as $entry)
+                           <tr>
+                             <td>
+                               <div class="col s12">
+                                 <input type="checkbox" id="{{$entry['id']}}" name = "selecteduser[]" value="{{$entry['id']}}"/>
+                                 <label for="{{$entry['id']}}"></label>
+
+                               </div>
+                             </td>
+                             <td> {{$entry['name']}}</td>
+                             <td>{{$entry['email']}}</td>
+                             <td>{{$entry['society_name']}} </td>
+                           </tr>
+                        @endforeach
+             </tbody>
+           </table>
+         </div>
+       </div>
+
+
+
+
+</form>
+
+
+       </div>
+     </div>
+
+
+
+
+
+
+
+
+@stop
+
+
+@section('inline-script10')
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+
+
+  $("#selectall").change(function () {
+    $("input:checkbox").prop('checked', $(this).prop("checked"));
+});
+
+  </script>
+
+
+  <style media="screen">
+  td{
+    padding: 3px 2px;
+  }
+  </style>
+
+@stop

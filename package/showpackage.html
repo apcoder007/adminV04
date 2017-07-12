@@ -1,0 +1,469 @@
+<link rel="stylesheet" type="text/css" href="css/showpackages.css">
+
+<div id="mainshowpackage" ng-controller="packagedetailsCtrl">
+
+<div class="card" style="margin-top:5rem">
+  <div class="card-content grey-text row">
+    <span class="right" ><a href="#" onclick="back()"><i class="tiny material-icons grey-text">arrow_back</i></a></span>
+
+    <div class="card-title grey-text text-darken-2" style="padding-bottom:2rem; padding-left:1.4rem">
+      <small style="line-height:1.3"></small>
+    </div>
+
+    <div class="col s12 left">
+        <div class="card blue-grey lighten-1   imageremove">
+          <div class="card-content white-text">
+            <span class="right"><a href="/package/{{packageid}}"><i class="tiny material-icons white-text">clear</i></a></span>
+            <span class="card-title"><small>Proceed to remove these images</small></span>
+            <div id='remove-image-list' class="row"></div>
+          </div>
+          <div class="row">
+            <form class="col l12" method="post" id='remove-images-form' action="">              
+             <input type="hidden" name="image_ids" value="" multiple>
+              <button type="submit" class="btn right" name="button">Submit</button>
+            </form>
+          </div>
+        </div>
+    </div>
+
+    <div class="col s12 left">
+        <div class="card blue-grey lighten-1  itemremove">
+          <div class="card-content white-text">
+            <span class="right"><a href="/package/{{}}"><i class="tiny material-icons white-text">clear</i></a></span>
+            <span class="card-title"><small>Proceed to remove these items</small></span>
+            <div id='remove-items-list' class="row"></div>
+          </div>
+          <div class="row">
+            <form class="col l12" method="post" id='remove-items-form' action="">
+              
+              <input type="hidden" name="item_ids" value="" multiple>
+              <button type="submit" class="btn right" name="button">Submit</button>
+            </form>
+          </div>
+        </div>
+    </div>
+
+    <div class="col s12 left">
+      <div class="card blue-grey lighten-1  tagremove">
+        <div class="card-content white-text">
+          <span class="right"><a href="/package/{{}}"><i class="tiny material-icons white-text">clear</i></a></span>
+          <span class="card-title"><small>Proceed to remove these tags</small></span>
+          <div id='remove-tags-list' class="row"></div>
+        </div>
+        <div class="row">
+          <form class="col l12" method="post" id='remove-tags-form' action="">
+            
+            <input type="hidden" name="tags_id" value="" multiple>
+            <button type="submit" class="btn right" name="button">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col s12 left">
+      <div class="card auxilliary-board">
+
+        <div class="card-image" id="medium-image-container">
+          <img src="" alt="" />
+          <ul class="tag-suggestions">
+            <!--@foreach($package->items as $item)-->
+            <li item-id="{{}}">
+              <image ng-src="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/small/{{}}" title="{{}}" /></image>
+              <span>{{}}</span>
+            </li>
+            <!--@endforeach-->
+          </ul>
+        </div>
+
+        <div class="card-tabs">
+          <ul class="tabs tabs-fixed-width">
+            <li class="tab"><a href="#test4" style="color:#039be5">Tag</a></li>
+            <li class="tab"><a href="#test5" style="color:#039be5">Remove</a></li>
+          </ul>
+        </div>
+
+        <div class="card-content card-content1 lighten-4" style="background-color:white">
+          <div id="test4" class="test4">
+            <div class="card-content card-content2" id="itemtag">
+              <a href="#">Tag items</a>
+              <p>Click any item (inside the image) to tag it.</p>
+              <a href="#">Done Tagging</a>
+            </div>
+          </div>
+          <div id="test5" class="test5">
+            <div class="card-content card-content3" id="itemtag">
+              <a href="#">Remove Tags</a>
+              <div class="removetags" style="width:100%;">
+                <div class="row" id="taglist">
+
+                  <!--@foreach($tags1 as $tag)-->
+
+                  <div class="col s2 itmimg">
+
+                    <div class="card-image">
+                      <div class="btnn2" itemid="{{}}"><a class="remove-btn2" href="#"><i class="tiny material-icons grey-text text-darken-4">highlight_off</i></a></div>
+                      <img ng-src="" title=" width="50px" height="50px"/>
+                    </div>
+                  </div>
+
+                  <!--@endforeach-->
+
+                </div>
+              </div>
+              <a href="#">Done Removing</a>
+            </div>
+          </div>
+        </div>
+
+        <i class="tiny material-icons white-text">clear</i>
+      </div>
+    </div>
+
+    <div class="col s4 center deleteconfirm">
+      <div class="card blue-grey">
+        <span class="center"><large>Are you sure to delete this item?</large></span>
+        <div class="row">
+        <a href="/package/{{}}/removePackage"class="waves-effect waves-light btn">DELETE</a>
+        <a href="/package/{{}}" class="waves-effect waves-light btn">BACK</a>
+      </div>
+      </div>
+    </div>
+
+    <div class="col s6">
+      <h6 style="padding-top:1rem;padding-left:0.8rem">Package Informations 
+      <small class="right"><small>
+      <a class="modal-trigger waves-effect waves-light" href="#modal2">Edit</a>
+      </small></small>
+      <hr /></h6>
+
+      <!-- Modal Structure -->
+      <div id="modal2" class="modal">
+        <div class="modal-content">
+          <div ng-include='"package/edit_packageinfo.html"'></div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col s6">
+          Package name: {{ packageiddetails[0]['name'] }}
+        </div>
+        <div class="col l6">
+          Package code: {{ packageiddetails[0]['code'] }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          Style: {{ packageiddetails[0]['style'] }}
+        </div>
+        <div class="col l6">
+          Section : {{ packageiddetails[0]['section'] }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          length: {{ packageiddetails[0]['length'] }}
+        </div>
+        <div class="col l6">
+          width : {{ packageiddetails[0]['width'] }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          Price: ₹ {{ packageiddetails[0]['price'] }}
+        </div>
+        <div class="col l6">
+          Processing time : {{ packageiddetails[0]['availability'] }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <h6>Description :</h6>
+          <p>{{ packageiddetails[0]['description'] }}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <h6>Pretty url :</h6>
+          <p>{{  packageiddetails[0]['url'] }}</p>
+        </div>
+      </div>
+
+      <h6 style="padding-top:1rem;padding-left:0.8rem">Civil works <small class="right"><small>
+      <!-- <a href="/package/{{}}/edit_civil">Edit</a> -->
+      <a class="modal-trigger waves-effect waves-light" href="#modal3">Edit</a>
+      </small></small><hr /></h6>
+
+      <div id="modal3" class="modal" style="margin-top: auto; margin-bottom: auto;">
+        <div class="modal-content">
+          <div ng-include='"package/edit_civilwork.html"'></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          Name
+        </div>
+        <div class="col s6">
+          Price
+        </div>
+      </div>
+
+      <div class="row" ng-repeat="civilwork in civilworks">
+
+        <div class="col s6">
+          {{ civilwork['civil_work_name'] }}
+        </div>
+        <div class="col s6">
+          {{ civilwork['price'] }}
+        </div>
+      </div>
+
+      
+      <h6 style="padding-top:1rem;padding-left:0.8rem">Fixed furniture <small class="right">
+      <small>
+      <!-- <a href="/package/{{}}/edit_fixed_furniture">Edit</a> -->
+      <a class="modal-trigger waves-effect waves-light" href="#modal4">Edit</a>
+      </small></small><hr /></h6>
+
+      <div id="modal4" class="modal" style="margin-top: auto; margin-bottom: auto;">
+        <div class="modal-content">
+          <div ng-include='"package/edit_fixedfurniture.html"'></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          Name
+        </div>
+        <div class="col s6">
+          Price
+        </div>
+      </div>
+
+        <div class="row" ng-repeat="furniture in furnitures">
+          <div class="col s6">
+            {{ furniture['fixed_furniture_name'] }}
+          </div>
+          <div class="col s6">
+            {{ furniture['price'] }}
+          </div>
+        </div>
+
+      <div class="col s12 center">
+        <div class="card blue-grey">
+          <span class="center"><large>Delete this item?</large></span>
+          <div class="row" style="padding-left: 37%">
+          <a onclick='removeItm()' class="waves-effect waves-light btn">DELETE</a>
+        </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col s6">
+
+      <form id="upload-item-images" name="upload-item-images" action="" method="post" enctype="multipart/form-data" class="row">
+        
+        <div class = "file-field input-field col s12">
+          <div class="btn grey darken-1">
+            <span>Upload</span>
+            <input type="file" name="images[]" multiple accept="image/*" / >
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" id='path' name="path" type="text" placeholder="Upload images" onchange="this.form.submit()">
+          </div>
+        </div>
+      </form>
+      <div class="row" >
+        <!--@if(count($package->images) < 1)
+          No images uploaded
+        @else
+          @foreach($package->images as $index => $image)-->
+          <div ng-repeat="packimage in allpacakgeimages">
+            <div class="col l3 image-box" imageid = "{{ image['id'] }}">
+            <span class="btnn"><a class='remove-btn' href="#"><i class="tiny material-icons grey-text text-darken-4">highlight_off</i></a></span>
+            <div class="image-wrapper">
+              <img style="z-index:-1" ng-src="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/small/{{ packimage['file_name'] }}" />
+              <span class="helper"></span>
+            </div>
+          </div>
+          </div>
+          <!--@endforeach
+        @endif-->
+      </div>
+
+
+      <form name="upload-panorama" action="" method="post" enctype="multipart/form-data">
+        
+        <div class = "file-field input-field col s12">
+          <div class="btn grey darken-1">
+            <span>Upload</span>
+            <input type="file" name="image" accept="image/*" / >
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" name="path" type="text" placeholder="Upload 3D Panorama image" onchange="this.form.submit()">
+          </div>
+        </div>
+      </form>
+      <div ng-if="images">
+      <div style="width:200px">
+        <!-- <img src="https://s3-us-west-2.amazonaws.com/thisisnotarandomstringinfactnoneis/panorama/{{ images[0]['file_name'] }}" alt="" style="width: 100%;" /> -->
+        <img style="z-index:-1; width: 200px" ng-src="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/panorama/{{ images[0]['file_name'] }}" />
+      </div>
+      </div>
+
+      
+
+      <form  name="add-keywords" action =" " method="post" enctype="multipart/form-data">
+        
+        <div class="col s12">
+          <h6>Keywords :</h6>
+          <p>Enter keywords with spaces.</p>
+        </div>
+        <div class="col l12 input-field">
+          <input type="text" name="keyword" id="keyword" value="{{  }}">
+          <label for="keyword">keywords</label>
+        </div>
+        <div class="row">
+          <div class="col l12">
+            <button type="submit" class="btn waves-effect teal lighten-2 right">Go</button>
+          </div>
+        </div>
+      </form>
+
+      <form  name="add-category" action =" " method="post" enctype="multipart/form-data">
+        
+        <div class="col s12">
+          <h6>Category :</h6>
+          <p></p>
+        </div>
+        <div class="col l12 input-field">
+          <input type="text" name="category" id="category" value="{{  }}">
+          <label for="category">Category</label>
+        </div>
+        <div class="row">
+          <div class="col l12">
+            <button type="submit" class="btn waves-effect teal lighten-2 right">Go</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-content">
+    <!--@if(count($package->items) < 1)
+      No Items associated with this product. Click <a class='modal-trigger' href="#modal1">here</a> to add.
+    @endif-->
+
+    <div class="row">
+      <!--@foreach($package->items as $item)-->
+      <div class="col s2 itmimg" ng-repeat="tags in imagestags">
+        
+        <div class="card-image">
+        
+          <div class="btnn1" itemid="{{}}"><a class='remove-btn1' href="#"><i class="tiny material-icons grey-text text-darken-4">highlight_off</i></a></div>
+          <!-- <img src="https://s3-us-west-2.amazonaws.com/thisisnotarandomstringinfactnoneis/small/{{}}" title="{{}}" /> -->
+          <img ng-src="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/small/{{ tags['file_name'] }}" />
+        </div>
+      </div>
+      <!--@endforeach-->
+    </div>
+    <div class="row">
+      <!--@if(count($package->items) > 0)-->
+        Add more Items Click <a class='modal-trigger' href="#modal1">here</a> to add.
+      <!--@endif-->
+    </div>
+  </div>
+  </div>
+
+
+
+<div id="modal1" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h5> Items<hr /></h5>
+
+    <div class="row">
+
+      <div class="col l3">
+        <div class="card ">
+          <div class="card-content">
+            <div class="collection categor" ng-repeat="category in categories">
+              
+                <div class="collection-item" categoryid="{{category['id']}}"> 
+                 {{category['name']}}
+                </div>    
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col l4">
+        <div class="card">
+          <div class="card-content">
+            <div class="collection categor" ng-repeat="vendor in vendors">
+              
+              <div class="collection-item" vendorid="{{vendor['id']}}">{{vendor['name']}}</div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col l5">
+        <nav style="position:inherit">
+          <div class="nav-wrapper">
+            <form>
+              <div class="input-field" style="background-color:#84CBB7">
+                <input id="search-items" type="search" required>
+                <label for="search-items"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+              </div>
+            </form>
+          </div>
+        </nav>
+        <div class="collection categor" id="search-results">
+
+        </div>
+      </div>
+
+    </div>
+  </div> <!--end of modal-conrtent -->
+
+
+  <div class="modal-footer" style="height:5rem">
+    <div class="row" id='package-item-list'>
+
+    </div>
+    <form class="col l12" method="post" id='add-item' action="">
+      
+      <input type="hidden" name="items_ids" id='items_ids' value="" multiple>
+      <button type="submit" class="btn right" name="button">Submit</button>
+
+  </form>
+  </div>
+</div> <!-- end of modal1 -->
+
+
+</div>
+
+<script type="text/javascript">
+  
+  $(document).ready(function() {
+  $('.modal-trigger').leanModal();
+});
+
+</script>
+
+<script src="js/showpackages.js"></script>
+

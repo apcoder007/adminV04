@@ -1,0 +1,162 @@
+<link rel="stylesheet" type="text/css" href="css/categories.css">
+
+
+
+<div class="row" ng-cloak>
+
+  <div class="col s12">
+    <ul class="tabs">
+      
+      <li class="tab" ng-repeat="supersection in supersections"><a href="#{{supersection['id']}}" data-toggle="tab">{{supersection['name']}}</a></li>
+      <li class="tab"><a href="#merge">Merge Categories</a></li>
+      <li class="tab"><a href="#coupon">Assign categories</a></li>
+    </ul>
+  </div>
+
+
+  
+  <div ng-repeat="supersection in supersections">
+  <div id="{{supersection['id']}}" class="col s12">
+    <table class="bordered">
+      <col width="20%">
+      <col width="20%">
+      <thead>
+        <tr>
+          <th>Section</th>
+          <th>Subsection</th>
+          <th>Categories</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="section in supersection.sections">
+        <!-- @foreach($supersection->sections as $section) -->
+
+        <tr>
+          <td class="sections" rowspan="{{section.subsections.length+1}}" sec-id="{{section['id']}}">{{section['name']}} <i class="material-icons">close</i></td>
+
+          <td>{{section.subsections[0]['name']}}</td>
+
+
+          <td subsection-id="{{section.subsections[0]['id']}}">
+            <!-- @foreach($section->subsections[0]->categories as $category) -->
+            <span ng-repeat="category in section.subsections[0].categories">
+              <div class="chip" cat-id="{{category['id']}}"> {{category['name']}}<i class="material-icons">close</i>
+            </div></span>
+            <!-- @endforeach -->
+            <button class="btn btn-save-cats">Save</button>
+            <div class="category-input-wrapper">
+              <input type="text" class="category-input" placeholder="Add category">
+              <div class="category-suggestions"></div>
+            </div>
+          </td>
+        </tr>
+          
+            <tr ng-repeat="subsection in section.subsections track by $index" ng-if="$index>0">
+              <td><div class="subsec" subcat-id="{{subsection['id']}}">{{subsection['name']}} <i class="material-icons">close</i></div></td>
+
+              <td subsection-id="{{subsection['id']}}">
+                <!-- @foreach($subsection->categories as $category) -->
+                <span ng-repeat="category in subsection.categories">
+                  <div class="chip" cat-id="{{category['id']}}">  {{category['name']}}<i class="material-icons">close</i></div>
+                </span>
+               <!--  @endforeach -->
+                <button class="btn btn-save-cats">Save</button>
+                <div class="category-input-wrapper">
+                  <input type="text" class="category-input" placeholder="Add category">
+                  <div class="category-suggestions"></div>
+                </div>
+              </td>
+            </tr>
+          <!-- @endif
+          @endforeach -->
+
+          <tr>
+            <td colspan="2">
+              <a href="#" class="new-subsection">+ New</a>
+              <!-- <form class="new-subsection-form" action="categories/supersection/{{supersection['id']}}/section/{{section['id']}}/subsection" method="POST" style="display:none"> -->
+              <form class="new-subsection-form" method="POST" style="display:none">
+               
+                <div class="input-field col l4" style="padding:0;">
+                  <input type="text" name="name" />
+                  <label>New subsection in {{section['name']}}</label>
+                </div>
+                <button class="btn-flat waves-effect lighten-1 blue-text" style="margin-top:1.6rem;" type="submit" name="action">Submit</button>
+                <button class="btn-flat waves-effect lighten-1 grey-text reset" style="margin-top:1.6rem;" type="reset" name="action">Cancel</button>
+              </form>
+            </td>
+          </tr>
+
+        <!-- @endforeach -->
+      </tbody>
+    </table>
+
+    <!-- <form action="categories/supersection/{{$supersection->id}}/section" method="POST" class="card" style="margin-top:1.2rem"> -->
+    <form method="POST" class="card" style="margin-top:1.2rem">
+      
+      <div class="card-content">
+
+          <div class="input-field col l10">
+            <input type="text" name="name">
+            <label >Add a new section in {{supersection['name']}}</label>
+          </div>
+          <button class="btn waves-effect grey lighten-1 right" style="margin-top:1.6rem;" type="submit" name="action">Go</button>
+      </div>
+    </form>
+
+  </div>
+  </div>
+
+
+
+    <div id="merge">
+      <form name="merge_categories_form" action="/categories/merge1" method="POST">
+        
+        <ul>
+        
+          <li ng-repeat="category in categories">
+            <input type="checkbox" name="tomerge[]" value="{{category['id']}}" id="cat{{category['id']}}" />
+            <label for="cat{{category['id']}}">{{category['name']}}</label>
+          </li>
+       
+        </ul>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div id="coupon">
+      <form name="coupon_assign_form" action="/coupon/assign" method="POST" >
+        
+        <table class="bordered">
+          <col width="20%">
+          <col width="20%">
+          <thead>
+            <tr>
+              <th>Coupons</th>
+              <th>Categories</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            
+            <tr ng-repeat="coupon in coupons">
+              <td>{{coupon['name']}}</td>
+              <td coupon-id="{{coupon['id']}}">
+                <button class="btn btn-save-coupon">Save</button>
+                <div class="coupon-input-wrapper">
+                  <input type = "text" class="category-input" placeholder="Add category">
+                  <div class ="category-suggestions">
+                  </div>
+                </div>
+              </td>
+            </tr>
+            
+
+          </tbody>
+        </table>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+
+</div>
+
+</div>
+<script type="text/javascript" src="js/categories.js"></script>

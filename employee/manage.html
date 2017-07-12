@@ -1,0 +1,90 @@
+<style type="text/css">
+  .msg-block {
+    margin-top:-5px;
+    margin-bottom: 5px;
+}
+.msg-error {
+    color:#F00;
+    font-size:14px;
+}
+</style>
+
+
+<div ng-controller="empmangeCtrl">
+  
+
+<div ng-include='"employee/detail.html"'></div>
+
+
+<div class="card grey lighten-3">
+  <div class="card-content">
+    <span class="card-title grey-text">Roles</span>
+    <p>
+    <!--<form class="col l10" method="POST" action="/admin/manage/{{ employee['id'] }}/roles">-->
+      <form class="col l10" method="POST" name="roleForm" ng-submit="roleSubmit(roleForm)">
+        <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+        <div class="row">
+      
+          <div class="input-field col l6" ng-repeat="role in roles">
+            <input type="hidden" name="employee_id" value="{{ employee['id'] }}" ng-model="empid" />
+
+            <input type="checkbox" class="filled-in" id="{{ role['name'] }}" name="roles[]" ng-model="rolid" value="{{ role['id'] }}" ng-checked="allpermissionsname.indexOf(role['display_name']) != -1" />
+          
+            <label for="{{ role['name'] }}">{{ role['display_name'] }}</label>
+          </div>
+       
+        </div>
+
+        <div class="row">
+          <div class="input-field col">
+            <button class="btn waves-effect grey lighten-1" type="submit" name="action">Save</button>
+          </div>
+        </div>
+
+      </form>
+    </p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-content">
+    <div class="card-title grey-text">Change password</div>
+    <p>
+        
+      <form method="POST" name="myForm" ng-submit="submitPassword(passForm)">
+        <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+        <input type="hidden" name="employee_id" value="{{ employee['id'] }}" />
+
+        <!-- First password -->
+        <div class="input-field">
+          <input type="password" name="pw1" id="pw1" ng-model="pw1" required class="form-control" />
+          <label for ="pw1">New password</label>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="input-field">
+          <input type="password" name="pw2" id="pw2" ng-model="pw2" required pw-check="pw1" class="form-control" />
+          <label for ="pw2">Retype new password</label>
+        </div>
+
+        <!-- password doesn't match handeling -->
+        <div class="msg-block" ng-show="myForm.$error"> 
+          <span class="msg-error" ng-show="myForm.pw2.$error.pwmatch">Passwords don't match.</span> 
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit" ng-disabled="myForm.pw2.$error.pwmatch" class="btn waves-effect grey lighten-1">Submit</button>
+      </form>
+
+     </p>
+  </div>
+</div>
+
+
+</div>
+
+
+<script type="text/javascript">
+  //$('#message').fadeOut('100');
+</script>
+

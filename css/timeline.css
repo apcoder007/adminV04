@@ -1,0 +1,67 @@
+.panoramatimeline > .card-image > a > img{
+  max-height: 200px;
+  cursor: pointer;
+}
+
+
+#changedate_form input{
+  width: 100px;
+}
+.comment-header{
+  border-bottom:none;
+  box-shadow:none!important;
+}
+.comment-name{
+background-color:#d0cccc;
+height: 32px;
+line-height: 32px;
+
+}
+
+.timelinediv{
+      position: relative;
+    }
+
+.timelinediv > .right > i{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: #9e9e9e;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+.comment-collapsible{
+    box-shadow:none!important;
+    border-left: none!important;
+    border-right: none!important;
+}
+
+.comment-section{
+      border-bottom: 1px solid #ddd;
+      padding-top: 8px;
+}
+.comment-comment > p {
+  padding: 1rem!important;
+}
+
+.image_card > img{
+  margin: auto;
+  max-height: 400px;
+  text-align: center;
+  background-color: white;
+  object-fit: contain;
+}
+
+.delete-update-upper{
+
+}
+
+.delete-update{
+  width: 50px;
+  height: 50px;
+}
+
+#timelinmainDiv{
+  text-align: left;
+}

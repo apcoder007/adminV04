@@ -1,0 +1,86 @@
+  .category-input-wrapper{
+    position: relative;
+    width: 250px;
+    display: none;
+    margin-left: 6px;
+    vertical-align: sub;
+  }
+  .category-input{
+    margin: 0!important;
+    height: auto!important;
+  }
+  td:hover .category-input-wrapper{
+    display: inline-block;
+  }
+  category-input-wrapper button{
+    display: none;
+  }
+  .category-suggestions{
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 18px;
+    z-index: 1;
+    background-color: white;
+    border: solid thin;
+  }
+  .category-suggestions div{
+    border-bottom: solid thin;
+    padding: 2px;
+  }
+  .category-suggestions div.active{
+    background-color: #cccccc;
+  }
+  .chip{
+    margin: 2px;
+  }
+
+  .forced-visible{
+    display: inline-block!important;
+  }
+  .btn-save-cats{
+    font-size: smaller;
+    padding: 4px;
+    line-height: 20px;
+    height: 27px;
+    display: none;
+    margin-top: 3px;
+    margin-left: 5px;
+  }
+
+  .btn-save-coupon{
+    font-size: smaller;
+    padding: 4px;
+    line-height: 20px;
+    height: 27px;
+    display: none;
+    margin-top: 3px;
+    margin-left: 5px;
+  }
+
+  .chip i{
+    display: none;
+      }
+
+      .subsec i{
+        display: none;
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .sections i{
+        display: none;
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+  #merge ul li{
+    display: inline-block;
+    width: 191px;
+    padding: 2px 0;
+  }
+
+  #merge form{
+    padding-top: 60px;
+  }
+

@@ -1,0 +1,68 @@
+<style media="screen">
+  .row input{
+    height: auto;
+  }
+
+  .addnew{
+    padding: 20px 0px 0px 50px;
+
+  }
+  .btn{
+    float: left;
+
+  }
+  .modifysection{
+    width: 100%;
+    height: 48px;
+    padding: 0px 5px 20px 10px;
+  }
+  .btnqt{
+    float: right;
+    margin-right: -220px;
+  }
+  .btnst{
+    margin-left: -50px;
+  }
+</style>
+
+<div class="row" style="margin-top:auto; margin-bottom: auto;">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content grey-text row">
+        <!-- <span class="right"><a href="/package/{{package['id']}}"><i class="tiny material-icons grey-text">clear</i></a></span> -->
+      </div>
+      
+        <div  class= "modifysection" ng-repeat="furniture in furnitures">
+      <!-- <form  action="/package/{{furniture['id']}}/update_fdfurniture" method="post"> -->
+      <form  action="" method="post">
+          <div class="col s8">
+            <label class="col s2">Name:</label>
+            <input type="text" class="col s3" name="name" value="{{furniture['fixed_furniture_name']}}" autofocus>
+            <label class="col s2">Price:</label>
+            <input type="text" class="col s3" name="price" value="{{furniture['price']}}" autofocus>
+            <button class="btn btnqt" type="submit"  value="">Update</button>
+          </div>
+      </form>
+      <!-- <a href="/package/{{furniture['id']}}/removeFixedfurniture"class="waves-effect waves-light btn">DELETE</a> -->
+      <a href="/package/removeFixedfurniture" class="waves-effect waves-light btn btnst">DELETE</a>
+      </div>
+      
+      <div class="addnew">
+      <h6>Add New </h6>
+    </div>
+      <div  class= "modifysection">
+      <!-- <form class="" action="/package/{{package['id']}}/edit_fixed_furniture" style="margin-top:3rem;" method="post"> -->
+      <form class="" style="margin-top:3rem;" method="post">
+        <div class="col s8">
+          <label class="col s2">Name:</label>
+          <input type="text" class="col s3" name="name" value="" autofocus>
+          <label class="col s2">Price:</label>
+          <input type="text" class="col s3" name="price" value="" autofocus>
+          <button class="btn btnqt" type="submit"  value="">ADD</button>
+        </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

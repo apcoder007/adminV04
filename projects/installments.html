@@ -1,0 +1,75 @@
+@extends('layout.admin')
+
+
+@section('main')
+<style media="screen">
+  .row input{
+    height: auto;
+  }
+</style>
+
+
+
+<div class="card">
+  <div class="card-content">
+    <div class="row">
+      <div class="card-title grey-text">Project's Cost</div>
+      <span>{{$project_costs->amount}} </span>
+
+        <div class="col">
+          <span>
+            No of installments
+          </span>
+        </div>
+        <div class="input-field col s12  m12 l3">
+          <select class="browser-default installmentvalue"  name="installment">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+        <div class="col">
+          <button id="install" class="add_field_button">Add</button>
+      </div>
+      </div>
+
+
+  </div>
+</div>
+<div class="card">
+  <div class="card-content">
+    <div class="installments">
+    </div>
+
+  </div>
+</div>
+@stop
+
+@section('inline-script19')
+<script type="text/javascript">
+$(document).ready(function(){
+  var term = $('#term').val();
+$('#install').click(function() {
+   var x = $('.installmentvalue').val();
+   var max_fields      = 10; //maximum input boxes allowed
+
+   var wrapper         = $(".installments"); //Fields wrapper
+   var add_button      = $(".add_field_button"); //Add button ID
+   if(x < max_fields){ //max input box allowed
+     for (i = 0; i < x; i++) {
+
+
+       $(wrapper).append('<div><div class="row"><div class="input-field col s12  m12 l3"><input  type="text" name="amount[]" class="validate"><label for="amount">Amount</label></div><div class="input-field col s12  m12 l3"><select class="browser-default" name="status[]"><option value="due">Due</option><option value="paid">Paid</option><option value="disabled">Disable</option></select></div><div class="input-field col s12  m12 l3"><label for="style">Due date</label><input type="date" id="due_date" name="due_date[]" class="datepicker"></div><a href="#" class="remove_field">Remove</a> </div></div>'); //add input box
+      }
+    }
+    });
+  });
+</script>
+@stop

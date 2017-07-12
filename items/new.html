@@ -1,0 +1,360 @@
+@if(count($errors) > 0)
+  <div class="card">
+    <div class="card-content">
+      <ul>
+         @foreach($errors->all() as $error)
+          <li>{{ $error }}</li>
+         @endforeach
+      </ul>
+    </div>
+  </div>
+@endif
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title grey-text">New Item</span>
+    <p>
+      <form id="new_item_form" name="new_item_form" method="POST" enctype="multipart/form-data" action="/items/new">
+        <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+        <div class="row">
+          <div class="col l8">
+            <div class="input-field">
+              <input type="text" name="category" id="category" value="{{ old('category') }}" />
+              <label for="category">Category <small>e.g. Bed, Sofa, Kitchen Appliance</small></label>
+            </div>
+          </div>
+          <div class="col l4">
+            <div class="input-field">
+              <input type="text" id="item_id" name="item_id" value="{{ old('item_id') }}" />
+              <label for="item_id">ID</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col l12">
+            <div class="input-field">
+              <input type="text" name="name" id="name" value="{{ old('name') }}" />
+              <label for="name">Name</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col l6">
+            <div class="input-field">
+              <input type="text" id="price" name="price" value="{{ old('price') }}" />
+              <label for="price">Price <small>₹</small></label>
+            </div>
+          </div>
+          <div class="col l6">
+            <div class="input-field">
+              <input type="text" id="processing_time" name="processing_time" value="{{ old('processing_time') }}" />
+              <label for="processing_time">Processing Time <small>Days</small></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="card grey lighten-4" id="arrangement">
+          <div class="card-content">
+            <p>
+              <div class="row">
+                <div class="file-field col l12">
+                  <div id="img_upload_btn" class="btn grey lighten-1" style="width:100%;">
+                    <span>Images</span>
+                    <input type="file" name="images[]" multiple id="images" accept="image/*">
+                  </div>
+                  <div class="btn grey lighten-1" id="more_arrangements_btn" style="width:100%;display:none;">
+                    <span>More Arrangements</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row" id="images-preview"></div>
+              <div class="row">
+                <div class="col l4">
+                  <div class="input-field">
+                    <input type="text" id="length" name="length" value="{{ old('length') }}" />
+                    <label for="length">Length <small>e.g 6'5"</small></label>
+                  </div>
+                </div>
+                <div class="col l4">
+                  <div class="input-field">
+                    <input type="text" id="length" name="width" value="{{ old('width') }}" />
+                    <label for="length">Width <small>e.g 6'11"</small></label>
+                  </div>
+                </div>
+                <div class="col l4">
+                  <div class="input-field">
+                    <input type="text" id="length" name="height" value="{{ old('height') }}" />
+                    <label for="length">Height <small>e.g 0'9"</small></label>
+                  </div>
+                </div>
+              </div>
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col l12">
+            <div class="input-field">
+              <textarea id="description" name="description" class="materialize-textarea">{{ old('description') }}</textarea>
+              <label for ="description">Description</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col l12">
+            <button type="submit" class="btn waves-effect teal lighten-2 right">Go</button>
+          </div>
+        </div>
+      </form>
+    </p>
+  </div>
+</div>
+
+@section('inline-script')
+<script src="/bower_components/typeahead.js/dist/typeahead.bundle.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+$('#images-preview').hide();
+var anyWindow = window.URL || window.webkitURL;
+var activeConnections = 0;
+
+var fileList = false;
+var image_ids = [];
+
+function uploadImage(i){
+  var formdata = false;
+  if(window.FormData){
+    formdata = new FormData();
+  }
+
+  var objectUrl = anyWindow.createObjectURL(fileList[i]);
+  markup = '<div class="col l6 image-container"><div class="image-cover" id="ic'+i+'">45%</div><img src="' + objectUrl + '" / style="max-height:100%;max-width:100%;"></div>';
+  if((fileList.length-i-1)%2 === 0)
+    $('#images-preview').append('<div class="row">' + markup)
+  if((fileList.length-i-1)%2 ===1)
+    $('#images-preview').append(markup + '</div>')
+  window.URL.revokeObjectURL(fileList[i]);
+
+  if(formdata){
+    formdata.append("image", fileList[i]);
+    var ajax = new XMLHttpRequest();
+    ajax.onload = function requestComplete(){
+      $('#ic'+i).remove();
+      image_ids.push(this.responseText);
+      activeConnections--;
+    };
+    ajax.upload.addEventListener("progress", function(oEvent){
+                                                var percentComplete = oEvent.loaded*100 / oEvent.total;
+                                                $('#ic'+i).text(Math.round(percentComplete)+'%');
+                                                $('#ic'+i).siblings().css('alpha', percentComplete/100);
+                                              }
+                                              , false);
+    ajax.addEventListener("load", completeHandler, false);
+    ajax.open("POST", '/items/image');
+    ajax.setRequestHeader("X-CSRF-Token", $('input[name=_token]').val());
+    ajax.send(formdata);
+    activeConnections++;
+  }
+}
+$('#images').change(function(){
+  fileList = this.files;
+  $('#img_upload_btn').animate({
+    opacity: 'toggle',
+  }, 500, function(){
+    $('#more_arrangements_btn').animate({ opacity: 'toggle' }, 500, null);
+  });
+  $('#images-preview').animate( { opacity: 'toggle' });
+  for(var i=0; i<fileList.length; i++){
+    uploadImage(i);
+  }(i)
+});
+
+var arrangement_ids = [];
+$('#more_arrangements_btn').click(function(){
+  if(activeConnections > 0){
+    alert('Please wait till all images gets uploaded');
+    return false;
+  }
+  saveArrangement(false);
+});
+
+var arrangement_saved = false;
+function saveArrangement(final){
+  if(final & arrangement_saved){
+    saveItem();
+    return false;
+  }
+  var length = $('input[name=length]');
+  var width = $('input[name=width]');
+  var height = $('input[name=height]');
+  var dim = length.val() + 'x' + width.val() + 'x' + height.val();
+  var ajax = new XMLHttpRequest();
+  ajax.onload = function(){
+    activeConnections--;
+    if(this.status !== 200){
+      var error_msg = "";
+      $.each($.parseJSON(this.responseText), function(field, msg){
+        error_msg += msg+" ";
+      })
+      alert(error_msg);
+      return false;
+    }
+    else{
+      arrangement_ids.push(this.responseText);
+      $('#more_arrangements_btn').animate({ opacity: 'toggle' }, 500, function(){ $('#img_upload_btn').animate({opacity: 'toggle'}, 500, null); });
+      activeConnections--;
+
+      if(final){
+        arrangement_saved = true
+        saveItem();
+      }
+      else{
+        length.val('');
+        width.val('');
+        height.val('');
+        image_ids = [];
+        $('#images-preview').animate({ opacity: 'toggle'}, 500, function(){ $(this).children().remove(); });
+      }
+    }
+  };
+  ajax.upload.addEventListener("progress", completeHandler, false);
+  ajax.addEventListener("load", completeHandler, false);
+  ajax.open("POST", '/items/arrangement');
+  ajax.setRequestHeader("X-CSRF-Token", $('input[name=_token]').val());
+  ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  ajax.setRequestHeader('Accept', 'application/json');
+  var query = "";
+  for(var i=0; i<image_ids.length; i++){
+    query += 'image_ids[]=' + image_ids[i] + '&';
+  }
+  query += 'length=' + length.val() +'&width=' + width.val() + '&height=' + height.val();
+  ajax.send(query);
+  activeConnections++;
+}
+$('#new_item_form').submit(function(event){
+  event.preventDefault();
+  saveArrangement(true);
+});
+
+function saveItem(){
+  var category = $('input[name=category]').val();
+  var item_id = $('input[name=item_id]').val();
+  var name = $('input[name=name]').val();
+  var price = $('input[name=price]').val();
+  var processing_time = $('input[name=processing_time]').val();
+  var description = $('input[name=description]').val();
+  var ajax = new XMLHttpRequest();
+  ajax.onload = function(){
+    activeConnections--;
+    if(this.status !== 200){
+      var error_msg = "";
+      $.each($.parseJSON(this.responseText), function(field, msg){
+        error_msg += msg+" ";
+      })
+      alert(error_msg);
+      return false;
+    }
+    else{
+      location.reload(true);
+    }
+  };
+  ajax.upload.addEventListener("progress", completeHandler, false);
+  ajax.addEventListener("load", completeHandler, false);
+  ajax.open("POST", '/items/new');
+  ajax.setRequestHeader("X-CSRF-Token", $('input[name=_token]').val());
+  ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  ajax.setRequestHeader('Accept', 'application/json');
+  var query = '';
+  for(var i=0; i<arrangement_ids.length; i++){
+    query += 'arrangement_ids[]=' + arrangement_ids[i] + '&';
+  }
+  query += 'category='+category+'&item_id='+item_id+'&name='+name+'&price='+price+'&processing_time='+processing_time+'&description='+description;
+  ajax.send(query);
+  activeConnections++;
+}
+
+var completeHandler = function(data){
+  //console.log(data);
+}
+
+var categories = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('category'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: '/items/categories'
+});
+categories.clear();
+categories.clearPrefetchCache();
+categories.clearRemoteCache();
+categories.initialize(true);
+
+var category_typeahead = $('#category').typeahead(
+   {
+     hint: true,
+     highlight: true,
+     minLength: 1,
+     classNames: {menu: 'typeahead-content', highlight: 'typeahead-highlight', cursor: 'typeahead-cursor'}
+   },
+   {
+     display: 'category',
+     source: categories.ttAdapter(),
+     templates: {
+       empty: ['<div class="typeahead-notfound">Not Found!</div>'],
+       suggestion: function(data){
+         return '<div class="typeahead-suggestion">'+data.category+'</div>'
+       }
+     }
+   }
+);
+
+category_typeahead.unwrap();
+</script>
+<style media="screen">
+twitter-typeahead {
+  display: inline !important;
+}
+
+.typeahead-content {
+  box-shadow: 0 1px 2px rgba(0,0,0,.26);
+  background-color: #fff;
+  cursor: pointer;
+  margin-top: -15px;
+  min-width: 100px;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  white-space: nowrap;
+  z-index: 1001;
+  will-change: width,height;
+}
+
+.typeahead-highlight {
+  font-weight: 900;
+}
+
+.typeahead-suggestion {
+  padding: 5px 0px 10px 10px;
+}
+
+.typeahead-suggestion:hover {
+  background-color: #42A5F5;
+  color: #FFF;
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-cover {
+  float: left;
+  position: absolute;
+  z-index: 1000;
+  background-color: #92AD40;
+  padding: 5px;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+</style>
+@stop

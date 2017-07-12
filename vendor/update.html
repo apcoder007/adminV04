@@ -1,0 +1,25 @@
+<div class="card row">
+  <form id="update-product" name="update-product" action="vendor/update_csv1" method="post" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    <input type="hidden" name="vendor_id" value="{{ $selected_vendor->id }}">
+    <div class = "file-field input-field col s12">
+      <div class="btn">
+        <span>Update</span>
+        <input type="file" name="filexl" accept=".xlsx" >
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" id='pathxl' name="pathxl" type="text" placeholder="Update .xlsx file">
+      </div>
+    </div>
+  </form>
+</div>
+
+@section('inline-script2')
+
+<script type="text/javascript">
+  $('#pathxl').on('change', function(){
+
+   $('#update-product').submit();
+  })
+</script>
+@stop

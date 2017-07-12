@@ -1,0 +1,89 @@
+@extends('layout.admin')
+
+
+@section('main')
+
+
+<iframe id="form_target" name="form_target" style="display:none"></iframe>
+
+<form id="my_form" action="/campaign/{{$campaign->id}}/images" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
+    {{ csrf_field() }}
+  <input name="image" type="file"  onchange="$('#my_form').submit();this.value='';">
+</form>
+<div class="row" style="margin-bottom:5rem;padding-top:2rem">
+    <span class="right" ><a href="/campaign" onclick="back()"><i class="tiny material-icons grey-text">arrow_back</i></a></span>
+    <div class="col s12" >
+      Subject :: {{$campaign->subject}}
+    </div>
+</div>
+<div class="row">
+<form class="col s12" id="upload-campain-message" name="upload-campain-message" action="/campaign/{{$campaign->id}}/message" method="post"  >
+  {{ csrf_field() }}
+    <div class="row">
+      <div class="input-field col s10">
+          <textarea id="mytextarea" name="message"></textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col l12">
+        <div class="input-field">
+            <button class="btn right" type="submit"  value="">update</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+@stop
+
+
+@section('inline-script7')
+<script type="text/javascript">
+  $('.datepicker').pickadate({
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
+
+
+  tinymce.init({
+    selector: '#mytextarea',
+    automatic_uploads: true,
+    height: 500,
+    theme: 'modern',
+
+    file_picker_types: 'image',
+    file_browser_callback_types: 'image',
+    file_browser_callback: function(field_name, url, type, win) {
+    if(type=='image') $('#my_form input').click();
+    console.log(field_name);
+      },
+    plugins: [
+      'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+      'searchreplace wordcount visualblocks visualchars code fullscreen',
+      'insertdatetime media nonbreaking save table contextmenu directionality',
+      'emoticons template paste textcolor colorpicker textpattern imagetools'
+    ],
+    toolbar1: 'insertfile undo redo |sizeselect | fontselect | fontsize | fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    toolbar2: 'print preview media | forecolor backcolor emoticons',
+    // font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
+    image_advtab: true,
+    // image_list: {!! json_encode($imagelist) !!},
+
+    image_list: "/imglist/{{$campaign->id}}",
+    setup: function (editor) {
+      editor.on('init', function()
+      {
+          this.getDoc().body.style.fontSize = '14px';
+      });
+      editor.on('change', function () {
+          editor.save();
+      });
+    }
+
+
+
+  });
+
+</script>
+@stop

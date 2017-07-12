@@ -1,0 +1,39 @@
+<div class="card row">
+  <div class="card-content">
+  
+    <form action="" method="get">
+      <!-- <select class="browser-default" onchange="this.form.submit()" name="vendor_id" ng-model="selectedvendor"> -->
+      <select class="browser-default" name="vendor_id" ng-model="selectedvendor">
+        
+
+        
+        <div ng-if="">
+          <option value="" selected disabled>Select vendor</option>
+        </div>
+
+      <div ng-if="selectedvendor">
+        <option ng-repeat="vendors in selectvendors" value="{{vendors['id']}}" ng-if="vendors['id']==selectedvendor" selected>
+        <span id="vendors.id" >{{vendors.name}}</span>
+        </option>
+
+
+        <option ng-repeat="vendors in selectvendors" value="{{vendors['id']}}">
+        <span id="vendors.id">{{vendors.name}}</span>
+        </option>
+      </div>
+        
+      
+
+      </select>
+
+    </form>
+
+</div>
+</div>
+
+
+<script type="text/javascript">
+  $('select').material_select();
+
+</script>
+

@@ -1,0 +1,73 @@
+<div ng-controller="itemsCtrl">
+
+    <div class="card">
+      <div class="card-content">
+
+        <div class="row">
+          <div class="col l8">
+            <div class="input-field">
+              <input type="text" name="search" ng-model="searchName" id="search"  ng-keypress="search($event)" />
+              <label for="search"> Search </label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <div class="row search-result" >
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+
+<style media="screen">
+
+.search-result > div{
+  padding: 5px 0px;
+}
+</style>
+
+
+<!-- <script type="text/javascript">
+  //var items = items;
+  //var items = $('[ng-controller="itemsCtrl"]').allitems;
+  
+
+  var suggested_clients = [];
+  var specialKeys = [9, 16, 17, 20, 37, 38, 39, 40];
+  function search(e){
+    if(e.keyCode === 13){
+        e.preventDefault(); // Ensure it is only this code that rusn
+        var x = document.getElementById("search").value;
+        $('.search-result').empty();
+        items.forEach(function(items, index){
+          if(items.name.toLowerCase().indexOf($('#search').val().toLowerCase()) < 0){
+            return;
+          }
+          markup ='<div style="padding-top:10px" ><div class="col s12 l1">  <b><a href="/item/'+items.id+'">' +items.id + '</a></b></div><div class="col s12 l5"><p>' +items.name + '</p></div> </div>';
+         $('.search-result').append($(markup));
+        });
+
+        items.forEach(function(items, index){
+          if(items.url.toLowerCase().indexOf($('#search').val().toLowerCase()) < 0){
+            return;
+          }
+          markup ='<div class="col s12 l1">  <b><a href="/item/'+items.id+'">' +items.id + '</a></b></div><div class="col s12 l5"><p>' +items.name + '</p></div>';
+         $('.search-result').append($(markup));
+        });
+
+    }
+  }
+</script> -->
+

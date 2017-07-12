@@ -1,0 +1,51 @@
+
+<div class="card grey lighten-3">
+  <div class="card-content">
+    <span class="card-title grey-text">{{ employeesmanagedetails[0]['name'] }} {{ employee['name'] }}<small class="right" style="font-size:small;">Joined on: {{ employeesmanagedetails[0]['doj'] }} {{employee['doj']}}</small></span>
+    <div class="row">
+      <div class="col l4">
+        Date of Birth
+      </div>
+      <div class="col l8">
+        {{ employeesmanagedetails[0]['dob'] }}   {{employee['dob']}}
+      </div>
+    </div>
+{{myhub}}
+    <div class="row">
+      <div class="col l4">
+        Email
+      </div>
+      <div class="col l8">
+        {{ employeesmanagedetails[0]['email'] }}   {{employee['email']}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col l4">
+        Alternate Email
+      </div>
+      <div class="col l8">
+        {{ employeesmanagedetails[0]['alt_email'] }}   {{employee['alt_email']}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col l4">
+        Mobile
+      </div>
+      <div class="col l8">
+        {{ employeesmanagedetails[0]['mobile'] }}        {{employee['mobile']}}
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col l4">
+        Address
+      </div>
+      <div class="col l8">
+        {{ employeesmanagedetails[0]['addressline1'] }}  {{employee['addressline1']}}<br />{{ employeesmanagedetails[0]['addressline2'] }}  {{employee['addressline2']}}<br />PIN-{{ employeesmanagedetails[0]['pin'] }}  {{employee['pin']}}
+      </div>
+    </div>
+  </div>
+</div>

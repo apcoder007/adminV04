@@ -1,0 +1,205 @@
+
+<div class="row" style="margin-right:40px" id="ordering" ng-if="isPackageHome()">
+  <div id= "top-tab" class="col s9" style="margin-right:10px">
+    <ul class="tabs">
+      <li class="tab col s3"><a href="#platinum">Platinum</a></li>
+      <li class="tab col s3"><a class="active" href="#gold">Gold</a></li>
+      <li class="tab col s3 "><a href="#silver">Silver</a></li>
+    </ul>
+  </div>
+
+
+  <div id="platinum" class="col s12"  style="margin-left:40px;">
+    <div  style="margin-top:80px">
+      <h5 class="center-align"> Platinum packages</h5>
+    </div>
+    <ul id="Platinumsortable">
+      <!--@foreach($packagesplat as $index => $package)-->
+      <li packid="{{}}" ng-repeat="platinumpack in platinumpackages">
+
+          <div class="card hoverable">
+            <div class="card-image">
+              <img   ng-src="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/small/{{platinumpack['images'].split(',')[0]}}"    >
+            </div>
+            <div class="card-content">
+              <small>
+                <b> <a href="/#/view/packages/package/{{platinumpack['id']}}"> {{ platinumpack['name'] }} </a></b> <br>
+              {{ platinumpack['style'] }}<br>
+              ₹ {{ platinumpack['price'] }}
+            </small>
+            </div>
+        </div>
+      </li>
+      <!--@endforeach-->
+    </ul>
+    <div class="center-align">
+      <button onclick="updatePlatinum()" class="btn waves-effect waves-light" type="submit" name="action">Update</button>
+    </div>
+  </div>
+
+  <div id="gold" class="col s12" style="margin-left:40px;" >
+    <div style="margin-top:80px">
+      <h5 class="center-align"> Gold packages</h5>
+    </div>
+    <ul id="Goldsortable" > 
+
+      <li packid="" ng-repeat="goldpack in goldpackages">
+          <div class="card hoverable">
+            <div class="card-image" >
+              <img   ng-src="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/small/{{goldpack['images'].split(',')[0]}}"    >
+            </div>
+            <div class="card-content">
+              <small>
+                <!--<b> <a href="/package/{{goldpack['id']}}"> {{ goldpack['name'] }} </a></b> <br>-->
+                <b> <a href="/#/view/packages/package/{{goldpack['id']}}"> {{ goldpack['name'] }} </a></b>
+              {{ goldpack['style'] }}<br>
+              ₹ {{ goldpack['price'] }}
+            </small>
+        </div>
+        </div>
+      </li>     
+
+      
+    </ul>
+    <div class="center-align">
+      <button onclick="updateGold()" class="btn waves-effect waves-light" type="submit" name="action">Update</button>
+    </div>
+  </div>
+
+
+  <div id="silver" class="col s12" style="margin-left:40px;">
+    <div style="margin-top:80px">
+      <h5 class="center-align">Silver packages</h5>
+    </div>
+    <ul id="silversortable">
+      <!--@foreach($packagessilver as $index => $package)-->
+      <li packid="{{}}" ng-repeat="silverpack in silverpackages">
+          <div class="card hoverable">
+            <div class="card-image">
+              <img  ng-src="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/small/{{silverpack['images'].split(',')[0]}}" >
+            </div>
+            <div class="card-content">
+              <small>
+                <b> <a href="/#/view/packages/package/{{silverpack['id']}}"> {{ silverpack['name'] }} </a></b> <br>
+              {{ silverpack['style'] }}<br>
+              ₹ {{ silverpack['price'] }}
+              </small>
+            </div>
+          </div>
+      </li>
+      <!--@endforeach-->
+    </ul>
+    <div class="center-align">
+      <button onclick="updateSilver()" class="btn waves-effect waves-light" type="submit" name="action">Update</button>
+    </div>
+  </div>
+</div>
+
+
+<div ng-if="ispackdetails()">
+  <div ng-include='"package/showpackage.html"'></div>
+</div>
+
+<style media="screen">
+#ordering ul:not(.tabs) { list-style-type: none; margin: 0; padding: 0; width: 70vw; }
+#ordering ul:not(.tabs) > li { margin: 15px 15px 50px 0; padding: 1px; ; width: 20vw; height: 300px; display: inline-block;}
+
+#top-tab {
+  position: fixed;
+  z-index: 1000;
+}
+
+</style>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('ul.tabs').tabs();
+});
+var silverordering={};
+var platinumordering = {};
+var goldordering = {};
+$(function() {
+  $( "#silversortable" ).sortable({
+            stop: function(e, ui) {
+                silverordering=$.map($(this).find('li'), function(el) {
+                    return   $(el).attr('packid') ;
+                });
+            }
+        });
+
+
+
+$( "#Platinumsortable" ).sortable({
+          stop: function(e, ui) {
+            platinumordering = $.map($(this).find('li'), function(el) {
+                return   $(el).attr('packid') ;
+            });
+          }
+      });
+
+
+  $( "#Goldsortable" ).sortable({
+            stop: function(e, ui) {
+              goldordering = $.map($(this).find('li'), function(el) {
+                  return   $(el).attr('packid') ;
+              });
+            }
+        });
+
+
+  $( "#sortable" ).disableSelection();
+});
+
+function updateSilver() {
+// console.log(silverordering);
+
+
+$.ajax({
+  headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' },
+  type: "POST",
+  url: "ordering/silver",
+  data: {silverordering},
+  cache: false,
+  success: function(data){
+
+  }
+});
+
+  };
+
+ function updatePlatinum(){
+  //  console.log(silverordering);
+
+
+   $.ajax({
+     headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' },
+     type: "POST",
+     url: "ordering/platinum",
+     data: {platinumordering},
+     cache: false,
+     success: function(data){
+
+     }
+   });
+ };
+
+
+ function updateGold(){
+  //  console.log(goldordering);
+
+
+   $.ajax({
+     headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' },
+     type: "POST",
+     url: "ordering/gold",
+     data: {goldordering},
+     cache: false,
+     success: function(data){
+
+     }
+   });
+ };
+</script>
+
+

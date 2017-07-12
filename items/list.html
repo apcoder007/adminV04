@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-content">
+    @foreach($items as $index=>$item)
+    @if($index%2 == 0)
+      <div class="row">
+    @endif
+    <div class="col l6">
+      <div class="card hoverable">
+        <div class="card-image">
+          <img onLoad="imageLoaded(this)" src="{{ $item->arrangement->image['directory'].''.$item->arrangement->image['path'] }}">
+        </div>
+        <div class="card-content"><small>
+          <b>{{ $item->name }}</b><br />
+          {{ $item->name }}<br/>
+          ₹ {{ $item->price() }}
+        </small></div>
+
+      </div>
+    </div>
+    @if($index%2 == 1)
+      </div>
+    @endif
+    @endforeach
+  </div>
+</div>

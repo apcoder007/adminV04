@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-content ">
+    <div class="row">
+      <div class="card-title grey-text">Status</div>
+      <!-- <form id="project_info" name="project_info" action="/project/{{project_status[0]['id']}}/update_status" class="" style="margin-top:3rem;" method="post"> -->
+      <form>
+            
+        <p>
+          <input type="radio" name="status" value="Negotiation" class="with-gap" id="type_negotiation" ng-if="project_status[0]['status'] == 'Negotiation' " ng-checked="true" >
+          <label for="type_negotiation">Negotiation</label>
+        </p>
+        
+        <p>
+          <input type="radio" name="status" value="Design" class="with-gap" id="type_design" ng-checked="project_status[0]['status'] == 'Design' " ng-checked="true">
+          <label for="type_negotiation">Design</label>
+        </p>
+        
+        
+        <p>
+          <input type="radio" name="status" value="Execution" class="with-gap" id="type_Execution" ng-checked="project_status[0]['status'] == 'Execution' " ng-checked="true">
+          <label for="type_Execution">Execution</label>
+        </p>
+        
+        <p>
+          <input type="radio" name="status" value="Finished" class="with-gap" id="type_Finished" ng-checked="project_status[0]['status'] == 'Finished' " ng-checked="true">
+          <label for="type_Execution">Finished</label>
+        </p>
+
+        
+        <p>
+          <input type="radio" name="status" value="Closed" class="with-gap" id="type_Closed" ng-checked="project_status[0]['status'] == 'Closed' " ng-checked="true">
+          <label for="type_Execution">Closed</label>
+        </p>
+
+        
+        <p>
+          <div class="input-field">
+          <button class="btn right" type="submit"  value="">update</button>
+          </div>
+        </p>
+      </form>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title grey-text">Attendance</span>
+    <p>
+      <div class="row">
+        @if(!$user->employee->hasCheckedIn())
+          <form method="POST" action="/employee/checkIn">
+            <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+            <button class="btn waves-effect teal lighten-2" type="submit">Check In</button>
+          </form>
+        @else
+          Checked In today at: {{ $user->employee->lastAttendance->inTime }}
+        @endif
+      </div>
+
+      <div class="row">
+        @if(!$user->employee->hasCheckedOut() && $user->employee->hasCheckedIn())
+          <form method="POST" action="/employee/checkOut">
+            <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+            <button class="btn waves-effect teal lighten-2" type="submit">Check Out</button>
+          </form><br />
+        @elseif($user->employee->hasCheckedIn())
+          Checked out today at: {{ $user->employee->lastAttendance->outTime }}<br />
+        @endif
+      </div>
+    </p>
+  </div>
+</div>

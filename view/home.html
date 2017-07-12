@@ -1,0 +1,127 @@
+    <style media="screen">
+      nav{
+        position: fixed;
+        z-index: 500;
+        width: 100%;
+      }
+
+      .side-nav a{
+        height: auto;
+      }
+      .side-nav.visible{
+        left: 0;
+      }
+      .side-nav i{
+        font-size: smaller;
+        opacity: 0.7;
+      }
+
+      .collection a.active span   { background:#00BC8C; }
+
+    </style>
+
+	<ul id="dropdown1" class="dropdown-content" style="margin-top:64px;">
+      <li><a href="/api/logout/session/">Logout</a></li>
+      <li><a href="/employee/change_password">Change password</a></li>
+      <li><div id="getuserid" userid="{{id}}" style="display: none"></div></li>
+    </ul>
+    <nav style="padding-left:10px;" class="grey">
+      <div class="nav-wrapper">
+         <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="/" class="brand-logo">CafeIndica</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a class="dropdown-button" href="#!" data-activates="dropdown1">{{ name }}<i class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    
+
+    <div class="row" >
+    
+      <div class="col m12 l2 hide-on-med-and-down visible" style="position:fixed;margin-top:5rem">
+        <div class="collection">
+
+
+          <div ng-if="matchpermission.indexOf('register_employee')>0">
+            <a ui-sref-active="active" ui-sref=".employee"  class="collection-item">Employees</a>
+          </div>
+
+          <div ng-if="matchpermission.indexOf('register_employee')>0">
+          <a ui-sref-active="active" ui-sref=".employeeregistration" class="collection-item">Employee Registration</a></div>
+
+          <div ng-if="matchpermission.indexOf('access_control')>0">
+          <a ui-sref-active="active" ui-sref=".managerolepermission" class="collection-item">Manage Roles and Permissions</a></div>
+
+          <div ng-if="matchpermission.indexOf('do_transactions')>0">
+          <a ui-sref-active="active" href="" class="collection-item">Account Transactions</a></div>
+
+          <div ng-if="matchpermission.indexOf('add_package')>0">
+          <a ui-sref-active="active" ui-sref=".packages.details" class="collection-item">Packages</a></div>
+
+          <div ng-if="matchpermission.indexOf('add_package')>0">
+          <a ui-sref-active="active" ui-sref=".packageordering" class="collection-item">Packages ordering</a></div>
+
+          <div ng-if="matchpermission.indexOf('manage_vendors')>0">
+          <a ui-sref-active="active" ui-sref=".vendors" class="collection-item">Vendors</a></div>
+
+          <div ng-if="matchpermission.indexOf('add_package')>0">
+          <a ui-sref-active="active" ui-sref=".items.details" class="collection-item">Items</a></div>
+
+          <div ng-if="matchpermission.indexOf('manage_categories')>0">
+          <a ui-sref-active="active" ui-sref=".categories" class="collection-item">Manage Categories</a></div>
+
+          <div ng-if="matchpermission.indexOf('add_package')>0">
+          <a ui-sref-active="active" ui-sref=".coupon.details" class="collection-item">Create Coupon</a></div>
+
+          <div ng-if="matchpermission.indexOf('add_package')>0">
+          <a ui-sref-active="active" ui-sref=".cod" class="collection-item">Cash on delivery</a></div>
+
+          <div ng-if="matchpermission.indexOf('add_package')>0">
+          <a ui-sref-active="active" ui-sref=".campaign.details" class="collection-item">Campaign</a></div>
+
+          <div ng-if="matchpermission.indexOf('add_package')>0">
+          <a ui-sref-active="active" ui-sref=".panorama" class="collection-item">Panorama</a></div>
+
+          <div ng-if="matchpermission.indexOf('view_all_projects')>0  ||  matchpermission.indexOf('view_own_pro')>0">
+          <a ui-sref-active="active" ui-sref=".project.details" class="collection-item">Projects</a></div>
+          
+        </div>
+      </div>
+      <div class="col s12 l10" style="margin-left:auto; margin-right:auto;float:right">
+        <div style="margin-top:5rem" class="row" >
+          
+          <!--<div ng-include='"admin/notification/bulkorder.html"'></div>-->
+          <!-- <p>Page Views for {{stateName}}: {{pageViews}}</p> -->
+
+          <div ng-if="isHome()">
+            <div ng-include='"admin/notification/bulkorder.html"'></div>
+          </div>
+
+          <div ui-view class="ng-scope"></div>
+          
+        </div>
+      </div>
+    </div>
+
+
+
+    
+
+    <script src="/bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="/bower_components/Materialize/dist/js/materialize.min.js" charset="utf-8"></script>
+    <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+     <script src="/bower_components/jquery-ui.min.js"></script>
+
+     
+    
+    <script type="text/javascript">
+      setTimeout(function(){ $('#error').fadeOut() }, 10000);
+      $(".button-collapse").sideNav();
+      setTimeout(function(){ $('.notify').slideUp('slow') }, 5000);
+
+      $(document).ready(function(){
+        $.ajaxSetup({ headers: {'X-CSRF-TOKEN': '{{csrf_token()}}' } });
+      });
+    </script>
+

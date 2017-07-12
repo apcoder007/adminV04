@@ -1,0 +1,78 @@
+@extends('layout.admin')
+
+@section('main')
+
+
+  <div class="card amber lighten-4 row">
+    <div class="card-content">
+      <div class="row">
+        <p style="text-align:justify">
+          Following columns were not found.<br />
+          {{ implode(", ", $data['not_found']) }}
+        </p>
+        <p></p>
+      </div>
+        <div class="row" style="margin-bottom:0">
+          @if(count($data['entries']) > 0)
+          <form class="col right" action="/vendor/upload_csv2" method="post">
+            {{ csrf_field() }}
+            <input type="hidden" name="vendor_id" value="{{$vendor->id}}">
+            <button class="btn waves-effect waves-light" type="submit">Insert Entries (<b>{{count($data['entries'])}}</b>)</button>
+          </form>
+          @endif
+
+          @if(count($data['existing']) > 0)
+          <form class="col right" action="/vendor/update_items1" method="post">
+            {{ csrf_field() }}
+            <input type="hidden" name="vendor_id" value="{{$vendor->id}}">
+            <button class="btn waves-effect waves-light" type="submit">Update Entries (<b>{{ count($data['existing']) }}</b>)</button>
+          </form>
+          @endif
+
+          <form action="/vendor/cancel_upload" method="post" class="col right">
+            {{ csrf_field() }}
+            <a class="btn grey" href="/vendor?vendor_id={{ $vendor->id }}">Go Back</a>
+          </form>
+        </div>
+    </div>
+  </div>
+
+  @if(count($data['entries']) > 0)
+  <style media="screen">
+    #product_table tbody tr td{
+      padding-bottom: 8px;
+      padding-top: 8px;
+      font-size: smaller;
+    }
+    form.col{
+      padding-left: 0px !important;
+    }
+  </style>
+  <div class="card row">
+    <div class="card-content" style="height:62%; overflow-y:auto;">
+      <table class="bordered" id='product_table'>
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>MRP</th>
+            <th>Categories</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($data['entries'] as $serial => $entry)
+          <tr>
+            <td>{{ $serial }}</td>
+            <td>{{ $entry['code'] }}</td>
+            <td>{{ $entry['name'] }}</td>
+            <td>{{ $entry['mrp'] }}</td>
+            <td>{{ $entry['categories'] }}</td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+  </div>
+  @endif
+@stop

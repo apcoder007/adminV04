@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title grey-text">Todays Attendance</span>
+    <div class="collection">
+      @foreach($employees as $employee)
+
+        @if($employee->hasCheckedIn() && !$employee->hasCheckedOut())
+          <div class="collection-item green lighten-2">
+            {{ $employee->user->name }}
+            <span class="right"><small>{{ $employee->lastAttendance->inTime }}</small></span>
+          </div>
+        @else
+          <div class="collection-item">
+            {{ $employee->user->name }}
+          </div>
+        @endif
+      @endforeach
+    </div>
+  </div>
+</div>

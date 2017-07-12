@@ -1,0 +1,87 @@
+@if(count($errors) > 0)
+  <div class="card">
+    <div class="card-content">
+      <ul>
+        @foreach($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  </div>
+@endif
+<div class="card">
+  <div class="card-content">
+    <span class="card-title grey-text">New Transaction</span>
+    <p>
+      <form name="transaction_form" method="POST" action="/transaction/request">
+        <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+        <div class="row">
+          <div class="col l6">
+            <div class="col l5">
+              <input class="with-gap" type="radio" name="type" id="type_debit" value="Debit" checked />
+              <label for="type_debit">Debit</label>
+            </div>
+            <div class="col l5">
+              <input class="with-gap" type="radio" name="type" id="type_credit" value="Credit" />
+              <label for="type_credit">Credit</label>
+            </div>
+          </div>
+
+          <div class="col l6">
+            <div class="col l5">
+              <input type="radio" class="with-gap" name="method" id="method_cash" value="Cash" checked />
+              <label for="method_cash">Cash</label>
+            </div>
+            <div class="col l5">
+              <input type="radio" class="with-gap" name="method" id="method_cheque" value="Cheque" />
+              <label for="method_cheque">Cheque</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col l7">
+            <div class="input-field">
+              <input type="text" id="person" name="person" />
+              <label for="person" id='person_label'>Payed to</label>
+            </div>
+          </div>
+          <div class="col l5">
+            <div class="input-field">
+              <input type="text" id="amount" name="amount" />
+              <label for="amount">Amount</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col l12">
+            <div class="input-field">
+              <textarea id="purpose" name="purpose" class="materialize-textarea"></textarea>
+              <label for ="purpose">Purpose</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col l12">
+            <button type="submit" class="btn waves-effect teal lighten-2 right">Go</button>
+          </div>
+        </div>
+      </form>
+    </p>
+  </div>
+</div>
+
+@section('inline-script')
+<script type="text/javascript">
+  $("input[name='type']").click(function(){
+    if(this.value == 'Debit'){
+      $('#person_label').text('Payed to');
+    }
+    else{
+      $('#person_label').text('Recieved from');
+    }
+  })
+</script>
+@stop

@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-content">
+    
+    <div class="col l12" ng-repeat="package in allpackages">
+      <div class="card hoverable">
+        <div class="card-image">
+            <!-- <image src="https://s3-us-west-2.amazonaws.com/thisisnotarandomstringinfactnoneis/small/{{$package->images->get(0)['file_name']}}" title="{{ $package->name }}" /> -->
+
+        </div>
+        <div class="card-content">
+        <small>
+          <a  ui-sref="home.packages.packagedetails({packageid: package['id']})">
+          <b>{{ package['name'] }}</b><br>
+          {{ package['style'] }}<br>
+          ₹ {{ package['price'] }}
+          </a>
+        </small>
+        </div>
+
+
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<style >
+.card-image{
+
+}
+</style>

@@ -1,0 +1,73 @@
+<div class="card project-detail">
+  <div class="card-content">
+
+    <div class="card-title grey-text"><small>Project Code: {{projectdetails[0]['code']}}</small></div>
+    <!-- <small style=""><small><a href="/project/{{projectdetails[0]}}/edit_basic">edit</a></small></small> -->
+
+    <!-- Edit project details -->
+    <button data-target="modal1" class="btn modal-trigger btn-small">Edit</button>
+
+    <!-- Modal Structure -->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <div ng-include='"projects/basic_info.html"'></div>
+        </div>
+
+      </div>
+
+
+    <ul>
+      <li>
+        <label>Project Name</label>
+        <span class="right">{{projectdetails[0]['name']}}</span>
+      </li>
+      <li>
+        <label>Client</label>
+        <span class="right">{{projectdetails[0]['client']}}</span>
+      </li>
+      <li>
+        <label>Society</label>
+        <span class="right">{{projectdetails[0]['society']}}</span>
+      </li>
+
+        <li>
+          <label>Contact Person</label>
+          <span class="right">{{projectdetails[0]['contact_person']}}</span>
+        </li>
+        <li>
+          <label>Mobile</label>
+          <span class="right">{{projectdetails[0]['mobile']}}</span>
+        </li>
+        <li>
+          <label>Email</label>
+          <span class="right">{{projectdetails[0]['email']}}</span>
+        </li>
+        <li>
+          <label>Address</label>
+          <span class="right">{{projectdetails[0]['address']}}</span>
+        </li>
+        <li>
+          <label>Pin</label>
+          <span class="right">{{projectdetails[0]['pin']}}</span>
+        </li>
+      </ul>
+  </div>
+</div>
+
+<style media="screen">
+.project-detail li{
+  padding: 2px 0;
+}
+.project-detail span.right{
+  font-size: 13px;
+}
+</style>
+
+
+<script type="text/javascript">
+  
+  $(document).ready(function() {
+  $('.modal-trigger').leanModal();
+});
+
+</script>

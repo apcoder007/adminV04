@@ -1,0 +1,124 @@
+application: adminv02-167309
+version: app8
+runtime: python27
+threadsafe: true
+api_version: 1
+
+handlers:
+
+
+- url: /
+  static_files: index.html
+  upload: index\.html
+
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /js
+  static_dir: js
+
+- url: /css
+  static_dir: css
+
+- url: /images
+  static_dir: images
+
+- url: /video
+  static_dir: video
+
+- url: /view
+  static_dir: view
+
+- url: /admin
+  static_dir: admin
+
+- url: /auth
+  static_dir: auth
+
+- url: /campaign
+  static_dir: campaign
+
+- url: /categories
+  static_dir: categories
+
+- url: /cod
+  static_dir: cod
+
+- url: /coupon
+  static_dir: coupon
+
+- url: /employee
+  static_dir: employee
+
+- url: /errors
+  static_dir: errors
+
+- url: /item
+  static_dir: item
+
+- url: /items
+  static_dir: items
+
+- url: /package
+  static_dir: package
+
+- url: /panorama
+  static_dir: panorama
+
+- url: /projects
+  static_dir: projects
+
+- url: /transaction
+  static_dir: transaction
+
+- url: /vendor
+  static_dir: vendor
+
+- url: /angular-material
+  static_dir: node_modules/angular-material
+
+- url: /angularjs-slider
+  static_dir: node_modules/angularjs-slider/dist
+
+- url: /angular-route
+  static_dir: node_modules/angular-route
+
+- url: /angular-aria
+  static_dir: node_modules/angular-aria
+
+- url: /angular
+  static_dir: node_modules/angular
+
+- url: /jquery
+  static_dir: node_modules/jquery/dist
+
+- url: /angular-animate
+  static_dir: node_modules/angular-animate
+
+- url: /ng-infinite-scroll
+  static_dir: node_modules/ng-infinite-scroll/build
+
+- url: /bower_components
+  static_dir: bower_components
+
+- url: /api/.*
+  script: api.app
+
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
+
+- name: jinja2
+  version: latest
+  
+- name: pycrypto
+  version: "2.6"
+
+- name: MySQLdb
+  version: "latest"
+
+
+inbound_services:
+- warmup

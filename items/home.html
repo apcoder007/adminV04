@@ -1,0 +1,13 @@
+@extends('layout.admin')
+
+@section('main')
+  <div class="col l6">
+    <!-- Make a placeholder which apears when an item is selected from the list -->
+    @include('items.new')
+  </div>
+  <div class="col l6">
+    @include('items.help')
+    @include('items.list')
+  </div>
+
+@stop

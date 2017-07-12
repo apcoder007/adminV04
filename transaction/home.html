@@ -1,0 +1,13 @@
+@extends('layout.admin')
+
+@section('main')
+
+<div class="row">
+  <div class="col l6">
+    @include('transaction.form')
+  </div>
+  <div class="col l6">
+    @include('transaction.summary')
+  </div>
+</div>
+@stop

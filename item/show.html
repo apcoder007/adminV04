@@ -1,0 +1,387 @@
+@extends('layout.admin')
+
+@section('main')
+<style media="screen">
+  small .row{
+    margin-bottom: 10px;
+  }
+</style>
+
+<script>
+
+function back() {
+    var href = "/vendor?vendor_id={{$item->vendor->id}}/";
+
+    history.pushState({stateObj: 'obj'}, "page 2", href);
+    $('body').load(href);
+    window.scrollTo(0, sessionStorage.getItem('scrollY'));
+    console.log(window.history)
+    return false;
+}
+</script>
+
+<div class="card" style="margin-top:5rem">
+  <div class="card-content grey-text row">
+    <span class="right" ><a href="#" onclick="back()"><i class="tiny material-icons grey-text">arrow_back</i></a></span>
+    <div class="card-title grey-text text-darken-2" style="padding-bottom:2rem; padding-left:1.4rem">
+      <small style="line-height:1.3">{{ $item->name==null? 'N.A.' : $item->name }}</small>
+    </div>
+    <div class="col s12 left">
+        <div class="card blue-grey lighten-1 auxilliary-board">
+          <div class="card-content white-text">
+            <span class="right"><a href="/item/{{$item->id}}"><i class="tiny material-icons white-text">clear</i></a></span>
+            <span class="card-title"><small>Proceed to remove these images</small></span>
+            <div id='remove-image-list' class="row"></div>
+          </div>
+          <div class="row">
+            <form class="col l12" method="post" id='remove-images-form' action="/item/{{$item->id}}/removeImages">
+              {{ csrf_field() }}
+              <input type="hidden" name="image_ids" value="" multiple>
+              <button type="submit" class="btn right" name="button">Submit</button>
+            </form>
+          </div>
+        </div>
+    </div>
+
+    <div class="col s4 center deleteconfirm">
+      <div class="card blue-grey">
+
+        <span class="center"><large>Are you sure to delete this item?</large></span>
+        <div class="row">
+        <a href="/item/{{$item->id}}/removeItem"class="waves-effect waves-light btn">DELETE</a>
+        <a href="/item/{{$item->id}}" class="waves-effect waves-light btn">BACK</a>
+      </div>
+      </div>
+    </div>
+
+
+
+    <div class="col s6">
+      <h6 style="padding-top:1rem;padding-left:0.8rem">Item Informations <small class="right"><small><a href="/item/{{$item->id}}/edit_basicinfo">Edit</a></small></small><hr /></h6>
+      <div class="row">
+        <div class="col s6">
+          Vendor: {{ $item->vendor->name }}
+        </div>
+        <div class="col l6">
+          Vendor's SKU: {{$item->code}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6">
+          Brand: {{ $item->brand }}
+        </div>
+        <div class="col l6">
+           Product Code: <span class="grey-text text-darken-1">CI_{{$item->code}}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          Categories: {{ implode(", ", array_column($item->categories->toArray(), 'name')) }}
+        </div>
+        <div class="col s6">
+          Material: {{$item->material}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          Weight: {{ $item->weight }}
+        </div>
+        <div class="col s6">
+          Set Content: {{$item->set_content ? $item->set_content : 'N.A'}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          Size: {{ $item->getSize() }}
+        </div>
+        <div class="col s6">
+          Color: {{ $item->color }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6">
+          Fragrance: {{ $item->fragrance ? $item->fragrance : 'N.A' }}
+        </div>
+        <div class="col l6">
+          Inventory: {{$item->inventory ? $item->inventory : 'N.A'}}
+        </div>
+      </div>
+      <h6 style="padding-top:1rem;padding-left:0.8rem">Packaging<hr /></h6>
+      <div class="row">
+        <div class="col s6">Package Weight: {{$item->package_weight ? $item->package_weight : 'N.A'}}</div>
+        <div class="col l6">Package Size: {{ $item->getPackageSize() }}</div>
+      </div>
+
+      <h6 style="padding-top:1rem;padding-left:0.8rem">Pricing <small class="right"><small><a href="/item/{{$item->id}}/edit_price">Edit</a></small></small><hr /></h6>
+      <div class="row">
+        <div class="col s6">MRP</div><div class="col s6"> {{$item->mrp ? $item->mrp->value : 'N.A'}}</div>
+      </div>
+      <div class="row">
+        <div class="col s6">Selling Price</div><div class="col s6"> {{$item->sp ? $item->sp->value : 'N.A'}}</div>
+      </div>
+      <div class="row">
+        <div class="col s6">Minimum Selling Price</div><div class="col s6"> {{$item->msp ? $item->msp->value : 'N.A'}}</div>
+      </div>
+      <div class="row">
+        <div class="col s6">Transfer Price</div><div class="col s6"> {{$item->tp ? $item->tp->value : 'N.A'}}</div>
+      </div>
+      <div class="row">
+        <div class="col s6">V.A.T</div><div class="col s6"> {{$item->vat ? $item->vat->value : 'N.A'}}</div>
+      </div>
+
+
+      <h6 style="padding-top:1rem;padding-left:0.8rem">Other Informations <small class="right"><small><a href="/item/{{$item->id}}/edit_otherinfo">Edit</a></small></small><hr /></h6>
+      <div class="row" style="padding-top:1rem;">
+        <div class="col s2">Care: </div>
+        <div class="col s10">{{$item->care}}</div>
+      </div>
+      <div class="row">
+        <div class="col s2">Description: </div>
+        <div class="col s10">{{ $item->description }}</div>
+      </div>
+      <div class="col s12 center">
+        <div class="card blue-grey">
+
+          <span class="center"><large>Delete this item?</large></span>
+          <div class="row">
+          <a onclick='removeItm()'class="waves-effect waves-light btn">DELETE</a>
+
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col l6">
+
+      <form id="upload-item-images" name="upload-item-images" action="/item/{{$item->id}}/images" method="post" enctype="multipart/form-data" class="row">
+        {{ csrf_field() }}
+        <div class = "file-field input-field col s12">
+          <div class="btn grey darken-1">
+            <span>Upload</span>
+            <input type="file" name="images[]" multiple accept="image/*" / >
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" id='path' name="path" type="text" placeholder="Upload images" onchange="this.form.submit()">
+          </div>
+        </div>
+      </form>
+
+
+      <div class="row">
+        @if(count($item->images) < 1)
+          No images uploaded
+        @else
+          @foreach($item->images as $index => $image)
+          <div class="col l3 image-box" imageid = "{{$image->id}}">
+            <span class="  btnn"><a class='remove-btn' href="#"><i class="tiny material-icons grey-text text-darken-4">highlight_off</i></a></span>
+            <div class="image-wrapper">
+              <img style="z-index:-1"src="/image/{{$image->id}}" />
+              <span class="helper"></span>
+            </div>
+          </div>
+          @endforeach
+        @endif
+      </div>
+    </div>
+  </div>
+</div>
+
+<style media="screen">
+.auxilliary-board{
+  position: fixed;
+  z-index: 2000;
+  max-height: 70%;
+  margin-top: -5%;
+  margin-right: 39%;
+  margin-left: -10%;
+  overflow-y: auto;
+  display: none;
+}
+.deleteconfirm{
+    position: fixed;
+    z-index: 2000;
+    max-height: 70%;
+    margin-top: -5%;
+    margin-right: 39%;
+    margin-left: -10%;
+    overflow-y: auto;
+    display: none;
+
+}
+
+.image-box{
+  padding: 0.2rem !important;
+  margin: 0 !important;
+  position: relative;
+}
+
+.image-box:hover .image-wrapper{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.image-wrapper{
+  padding: 1px;
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  height:70px;
+}
+.helper{
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.image-wrapper  img{
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+    opacity: 0.8;
+}
+.image-box:hover img{
+  opacity: 1;
+}
+.image-wrapper1{
+  padding: 1px;
+  width: 100%;
+  height:100%;
+    text-align: center;
+
+}
+.remove-btn i{
+  background-color: white;
+  border-radius: 50%;
+}
+.image-wrapper1  img{
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: bottom;
+    opacity: 0.8;
+
+}
+
+.imagebx{
+  max-height: 100%;
+  width: 100%;
+  display: none;
+  margin-bottom: 1rem;
+  position: relative;
+  text-align: center;
+  height: 100px
+}
+.imagebx .text-container{
+  position: absolute;
+  text-align: center;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  left: 0;
+}
+
+.imagebx img{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.imagebx:hover{
+  cursor: pointer;
+}
+
+/*#remove-image-list */
+.btnn{
+  margin-top: -0.5rem;
+  margin-right: -0.4rem;
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  text-align: right;
+
+}
+.buttn{
+  margin-top: 5rem;
+}
+#remove-image-list{
+  padding: 1px;
+  padding-left: 1rem;
+  height: 30%;
+}
+
+</style>
+@stop
+
+@section('inline-script2')
+<script type="text/javascript">
+var removeList = {};
+removeList.image_ids = [];
+  removeList.add = function( image_id){
+    // console.log(event);
+    removeList.image_ids.push(image_id);
+    var new_element = $("<div class='col l6 imagebx' imageid='"+image_id+"'>"+
+                            "<div class='text-container'>"+
+                              "<i class='material-icons'>undo</i>"+
+                            "</div>"+
+                            "<img src='/image/"+image_id+"' />"+
+                            "<span style='display:inline-block'></span>"+
+                        "</div>");
+
+    $('#remove-image-list').append(new_element);
+    new_element.fadeIn('fast', function(){
+      $('.auxilliary-board').show();
+    });
+
+    return true;
+  }
+  function removeItm() {
+    $('.deleteconfirm').show();
+    }
+
+
+  $(document).ready(function(){
+    $('.deleteconfirm').hide();
+    $('#remove-images-form').submit(function(){
+      $('input[name=image_ids]').val(removeList.image_ids);
+    });
+
+    $('.btnn').hide();
+    $('.image-box').hover(
+      function(){
+        $(this).children('.btnn').show();
+      },
+      function(){
+        $(this).children('.btnn').hide();
+      }
+    )
+    $('.remove-btn').click(function(){
+      var imageBox = $(this).parent().parent();
+      removeList.add(imageBox.attr('imageid'));
+      imageBox.fadeOut('fast');
+      return false;
+    });
+
+    $('#remove-image-list').on('click', '.imagebx', function(e){
+      var imageid = $(this).attr('imageid');
+      var toShow = $('.image-box[imageid='+imageid+']');
+      var index = removeList.image_ids.indexOf(imageid);
+      if(index > -1){
+        removeList.image_ids.splice(index, 1);
+        console.log(removeList.image_ids);
+      }
+      toShow.fadeIn('fast');
+      $(this).fadeOut('fast',function(){
+        if(removeList.image_ids.length < 1){
+          $('.auxilliary-board').hide();
+        }
+        $(this).remove();
+      })
+
+    });
+  })
+
+</script>
+@stop

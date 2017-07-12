@@ -1,0 +1,52 @@
+
+<div class="row">
+  <div class="col l12">
+    <div class="card">
+      <form class="card-content" method="POST" action="/admin/roleNpermission">
+        <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+        <div class="row">
+          <table>
+            <thead>
+              <tr >
+                <th></th>
+            
+                  <th ng-repeat="role in roles">{{ role['name'] }}</th>
+                    
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr ng-repeat="permission in rolepermissions">
+                <td>{{ permission['name'] }}</td>
+                 
+                <td ng-repeat="role in roles">
+                  <!--<input type="checkbox" class="filled-in" id="p{{ permission['id'] }}r{{ role['id'] }}" name="permission[{{ role['id'] }}][]" value="{{ permission['id'] }}" @if($role->hasPermission($permission)) checked @endif />-->
+                  <!--<input type="checkbox" class="filled-in" id="p{{ permission['id'] }}r{{ role['id'] }}" name="permission[{{ role['id'] }}][]" value="{{ permission['id'] }}"  checked  />
+                  <label for="p{{ permission['id'] }}r{{ role['id'] }}"></label>-->
+
+                  <input type="checkbox" class="filled-in" id="p{{ permission['id'] }}r{{ role['id'] }}" name="permission[{{ role['id'] }}][]" value="{{ permission['id'] }}" />
+                  <label for="p{{ permission['id'] }}r{{ role['id'] }}"></label>
+                </td>
+                
+                
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <button class="btn waves-effect grey lighten-1 right" style="margin-right:1rem;" type="submit" name="action">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col l6">
+    
+    <div ng-include='"admin/new_permission.html"'></div>
+  </div>
+  <div class="col l6">
+    <div ng-include='"admin/new_role.html"'></div>
+  </div>
+</div>

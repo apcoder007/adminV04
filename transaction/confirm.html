@@ -1,0 +1,46 @@
+@extends('layout.admin')
+
+@section('main')
+<div class="card">
+  <div class="card-content">
+    <span class="card-title grey-text">Confirm transaction</span>
+    <p>
+      <div class="row">
+        <div class="col l2 grey-text">Type</div>
+        <div class="col l4">{{ $transaction->type }}</div>
+
+        <div class="col l2 grey-text">Method</div>
+        <div class="col l4">{{ $transaction->method }}</div>
+      </div>
+
+      <div class="row">
+        <div class="col l2 grey-text">
+          @if($transaction->type == 'Debit')
+          Payed to
+          @else
+          Recieved from
+          @endif
+        </div>
+        <div class="col l4">{{ $transaction->person }}</div>
+
+        <div class="col l2 grey-text">Amount</div>
+        <div class="col l4">{{ $transaction->amount }}</div>
+      </div>
+
+      <div class="row">
+        <div class="col l2 grey-text">Purpose</div>
+        <div class="col l10">{{ $transaction->purpose }}</div>
+      </div>
+    </p>
+    <div class="row">
+      <form class="col l12" method="POST" action="/transaction/confirm">
+        @foreach($inputs as $name => $value)
+        <input type="hidden" name="{{ $name }}" value="{{ $value }}" />
+        @endforeach
+        <input type="hidden" name="_token" id="csrf-token" value="{{  }}" />
+        <button type="submit" class="btn waves-effect teal lighten-2">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+@stop

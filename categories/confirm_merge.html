@@ -1,0 +1,24 @@
+@extends('layout.admin')
+
+@section('main')
+<div class="card">
+  <div class="card-content">
+    You have requested to merge following categories
+    <ul>
+      @foreach($tomerge as $cat)
+      <li>{{$cat->name}} ({{$cat->items}} items)</li>
+      @endforeach
+    </ul>
+    <form action="/categories/merge2" method="POST">
+      {{csrf_field()}}
+      @foreach($tomerge as $cat)
+      <input type="hidden" name="tomerge[]" value="{{$cat->id}}" />
+      @endforeach
+      <div class="input-field">
+        <input type="text" name="new_name" />
+        <label>New name to be assigned after merge</label>
+      </div>
+      <button class="btn btn-primary" type="submit">Confirm</button>
+  </div>
+</div>
+@stop

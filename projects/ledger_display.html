@@ -1,0 +1,87 @@
+<ul class="collapsible" data-collapsible="accordion">
+  <li>
+    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Expenses</div>
+    <div class="collapsible-body">
+
+      <div class="card-content grey-text row">
+        <table  id="toExcel"  class="bordered">
+          <thead>
+            <tr>
+                <th data-field="name">Name</th>
+                <th data-field="amount">Amount</th>
+                <th data-field="tax_amount">Tax Amount</th>
+                <th data-field="particulars">Particulars</th>
+                <th data-field="mode_of_transaction">Mode</th>
+                <th data-field="bill_no">Bill No</th>
+                <th data-field="check_no">Check/Refrence</th>
+                <th data-field="bank">Bank</th>
+                <th data-field="date">Date</th>
+                <th data-field="concern_person">Conc Person</th>
+                <th data-field="remarks">Remarks</th>
+                <th data-field="remarks">Attachment</th>
+                <th>
+
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+          
+            <tr ng-repeat="expense in expenses">
+              <td>{{expense['name'] ? expense['name'] : 'N.A' }}</td>
+              <td>{{expense['amount'] ? expense['amount'] : 'N.A'}}</td>
+              <td>{{expense['tax_amount'] ? expense['tax_amount'] : 'N.A'}}</td>
+              <td>{{expense['particulars'] ? expense['particulars'] : 'N.A'}}</td>
+              <td>{{expense['mode_of_transaction'] ? expense['mode_of_transaction'] : 'N.A'}}</td>
+              <td>{{expense['bill_no'] ? expense['bill_no'] : 'N.A'}}</td>
+              <td>{{expense['cheque_number'] ? expense['cheque_number'] : 'N.A'}}</td>
+              <td>{{expense['bank'] ? expense['bank'] : 'N.A'}}</td>
+              <td>{{expense['date'] ? expense['date'] : 'N.A'}}</td>
+              <td>{{expense['concern_person'] ? expense['concern_person'] : 'N.A'}}</td>
+
+              <td>{{expense['remarks'] ? expense['remarks'] : 'N.A'}}</td>
+              <!-- <td><a href="//s3-us-west-2.amazonaws.com/thisisnotarandomstringinfactnoneis/{{$expense->path}}">{{$expense->remarks ? $expense->type : 'N.A'}}</a></td> -->
+              <td><a href="//s3-us-west-2.amazonaws.com/thisisnotarandomstringinfactnoneis/{{expense['path']}}">{{expense['remarks'] ? expense['type'] : 'N.A'}}</a></td>
+
+              <!-- <td><a href="/project/{{$expense->id}}/ledger_Edit" class="edit_expense" ledgerid="{{$expense->id}}" >Edit</a></td> -->
+              <td><a href="" class="edit_expense" ledgerid="{{expense['id']}}" >Edit</a></td>
+            </tr>
+
+          </tbody>
+        </table>
+        <button  class="btn right btn-success" onclick="exceller()" style="margin-top: 40px">Export Excel</button>
+      </div>
+
+    </div>
+
+  </li>
+</ul>
+
+
+<script>
+  // function exceller() {
+  //   var uri = 'data:application/vnd.ms-excel;base64,',
+  //     template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+  //     base64 = function(s) {
+  //       return window.btoa(unescape(encodeURIComponent(s)))
+  //     },
+  //     format = function(s, c) {
+  //       return s.replace(/{(\w+)}/g, function(m, p) {
+  //         return c[p];
+  //       })
+  //     }
+  //   var toExcel = document.getElementById("toExcel").innerHTML;
+  //   var ctx = {
+  //     worksheet: name || '',
+  //     table: toExcel
+  //   };
+  //   var link = document.createElement("a");
+
+  //   var proj_id = {!! $id !!};
+  //   //console.log(expense);
+  //   link.download = "Expense_"+proj_id+".xls";
+
+  //   link.href = uri + base64(format(template, ctx))
+  //   link.click();
+  // }
+
+</script>

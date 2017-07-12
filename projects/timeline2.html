@@ -1,0 +1,224 @@
+<link rel="stylesheet" type="text/css" href="css/timeline.css">
+
+
+<div class="row" ng-if="timelines" id="timelinmainDiv">
+
+<!-- <div ng-repeat="timeline in timelines track by $index"> -->
+<!-- <div ng-repeat="(key, timeline) in timelines"> -->
+<div>
+
+
+<div ng-repeat="timeline_details in timelineslist | orderBy: '-index'">
+  <div class="col s12">
+    <span> {{timeline_details.index.getFullYear()+"-"+timeline_details.index.getMonth()+"-"+timeline_details.index.getDate()}}</span>
+  </div>
+
+
+<div >
+    <div class="col s12 ">
+
+      <div class="card">
+      <div ng-repeat="timeline_detail in timeline_details.data">
+
+          <div class="image_card card-image" ng-if="timeline_detail['type'] == 'IMAGE'">
+            <div class="" style="float:right">
+
+                <div class="col s12" ng-if="pidata.indexOf(timeline_detail['time_id'])>0">
+                  <input type="checkbox" id="{{timeline_detail['time_id']}}" ng-click="toggleCheckbox(timeline_detail['time_id'],timeline_detail['projectid'])" name = "selectephoto[]" value="{{timeline_detail['time_id']}}" checked/>
+                  <label for="{{timeline_detail['time_id']}}">Select Image</label>
+                </div>
+                
+                  <div class="col s12" ng-if="pidata.indexOf(timeline_detail['time_id']) <=-1 ">
+                    <input type="checkbox" id="{{timeline_detail['time_id']}}" ng-click="toggleCheckbox(timeline_detail['time_id'],timeline_detail['projectid'])" name = "selectephoto[]" value="{{timeline_detail['time_id']}}"/>
+                    <label for="{{timeline_detail['time_id']}}">Select Image </label>
+                  </div>
+              
+               </div>
+
+<!-- manually inserted display_id as 626 -->
+              
+              <div ng-if="timeline_detail['time_id'] == 626">
+                <input type="checkbox" id="display_{{timeline_detail['time_id']}}" ng-click="toggleDisplaypic(timeline_detail['time_id'],timeline_detail['projectid'])" name = "selectephotos[]" value="{{timeline_detail['time_id']}}" checked/>
+                <label for="display_{{timeline_detail['time_id']}}">Display Image</label>
+              </div>
+
+              <div ng-if="timeline_detail['time_id'] != 626">
+                <input type="checkbox" id="display_{{timeline_detail['time_id']}}" ng-click="toggleDisplaypic(timeline_detail['time_id'],timeline_detail['projectid'])" name = "selectephotos[]" value="{{timeline_detail['time_id']}}" />
+                <label for="display_{{timeline_detail['time_id']}}">Display Image</label>
+              </div>
+              
+              <img ng-src="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/{{timeline_detail['path']}}" style="padding-bottom:5px;padding-top:10px" />
+
+          </div>
+        
+        
+
+         
+          <div ng-if="timeline_detail['type'] == 'PANORAMA' ">
+            <div class="card-image">
+              <a href="//www.cafeindica.co.in/#!/panorama/view?filename={{timeline_detail['path']}}">
+                <img ng-src="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/panoramathumbnail/{{timeline_detail['path']}}" />
+              </a>
+            </div>
+            <div class="card-content">
+                 <span>Click on Image For Panorama  View</span>
+            </div>  
+          </div>       
+          
+            <div class="card-content" ng-if="timeline_detail['type'] == 'PDF'">
+              <a href="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/{{timeline_detail['path']}}">Open the pdf!</a>
+            </div>
+          
+            <div class="card-content" ng-if="timeline_detail['type'] == 'WORD_DOC'">
+              <a href="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/{{timeline_detail['path']}}">Open the file!</a>
+            </div>
+            
+            <div style="Display:none">
+              {{var = timeline_detail['message']}}
+              {{timelineid = timeline_detail['timeline_id']}}
+              {{timepro = timeline_detail['time']}}
+            </div>
+          
+      <div class="card-content" ng-if="var">
+        {{var}}
+      </div>
+
+<!--  timelines comments -->
+
+    <ul class="collapsible comment-collapsible" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header comment-header"><i class="large material-icons">comment</i>  
+          <div ng-repeat="comments in timelinecomment">
+            <div ng-if="comments.indexOf('timelineid')>0">
+              {{comments.length}}
+            </div>
+            <div ng-if="comments.indexOf('timelineid') <= -1">
+              0
+            </div>
+          </div>
+
+           Comments</div>
+         <div class="collapsible-body">
+          
+            <div ng-if="comments.indexOf('timelineid')>0">
+              <div class= "row " ng-repeat="value in comments">
+              
+                <div class="comment-section ">
+                  <div class="comment-name col s8" >
+                    <h6> <b>{{value['name']}} </b> <small>Says--</small></h6>
+                  </div>
+                  <div class="comment-name col s4" >
+                    <span>{{value['time']}}</span>
+                  </div>
+                    <div class="comment-comment col s12">
+                      <p> {{value['comment']}} </p>
+                    </div>
+                  </div>
+              
+            </div>
+           
+           </div>
+          </div>
+      </li>
+    </ul>
+
+    <!-- <form id ="my_form" class="col s12" action="/project/{{ timelineid }}/timelinecomment"   method="post"> -->
+    <form id ="my_form" class="col s12"  method="post">
+      {{csrf_field()}}
+      <textarea id="comment" timelineid = "{{timelineid}}"  class="submit_on_enter {{timelineid}}" name="comment" ng-keydown="keydownFunction(timelineid,this.name)"   placeholder="Comment"></textarea>
+      <button style="margin-top:10px;" class="btn waves-effect right grey" type="submit" name="button">Post</button>
+    </form>
+
+  <!-- @if($user->hasPermission('change_date_timelin')) -->
+        <div class="container-name row" style="margin-top:50px">
+          <div class="div1">
+            <!-- <form id ="changedate_form" class="col" action="/project/{{$timelineid}}/timelinedate"   method="post"> -->
+            <form id ="changedate_form" class="col" method="post">
+              {{csrf_field()}}
+              <input type="text" name="timestamp"  value="{{timeline_detail['time']}} " />
+              <small><button style="margin-top:10px;" class="btn waves-effect right grey" type="submit" name="button">edit</button></small>
+            </form>
+          </div>
+          <div class="div2" style="text-align: right;float: right;width: 33px;padding-top: 19px;">
+          <!-- <a href="/project/{{$timelineid}}/delete"><i class="small material-icons">delete forever</i></a> -->
+          <a href=""><i class="small material-icons">delete forever</i></a>
+          </div>
+        </div>
+        <!-- @endif -->
+
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<!-- <script type="text/javascript">
+function keydownFunction(id,comment) {
+
+  if(event.keyCode == 13){
+    var elements = document.getElementsByClassName('submit_on_enter 9' );
+ $("submit_on_enter 9").submit();
+    console.log(id);
+    console.log(elements.textarea);
+  }
+}
+
+function toggleCheckbox(id, pid){
+      $.ajax({
+        headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' },
+        type: "POST",
+        url: "projectimage",
+        data: {id, pid},
+        cache: false,
+        success: function(data){
+          window.location.reload();
+        }
+      });
+}
+
+function toggleDisplaypic(did, dpid){
+  $.ajax({
+    headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' },
+    type: "POST",
+    url: "projectDisplaypic",
+    data: {did, dpid},
+    cache: false,
+    success: function(data){
+      window.location.reload();
+    }
+  });
+}
+
+$(document).ready(function(){
+
+
+  $('select').material_select();
+  var timelineid = $(".image_card").attr("tid");
+  console.log($(this).attr('tid'));
+  var pid = $(".image_card img").attr("pid");
+  // $("#filled-in-box").change(function(){
+  //     console.log($(this).attr('tid'));
+  //     $.ajax({
+  //       headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' },
+  //       type: "POST",
+  //       url: "projectimage",
+  //       data: {timelineid, pid},
+  //       cache: false,
+  //       success: function(data){
+  //
+  //       }
+  //     });
+  //
+  // });
+
+});
+
+</script>
+ -->

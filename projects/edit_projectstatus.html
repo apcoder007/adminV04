@@ -1,0 +1,44 @@
+@extends('layout.admin')
+
+@section('main')
+<style media="screen">
+  .row input{
+    height: auto;
+  }
+</style>
+
+
+<form id="project_info" name="project_info" action="/project/{{$project_status[0]->project_id}}/update_status" class="" style="margin-top:3rem;" method="post">
+  {{csrf_field()}}
+
+  <div class="row">
+    <div class="col l2 input-filed">
+      <input type="radio" name="status" value="Negotiation" class="with-gap" id="type_negotiation" {{{$project_status[0]->status == "Negotiation" ? 'checked' : 'No' }}}>
+      <label for="type_negotiation">Negotiation</label>
+    </div>
+    <div class="col l2 input-filed">
+      <input type="radio" name="status" value="Design" class="with-gap" id="type_design" {{{$project_status[0]->status == "Design" ? 'checked' : 'No' }}}>
+      <label for="type_design">Design</label>
+    </div>
+    <div class="col l2 input-filed">
+      <input type="radio" name="status" value="Execution" class="with-gap" id="type_Execution" {{{$project_status[0]->status == "Execution" ? 'checked' : 'No' }}}>
+      <label for="type_Execution">Execution</label>
+    </div>
+
+    <div class="col l2 input-filed">
+      <input type="radio" name="status" value="Finished" class="with-gap" id="type_Finished" {{{$project_status[0]->status == "Finished" ? 'checked' : 'No' }}}>
+      <label for="type_Finished">Finished</label>
+    </div>
+
+    <div class="col l2 input-filed">
+      <input type="radio" name="status" value="Closed" class="with-gap" id="type_Closed" {{{$project_status[0]->status == "Closed" ? 'checked' : 'No' }}}>
+      <label for="type_Closed">Closed</label>
+    </div>
+    <div class="input-field">
+    <button class="btn right" type="submit"  value="">update</button>
+    </div>
+  </div>
+
+</form>
+
+@stop

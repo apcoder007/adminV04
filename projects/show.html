@@ -1,0 +1,46 @@
+
+<div class="col s12">
+  <div class="card">
+
+    <div class="card-content">
+      <div class="card-title grey-text">Projects
+        
+        <small style="padding-left:40px;"><small><a ui-sref="home.project.create">Create New</a></small></small>
+        
+      </div>
+      <div class="row">
+        <div class="col s3"><p>Name</p></div>
+        <div class="col s3"><p>Society Name</p></div>
+        <div class="col s3"><p>Client's Name</p></div>
+        <div class="col s3"><p>Code</p></div>
+      </div>
+
+      
+      <div class="row" ng-repeat="project in allprojects">
+        <a ui-sref="home.project.id.details({id: project['id']})">
+          <div class="col s3"><span>{{project['name']}}</span></div>
+          <div class="col s3"><span>{{project['society']}}</span></div>
+          <div class="col s3"><span>{{project['client']}}</span></div>
+          <div class="col s3"><span>{{project['code']}}</span></div>
+        </a>
+      </div>
+      
+
+    </div>
+
+  </div>
+</div>
+
+
+
+<style media="screen">
+.file_link{
+ padding: 10px;
+ max-width: 300px;
+}
+.file_link > textarea{
+  width: 300px;
+  height: 100px;
+}
+</style>
+ 

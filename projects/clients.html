@@ -1,0 +1,197 @@
+
+<div class="card">
+  <div class="card-content">
+    <div class="row">
+      <div class="card-title grey-text">Clients</div>
+        <form name="clientsForm"class="" action="" method="post">
+          <div class="row clients-field">
+            <input type="text" name="clients" placeholder="clients" id="inteam">
+            <ul class="card" id="ulteam"></ul>
+          </div>
+            <div class="row clients-field">
+              <div class="input-field row s12">
+                <button class="btn waves-effect waves-light grey right col s4" type="submit">Add team</button>
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+
+
+<div class="card" id="fixed_item">
+  <div class="card-content ">
+    <div class="row" ng-if="teams">
+          
+          
+          <div class="row" ng-repeat="team in teams">
+
+          <div class="col s4 "><small>{{team['name']}}</small></div>
+          <div class="col s6 "><small>{{team['role']}}</small></div>
+          <div class="col s2">
+            <span class="right"><small><a href="/project/{{team['ppid']}}/removeTeam"><i class="material-icons removeicon">clear</i></a></small></span>
+          </div>
+          </div>
+          
+         
+    </div>
+  </div>
+</div>
+
+
+
+<style media="screen">
+
+#fixed_item{
+  margin-top: 25px;
+}
+
+.project-detail span.right{
+  font-size: 13px;
+}
+
+
+.removeicon{
+  cursor: pointer;
+  font-size: 16px;
+}
+
+
+.clients-field{
+  width: 250px;
+  margin-left: 6px;
+  }
+.clients-field ul{
+  position: absolute;
+  width: 100%;
+  top: 108px;
+  left: 0px;
+  background-color: white;
+  opacity: 1;
+  z-index: 100;
+}
+
+.clients-field li{
+  padding: 5px;
+  top: 5px;
+  overflow-y: auto;
+}
+
+.clients-field li.highlight{
+  background-color: #aaaaaa;
+  color: white;
+}
+
+.clients-field i{
+  display: none;
+}
+
+</style>
+
+
+
+<script type="text/javascript">
+// var clients = {!! $allusers !!};
+var suggested_clients = [];
+var specialKeys = [9, 16, 17, 20, 37, 38, 39, 40];
+var highlight = 0;
+$(document).ready(function(){
+
+  $.ajaxSetup({ headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' } });
+
+  $('form[name="clientsForm"]').submit(function(evt){
+    var data = {};
+    data.existingclients = [];
+    data.newclientss = [];
+
+    //data.existingRole = $("#role").find(":selected").val();
+
+    evt.preventDefault();
+    $.each($('.chip'), function(index, chip){
+      if($(chip).attr('client-id') == 0){
+        data.newclientss.push($($(chip).find('span')).text());
+      }
+      else{
+        data.existingclients.push($(chip).attr('client-id'));
+
+      }
+    });
+    $.post('/project/{{$project->id}}/clients', data, function(response){
+      location.reload();
+      console.log(data);
+    });
+  });
+
+  $('.clients-field #inteam').focus(function(){
+    $('.clients-field #ulteam').show();
+    $('.clients-field i').show();
+  });
+
+  $('.clients-field #inteam').keydown(function(evt){
+    if(evt.keyCode == 38){
+      evt.preventDefault();
+      highlight = highlight < 1 ? highlight : highlight - 1;
+    }
+    if(evt.keyCode == 40){
+      evt.preventDefault();
+      highlight = highlight > suggested_clients.length-2 ? highlight : highlight + 1;
+    }
+    if(evt.keyCode == 13){
+      evt.preventDefault();
+      highlighted = $('.clients-field li.highlight');
+
+      if(highlighted.length < 1){
+        markup = '<div class="chip" client-id="0"><span>'+$(this).val()+'</span><i class="material-icons" style="display:block;">close</i></div>';
+      }
+      else{
+
+        markup = '<div class="chip" client-id="'+highlighted.attr('client-id')+'">'+highlighted.text()+'<i class="material-icons" style="display:block;">close</i></div>';
+      }
+      $(this).parent().before($(markup));
+      $(this).val('');
+      $(this).siblings('#ulteam').html('');
+      $('.clients-field button').show();
+    }
+
+    $('.clients-field li').removeClass('highlight');
+    $($('.clients-field li')[highlight]).addClass('highlight');
+  })
+
+  $('.clients-field #inteam').keyup(function(evt){
+    if(specialKeys.indexOf(evt.keyCode) > -1 || $(this).val().length < 1){
+      return;
+    }
+
+    highlight = 0;
+    $('.clients-field ul').html('');
+    suggested_clients = [];
+    clients.forEach(function(clients, index){
+      if(clients.name.toLowerCase().indexOf($('.clients-field #inteam').val().toLowerCase()) < 0){
+        return;
+      }
+
+      suggested_clients.push(clients);
+      markup = '<li client-id="'+clients.id+'">' + clients.name + '<br /> ' + clients.email + '</li>';
+      $('.clients-field #ulteam').append($(markup));
+    });
+
+    clients.forEach(function(clients, index){
+      if(clients.email.toLowerCase().indexOf($('.clients-field #inteam').val().toLowerCase()) < 0){
+        return;
+      }
+
+      suggested_clients.push(clients);
+      markup = '<li client-id="'+clients.id+'">' + clients.name + '<br />' + clients.email + '</li>';
+      $('.clients-field #ulteam').append($(markup));
+    });
+
+    $('.clients-field li').removeClass('highlight');
+    $($('.clients-field li')[highlight]).addClass('highlight');
+  });
+
+  $('.clients-field #inteam').blur(function(){
+    $('.clients-field #ulteam').hide();
+  });
+});
+</script>
