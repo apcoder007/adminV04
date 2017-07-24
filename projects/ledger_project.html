@@ -15,108 +15,106 @@
       <div class="card">
         <div class="card-content grey-text row">
 
-        <h6> Project's spendings </h6>
+          <h6> Project's spendings </h6>
 
-        <!-- <form id="project_info" name="project_info" action="/project/{{proid}}/ledger_update" class="" enctype="multipart/form-data" method="post"> -->
-        <form id="project_info" name="project_info" class="" ng-submit="ledgerUpdate(project_info)" enctype="multipart/form-data" method="post">
-          {{dsf}}
-          <div class="row">
-            <div class="input-field col s12  m12 l4">
-              <input  name= "name" id="payee_name" type="text" class="validate" ng-model="payee_name">
-              <label for="payee_name">Payee Name</label>
-            </div>
-            <div class="input-field col s12  m12 l4">
-              <input id="last_name" type="text" name= "particulars" class="validate" ng-model="particulars">
-              <label for="last_name">Particulars</label>
-            </div>
-            <div class="input-field col s12  m12 l4">
-              <input  name= "amount" id="amount" type="text" class="validate" ng-model="amount">
-              <label for="amount">Amount</label>
-            </div>
-          </div>
+          <form id="project_info" name="project_info" class="" ng-submit="ledgerStore(project_info)" enctype="multipart/form-data" method="post">
 
-          <div class="row">
-            <div class="input-field col s12  m12 l4">
-              <input id="tax_amount"  name= "tax_amount" type="text" class="validate" ng-model="tax_amount">
-              <label for="tax_amount">Tax amount</label>
-            </div>
-            <div class="input-field col s12 m12 l4">
-              <input type="text" id="bank" name="bank" value="" ng-model="bank">
-              <label for="bank">Bank</label>
-            </div>
-            <div class="input-field col s12 m12 l4">
-              <input type="text" name="check_no" id="check_no" value="" ng-model="check_no">
-              <label for="check_no">Cheque Number</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col s12 m12 l4">
-              <input type="text" name="concern_person" id="concern_person" value="" ng-model="concern_person">
-              <label for="concern_person">Concern Person</label>
-            </div>
-            <div class="input-field col s12 m12 l4">
-              <input id="pay_date" name="pay_date" type="date" value="" class="datepicker" ng-model="date">
-              <label for="pay_date">Date</label>
-            </div>
-            <div class="input-field col s12  m12 l4">
-              <input  name= "bill_no" id="bill_no" type="text" class="validate" ng-model="bill_no">
-              <label for="bill_no">Bill No</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col s12  m12 l4">
-              <div class="row">
-                <select class="browser-default" name="type_of_transaction" ng-model="type_of_transaction">
-                    <option value="Credit">Credit</option>
-                    <option value="Debit">Debit</option>
-                </select>
+            <div class="row">
+              <div class="input-field col s12  m12 l4">
+                <input  name= "name" id="payee_name" type="text" class="validate" ng-model="payee_name">
+                <label for="payee_name">Payee Name</label>
+              </div>
+              <div class="input-field col s12  m12 l4">
+                <input id="last_name" type="text" name= "particulars" class="validate" ng-model="particulars">
+                <label for="last_name">Particulars</label>
+              </div>
+              <div class="input-field col s12  m12 l4">
+                <input  name= "amount" id="amount" type="text" class="validate" ng-model="amount">
+                <label for="amount">Amount</label>
               </div>
             </div>
-            <div class="input-field col s12  m12 l4">
-              <div class="row">
-                <select class="browser-default" name="mode_of_transaction" ng-model="mode_of_transaction">
-                    <option value="others" selected>mode_of_transaction</option>
-                    <option value="Cash">Cash</option>
-                    <option value="Cheque">Cheque</option>
-                    <option value="Account">Account</option>
-                    <option value="others">Others</option>
-                </select>
+
+            <div class="row">
+              <div class="input-field col s12  m12 l4">
+                <input id="tax_amount"  name= "tax_amount" type="text" class="validate" ng-model="tax_amount">
+                <label for="tax_amount">Tax amount</label>
+              </div>
+              <div class="input-field col s12 m12 l4">
+                <input type="text" id="bank" name="bank" value="" ng-model="bank">
+                <label for="bank">Bank</label>
+              </div>
+              <div class="input-field col s12 m12 l4">
+                <input type="text" name="check_no" id="check_no" value="" ng-model="check_no">
+                <label for="check_no">Cheque Number</label>
               </div>
             </div>
-            <div class="input-field col s12  m12 l4">
-              <input id="remarks"  name= "remarks" type="text" class="validate" ng-model="remarks">
-              <label for="remarks">Remarks</label>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="input-field col s12  m12 l4">
-              <div class="file-field input-field">
-                <div class="btn">
-                  <span>Upload File</span>
-                  <input type="file" name="image[]" multiple />
-                </div>
-                <div class="file-path-wrapper">
-                  <input class="file-path validate" id="path" name="path" type="text" ng-model="files" placeholder="Upload files">
+            <div class="row">
+              <div class="input-field col s12 m12 l4">
+                <input type="text" name="concern_person" id="concern_person" value="" ng-model="concern_person">
+                <label for="concern_person">Concern Person</label>
+              </div>
+              <div class="input-field col s12 m12 l4">
+                <input id="pay_date" name="pay_date" type="date" value="" class="datepicker" ng-model="date">
+                <label for="pay_date">Date</label>
+              </div>
+              <div class="input-field col s12  m12 l4">
+                <input  name= "bill_no" id="bill_no" type="text" class="validate" ng-model="bill_no">
+                <label for="bill_no">Bill No</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12  m12 l4">
+                <div class="row">
+                  <select class="browser-default" name="type_of_transaction" ng-model="type_of_transaction">
+                      <option value="Credit">Credit</option>
+                      <option value="Debit">Debit</option>
+                  </select>
                 </div>
               </div>
+              <div class="input-field col s12  m12 l4">
+                <div class="row">
+                  <select class="browser-default" name="mode_of_transaction" ng-model="mode_of_transaction">
+                      <option value="others" selected>mode_of_transaction</option>
+                      <option value="Cash">Cash</option>
+                      <option value="Cheque">Cheque</option>
+                      <option value="Account">Account</option>
+                      <option value="others">Others</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-field col s12  m12 l4">
+                <input id="remarks"  name= "remarks" type="text" class="validate" ng-model="remarks">
+                <label for="remarks">Remarks</label>
+              </div>
             </div>
-          </div>
 
-          <div  class="row">
-            <div class="input-field">
+            <div class="row">
+              <div class="input-field col s12  m12 l4">
+                <div class="file-field input-field">
+                  <div class="btn">
+                    <span>Upload File</span>
+                    <input type="file" name="image[]" file-model="myFile" multiple />
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate" id="path" name="path" type="text" ng-model="files" placeholder="Upload files">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div  class="row">
+              <div class="input-field">
                 <button class="btn right" type="submit"  value="">Submit</button>
+              </div>
             </div>
-           </div>
 
-        </form>
+          </form>
         </div>
       </div>
 
       
-      <!-- <div ng-include='"projects/ledger_display.html"'></div> -->
       <div>
         <ul class="collapsible" data-collapsible="accordion">
           <li>
@@ -159,10 +157,8 @@
                       <td>{{expense['concern_person'] ? expense['concern_person'] : 'N.A'}}</td>
 
                       <td>{{expense['remarks'] ? expense['remarks'] : 'N.A'}}</td>
-                      <!-- <td><a href="//s3-us-west-2.amazonaws.com/thisisnotarandomstringinfactnoneis/{{$expense->path}}">{{$expense->remarks ? $expense->type : 'N.A'}}</a></td> -->
-                      <td><a href="//s3-us-west-2.amazonaws.com/thisisnotarandomstringinfactnoneis/{{expense['path']}}">{{expense['remarks'] ? expense['type'] : 'N.A'}}</a></td>
+                      <td><a href="https://storage.googleapis.com/cafeindica/thisisnotarandomstringinfactnoneis/{{expense['path']}}">{{expense['remarks'] ? expense['type'] : 'N.A'}}</a></td>
 
-                      <!-- <td><a href="/project/{{$expense->id}}/ledger_Edit" class="edit_expense" ledgerid="{{$expense->id}}" >Edit</a></td> -->
                       <td><a href="" class="edit_expense" ledgerid="{{expense['id']}}" >Edit</a></td>
                     </tr>
 
@@ -181,18 +177,18 @@
       <div class="card">
         <div class="card-content grey-text row">
           <h6 id="pcost"> Project Cost :  ₹</h6>
-          <!-- <form id="project_costs" name="project_costs" class= "l6" action="/project/{{$id}}/costs" method="post"> -->
-          <form id="project_costs" name="project_costs" class= "l6" action="" method="post">
+          <form id="project_costs" name="project_costs" class= "l6" ng-submit="projectCost(project_costs)" action="" method="post">
             
             <div class="row">
               <div class="input-field col s12  m12 l6">
-                <input id="costs" type="text" name= "costs" class="validate">
+                <input id="costs" type="text" name= "costs" class="validate" ng-model="costs">
                 <label for="costs">Estimated costs</label>
               </div>
               <div class="input-field col l6">
                 <button class="btn left" type="submit"  value="">Submit</button>
               </div>
             </div>
+
           </form>
         </div>
       </div>
@@ -200,20 +196,20 @@
     <div class="card">
       <div class="card-content grey-text row">
         <h6> Installments </h6>
-        <!-- <form id="project_installment" style="padding-top:20px" name="project_installment" class= "l6" action="/project/{{$id}}/installment" method="post"> -->
-        <form id="project_installment" style="padding-top:20px" name="project_installment" class= "l6" action="" method="post">
+  
+        <form id="project_installment" style="padding-top:20px" name="project_installment" class= "l6" method="post" ng-submit="storeProjectInstallement(project_installment)">
           
           <div class="input_fields_wrap">
             <button class="add_field_button">Add More Fields</button>
             <div class="row">
 
               <div class="input-field col s12  m12 l3">
-                <input  type="text" name="amount[]" class="validate">
+                <input  type="text" name="amount[]" class="validate" ng-model="amount">
                 <label for="amount">Amount</label>
               </div>
 
               <div class="input-field col s12  m12 l3">
-                <select class="browser-default" name="status[]">
+                <select class="browser-default" name="status[]" ng-model="due">
                   <option value="due">Due</option>
                   <option value="paid">Paid</option>
                   <option value="disabled">Disable</option>
@@ -222,7 +218,7 @@
 
               <div class="input-field col s12  m12 l3">
                 <label for="style">Due date</label>
-                <input type="date" id="due_date" name="due_date[]" class="datepicker">
+                <input type="date" id="due_date" name="due_date[]" class="datepicker" ng-model="due_date">
               </div>
 
             </div>
@@ -231,22 +227,22 @@
 
               <div class="input-field col s12  m12 l3">
                 <label for="style">Payment date</label>
-                <input type="date" id="paid_date" name="paid_date[]" class="datepicker">
+                <input type="date" id="paid_date" name="paid_date[]" class="datepicker" ng-model="paid_date">
               </div>
 
               <div class="input-field col s12  m12 l3">
-                <select class="browser-default" name="mode_of_transaction[]">
+                <select class="browser-default" name="mode_of_transaction[]" ng-model="mot">
                     <option value="others" selected>mode_of_transaction</option>
                     <option value="Cash">Cash</option>
                     <option value="Cheque">Cheque</option>
                     <option value="CCAvenue">CCAvenue</option>
-                    <option value="Online Transfer">Online Transfer</option>
+                    <option value="Online_Transfer">Online Transfer</option>
                     <option value="Othres">Others</option>
                 </select>
               </div>
 
               <div class="input-field col s12  m12 l3">
-                <input  type="text" name="tax[]" class="validate">
+                <input  type="text" name="tax[]" class="validate" ng-model="tax">
                 <label for="amount">Tax(%)</label>
               </div>
 
@@ -297,8 +293,11 @@
               <td>{{installment['mode_of_transaction']}}</td>
               <td><span class="left"><small>
               <!-- <a href="/project/{{$installment->id}}/installment/edit">Edit</a> -->
-              <a href="">Edit</a>
-              </small></span></td>
+              <button data-target="modal1" class="btn modal-trigger btn-small">Edit</button>
+      
+              </small></span>
+              </td>
+              
             </tr>
           </tbody>
         </table>
@@ -348,9 +347,29 @@
 </div>
 </div>
 
+<!-- Edit project details -->
+    <!-- <button data-target="modal1" class="btn modal-trigger btn-small">Edit</button> -->
+
+    <!-- Modal Structure -->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <div ng-include='"projects/basic_info.html"'></div>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+  
+  $(document).ready(function() {
+  $('.modal-trigger').leanModal();
+});
+
+</script>
+
 <script type="text/javascript">
   $('.collapsible').collapsible();
 </script>
+
+
 
 
 <script type="text/javascript">

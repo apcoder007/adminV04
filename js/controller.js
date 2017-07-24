@@ -20,7 +20,7 @@ app.controller('loginController', ['$scope', 'Data', '$localStorage', '$location
               $scope.userId = response.datasets[0]['id'];
               $localStorage.storeid = $scope.userId;
               
-              $location.path('/view');
+              $location.path('/view/');
             }).error(function(response){
               alert("Error in First Call"+response);
               $scope.dataLoading = false;
@@ -78,11 +78,6 @@ app.controller('mainController', ['$scope', 'userdetails', '$localStorage', '$lo
           
           $scope.matchpermission.push(abc);
         } 
-
-
-       $scope.isHome = function(){
-        return $state.is("home");
-        }
 
 }]);
 
@@ -156,13 +151,6 @@ app.controller('empCtrl', ['$scope', 'allemployees', '$state', '$stateParams', f
     
     $scope.empid = allemployees.data.datasets[0]['id'];
 
-      $scope.isEmpeHome = function(){
-        return $state.is("home.employee");
-        }
-
-      $scope.isEmpeManageHome = function(){
-        return $state.is("home.employee.manage");
-        }
 
 }]);
 
@@ -438,8 +426,35 @@ app.controller('projectdetailsCtrl', ['$scope', 'Data', '$state', '$stateParams'
   $scope.mobile = '';
   $scope.address = '';
 
+
   $scope.projectid = $stateParams.id;
   $localStorage.proledgerid = $stateParams.id;
+
+  $scope.addProjectTeam = function(form){
+    var data = {};
+    data.existingEmployee = [];
+    data.newEmployees = [];
+
+    data.existingRole = $("#role").find(":selected").val();
+
+    // evt.preventDefault();
+    $.each($('.chip'), function(index, chip){
+      if($(chip).attr('emp-id') == 0){
+        data.newEmployees.push($($(chip).find('span')).text());
+      }
+      else{
+        data.existingEmployee.push($(chip).attr('emp-id'));
+
+      }
+    });
+    
+    Data.postProjectTeam($scope.projectid, $localStorage.storeid, data)
+    .success(function(response){
+      console.log("Adding project team");
+    }).error(function(response){
+      console.log("Error in adding project team");
+    });
+  }
 
 
   Data.getprojectDetails($stateParams.id)
@@ -455,11 +470,7 @@ app.controller('projectdetailsCtrl', ['$scope', 'Data', '$state', '$stateParams'
       mobile: $scope.projectdetails[0]['mobile'],
       address: $scope.projectdetails[0]['address']
     }
-    // $scope.society = $scope.projectdetails[0]['society'];
-    // $scope.projectname = $scope.projectdetails[0]['name'];
-    // $scope.contact_person = $scope.projectdetails[0]['contact_person'];
-    // $scope.mobile = $scope.projectdetails[0]['mobile'];
-    // $scope.address = $scope.projectdetails[0]['address'];
+    
 
     $scope.basic = angular.copy($scope.originalData);
     
@@ -518,9 +529,7 @@ app.controller('projectdetailsCtrl', ['$scope', 'Data', '$state', '$stateParams'
       var mobile = $scope.basic.mobile;
       var address = $scope.basic.address;
 
-      alert(id+" "+society+" "+projectname+" "+contact_person+" "+mobile+" "+address);
-
-      Data.updateBasicinfo(id, society, projectname, contact_person, mobile, address)
+      Data.updateBasicInfo(id, society, projectname, contact_person, mobile, address)
         .success(function(response){
           $scope.result = response.datasets;
         }).error(function(response){
@@ -532,7 +541,7 @@ app.controller('projectdetailsCtrl', ['$scope', 'Data', '$state', '$stateParams'
 
 }]);
 
-app.controller('projectledgerCtrl', ['$scope', 'Data', '$state', '$stateParams', '$localStorage', '$filter', function($scope, Data, $state, $stateParams, $localStorage, $filter){
+app.controller('projectledgerCtrl', ['$scope', 'Data', '$state', '$stateParams', '$localStorage', '$filter', '$http', function($scope, Data, $state, $stateParams, $localStorage, $filter, $http){
 
   $scope.proid = $localStorage.proledgerid;
   console.log($scope.proid);
@@ -549,7 +558,8 @@ app.controller('projectledgerCtrl', ['$scope', 'Data', '$state', '$stateParams',
 
 
 
-  $scope.ledgerUpdate = function(form){
+  $scope.ledgerStore = function(form){
+
     var userid = $localStorage.storeid;
     var payee_name = $scope.payee_name;
     var particulars = $scope.particulars;
@@ -566,17 +576,49 @@ app.controller('projectledgerCtrl', ['$scope', 'Data', '$state', '$stateParams',
     var files = $scope.files;
     var jsdate = document.getElementById('pay_date').value;
     $scope.myDate = new Date(jsdate);
+    var type = '';
+    var path = '';
+    console.log(jsdate);
 
-
-    console.log($scope.proid+" "+payee_name+" "+particulars+" "+amount+" "+tax_amount+" "+bank+" "+check_no+" "+concern_person+" "+$scope.myDate+" "+bill_no+" "+type_of_transaction+" "+mode_of_transaction+" "+remarks); 
+    var file = $scope.myFile;
+    alert(file.size);
+    console.log(file.size);
+    if(file.type == 'application/pdf'){
+      path = 'projectfile/'+file.name;
+      type = 'PDF';
+    }
+    if(file.type == 'image/jpeg' || 'image/png' || 'image/gif'){
+      path = 'project/'+file.name;
+      type = 'IMAGE';
+    }
+     
   
-    Data.ledger_update(userid, $scope.proid, payee_name, particulars, amount, tax_amount, bank, check_no, concern_person, $scope.myDate, bill_no, type_of_transaction, mode_of_transaction, remarks)
+    Data.ledger_store(userid, $scope.proid, payee_name, particulars, amount, tax_amount, bank, check_no, concern_person, jsdate, bill_no, type_of_transaction, mode_of_transaction, remarks, type, path, file)
     .success(function(response){
 
     }).error(function(error){
-      console.log("Error in updating ledger projects");
+      console.log("Error in storing ledger projects");
     });
 
+  }
+
+  $scope.storeProjectInstallement = function(form){
+    var userid = $localStorage.storeid;
+    var amount = $scope.amount;
+    var due = $scope.due;
+    var due_date = document.getElementById('due_date').value;
+    var paid_date = document.getElementById('paid_date').value;
+    var mot = $scope.mot;
+    var tax = $scope.tax;
+
+    alert(mot);
+    
+    Data.installments_store(userid, $scope.proid, amount, due, due_date, paid_date, mot, tax)
+    .success(function(response){
+      $state.go($state.current, $state.params, { reload: true });
+    }).error(function(response){
+      console.log("Error in storing installments");
+    });
   }
 
 }]);

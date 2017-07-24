@@ -1,15 +1,17 @@
+<link rel="stylesheet" type="text/css" href="css/projects/settings.css">
+
 <div class="card">
   <div class="card-content">
     <div class="row">
-      <div class="card-title grey-text">Project Team</div>
-        <form name="employeeForm"class="" action="" method="post">
+      <div class="card-title grey-text" pid="{{projectid}}" id="pid">Project Team</div>
+        <form name="employeeForm" class="" method="post" ng-submit="addProjectTeam(employeeForm)">
           <div class="row employee-field">
-            <input type="text" name="categories" placeholder="Employee" id="inteam">
+            <input type="text" name="categories" placeholder="Employee" id="inteam" ng-model="inteam">
             <ul class="card" id="ulteam"></ul>
           </div>
           <div class="row employee-field">
             <div class="row">
-              <select class="browser-default" name="role" id="role">
+              <select class="browser-default" name="role" id="role" ng-model="role">
                   <option value="" disabled selected>Role</option>
                   <option value="RELATIONSHIP_MANAGER">RELATIONSHIP MANAGER</option>
                   <option value="PROJECT_MANAGER">PROJECT MANAGER</option>
@@ -27,86 +29,51 @@
 </div>
 
 
-<style media="screen">
-
-#fixed_item{
-}
-
-.project-detail span.right{
-  font-size: 13px;
-}
-
-
-.removeicon{
-  cursor: pointer;
-  font-size: 16px;
-}
-
-
-.employee-field{
-  width: 250px;
-  margin-left: 6px;
-  }
-.employee-field ul{
-  position: absolute;
-  width: 100%;
-  /*height: 200px;*/
-  top: 108px;
-  left: 0px;
-  background-color: white;
-  opacity: 1;
-  z-index: 100;
-}
-
-.employee-field li{
-  padding: 5px;
-  top: 5px;
-  overflow-y: auto;
-
-}
-
-.employee-field li.highlight{
-  background-color: #aaaaaa;
-  color: white;
-}
-
-.employee-field i{
-  display: none;
-}
-</style>
-
-
-
 <script type="text/javascript">
-// var employee = {!! $employee !!};
+var employee;
 var suggested_employee = [];
 var specialKeys = [9, 16, 17, 20, 37, 38, 39, 40];
 var highlight = 0;
-$(document).ready(function(){
+var street_name;
+
+window.onload=function(){
+  street_name = $("#pid").attr("pid");
+      console.log(street_name);
+}
+
+$(document).ready(function(){  
+  
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "http://web.cafe-indica-163107.appspot.com/api/get/all/empteam", false);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
+    empl = JSON.parse(xhttp.responseText);
+    employee = empl.datasets;
 
   $.ajaxSetup({ headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' } });
 
-  $('form[name="employeeForm"]').submit(function(evt){
-    var data = {};
-    data.existingEmployee = [];
-    data.newEmployees = [];
+  // $('form[name="employeeForm"]').submit(function(evt){
+  //   var data = {};
+  //   data.existingEmployee = [];
+  //   data.newEmployees = [];
 
-    data.existingRole = $("#role").find(":selected").val();
+  //   data.existingRole = $("#role").find(":selected").val();
 
-    evt.preventDefault();
-    $.each($('.chip'), function(index, chip){
-      if($(chip).attr('emp-id') == 0){
-        data.newEmployees.push($($(chip).find('span')).text());
-      }
-      else{
-        data.existingEmployee.push($(chip).attr('emp-id'));
+  //   evt.preventDefault();
+  //   $.each($('.chip'), function(index, chip){
+  //     if($(chip).attr('emp-id') == 0){
+  //       data.newEmployees.push($($(chip).find('span')).text());
+  //     }
+  //     else{
+  //       data.existingEmployee.push($(chip).attr('emp-id'));
 
-      }
-    });
-    $.post('/project/{{$project->id}}/team', data, function(response){
-      location.reload();
-    });
-  });
+  //     }
+  //   });
+  //   $.post('/project/{{$project->id}}/team', data, function(response){
+  //     location.reload();
+  //   });
+  // });
 
   $('.employee-field #inteam').focus(function(){
     $('.employee-field #ulteam').show();

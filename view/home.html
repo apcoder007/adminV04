@@ -18,6 +18,29 @@
 
       .collection a.active span   { background:#00BC8C; }
 
+      #overlay {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 100;
+        cursor: pointer;
+    }
+
+    #text{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 50px;
+        color: white;
+        transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+    }
+
     </style>
 
 	<ul id="dropdown1" class="dropdown-content" style="margin-top:64px;">
@@ -44,7 +67,7 @@
 
 
           <div ng-if="matchpermission.indexOf('register_employee')>0">
-            <a ui-sref-active="active" ui-sref=".employee"  class="collection-item">Employees</a>
+            <a ui-sref-active="active" ui-sref=".employee.details"  class="collection-item">Employees</a>
           </div>
 
           <div ng-if="matchpermission.indexOf('register_employee')>0">
@@ -91,11 +114,11 @@
       <div class="col s12 l10" style="margin-left:auto; margin-right:auto;float:right">
         <div style="margin-top:5rem" class="row" >
           
-          <!--<div ng-include='"admin/notification/bulkorder.html"'></div>-->
-          <!-- <p>Page Views for {{stateName}}: {{pageViews}}</p> -->
 
-          <div ng-if="isHome()">
-            <div ng-include='"admin/notification/bulkorder.html"'></div>
+          <div id="overlay" ng-show="isLoading">
+            <div id="text">
+              <img src="images/preloader.gif" width="50px" height="50px">
+            </div>
           </div>
 
           <div ui-view class="ng-scope"></div>

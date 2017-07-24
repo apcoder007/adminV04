@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="css/projects/clients.css">
 
 <div class="card">
   <div class="card-content">
@@ -19,75 +20,22 @@
 </div>
 
 
-
 <div class="card" id="fixed_item">
   <div class="card-content ">
     <div class="row" ng-if="teams">
           
-          
           <div class="row" ng-repeat="team in teams">
 
-          <div class="col s4 "><small>{{team['name']}}</small></div>
-          <div class="col s6 "><small>{{team['role']}}</small></div>
-          <div class="col s2">
-            <span class="right"><small><a href="/project/{{team['ppid']}}/removeTeam"><i class="material-icons removeicon">clear</i></a></small></span>
+            <div class="col s4 "><small>{{team['name']}}</small></div>
+            <div class="col s6 "><small>{{team['role']}}</small></div>
+            <div class="col s2">
+              <span class="right"><small><a href="/project/{{team['ppid']}}/removeTeam"><i class="material-icons removeicon">clear</i></a></small></span>
+            </div>
           </div>
-          </div>
-          
-         
+            
     </div>
   </div>
 </div>
-
-
-
-<style media="screen">
-
-#fixed_item{
-  margin-top: 25px;
-}
-
-.project-detail span.right{
-  font-size: 13px;
-}
-
-
-.removeicon{
-  cursor: pointer;
-  font-size: 16px;
-}
-
-
-.clients-field{
-  width: 250px;
-  margin-left: 6px;
-  }
-.clients-field ul{
-  position: absolute;
-  width: 100%;
-  top: 108px;
-  left: 0px;
-  background-color: white;
-  opacity: 1;
-  z-index: 100;
-}
-
-.clients-field li{
-  padding: 5px;
-  top: 5px;
-  overflow-y: auto;
-}
-
-.clients-field li.highlight{
-  background-color: #aaaaaa;
-  color: white;
-}
-
-.clients-field i{
-  display: none;
-}
-
-</style>
 
 
 

@@ -1,0 +1,44 @@
+#fixed_item{
+}
+
+.project-detail span.right{
+  font-size: 13px;
+}
+
+
+.removeicon{
+  cursor: pointer;
+  font-size: 16px;
+}
+
+
+.employee-field{
+  width: 250px;
+  margin-left: 6px;
+  }
+.employee-field ul{
+  position: absolute;
+  width: 100%;
+  /*height: 200px;*/
+  top: 108px;
+  left: 0px;
+  background-color: white;
+  opacity: 1;
+  z-index: 100;
+}
+
+.employee-field li{
+  padding: 5px;
+  top: 5px;
+  overflow-y: auto;
+
+}
+
+.employee-field li.highlight{
+  background-color: #aaaaaa;
+  color: white;
+}
+
+.employee-field i{
+  display: none;
+}

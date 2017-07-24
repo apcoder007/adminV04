@@ -5,7 +5,7 @@
   }
 </style>
 
-  <div ng-if="isEmpeHome()">
+  <div>
     <ul class="collapsible" data-collapsible="accordion">
 
    <li ng-repeat="employee in employees">
@@ -13,7 +13,7 @@
        <div class="col l4">{{ employee['name'] }}</div>
        <div class="col l3">{{ employee['mobile'] }}</div>
        <div class="col l3">{{ employee['email'] }}</div>
-       <a class="manage-btn" ui-sref=".manage({manageid: employee['id']})"><small>Manage</small></a>
+       <a class="manage-btn" ui-sref="home.employee.manage({manageid: employee['id']})"><small>Manage</small></a>
      </div>
 
      <div class="collapsible-body">
@@ -24,9 +24,6 @@
  </ul>
   </div>
 
-  <div ng-if="isEmpeManageHome()">
-    <div ng-include='"employee/manage.html"'></div>
-  </div>
 
 
 <!-- <script>$('.collapsible').collapsible();</script> -->

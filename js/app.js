@@ -89,15 +89,26 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($s
             controller: 'mainController',
             resolve:{
                 userdetails: function(Data, $localStorage){
-                    //console.log(Data.UserDetail($localStorage.storeid));
                     return Data.UserDetail($localStorage.storeid);
                 }
             }
         })
 
+        .state('home.bulk', {
+            url:'/',
+            templateUrl:'admin/notification/bulkorder.html',
+            controller:'bulkCtrl'
+        })
+
         .state('home.employee', {
             url: '/employee',
-            templateUrl: 'employee/index.html',
+            templateUrl: 'employee/upshow.html'
+            
+        })
+
+        .state('home.employee.details', {
+            url:'/',
+            templateUrl:'employee/index.html',
             controller: 'empCtrl',
             resolve:{
                 allemployees: function(Data){

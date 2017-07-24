@@ -97,21 +97,6 @@ app.service("Data", function($http){
     });
   }
 
-  this.updateBasicinfo = function(id, society, projectname, contact_person, mobile, address){
-    var sendData = {
-      'id':id,
-      'society':society,
-      'projectname':projectname,
-      'contact_person':contact_person,
-      'mobile':mobile,
-      'address':address
-    }
-    return $http({
-      method:'POST',
-      url:'http://web.cafe-indica-163107.appspot.com/api/basic/edit',
-      data:sendData
-    });
-  }
 
   this.PackageRequest = function(){
     return $http({
@@ -269,6 +254,20 @@ app.service("Data", function($http){
     });
   }
 
+  this.postProjectTeam = function(proid, uid, pdata){
+    var sendData = {
+      'proid':proid,
+      'uid':uid,
+      'data':pdata
+    }
+    console.log(sendData);
+    return $http({
+      method:'POST',
+      data:sendData,
+      url:'http://web.cafe-indica-163107.appspot.com/api/postprojectteam'
+    });
+  }
+
   this.getprojectDetails = function(id){
     var sendData = {
       'id':id
@@ -320,6 +319,22 @@ this.getProjectStatus = function(uid, pid){
     url:'http://web.cafe-indica-163107.appspot.com/api/getprojectstatus'
   });
 }
+
+this.updateBasicInfo = function(id, society, projectname, contact_person, mobile, address){
+    var sendData = {
+      'id':id,
+      'society':society,
+      'projectname':projectname,
+      'contact_person':contact_person,
+      'mobile':mobile,
+      'address':address
+    }
+    return $http({
+      method:'POST',
+      url:'http://web.cafe-indica-163107.appspot.com/api/basic/edit',
+      data:sendData
+    });
+  }
 
 this.getLedgerClient = function(proid){
   var sendData = {
@@ -380,7 +395,7 @@ this.getLedgerClient = function(proid){
     });
   }
 
-  this.ledger_update = function(userid, proid, payee_name, particulars, amount, tax_amount, bank, check_no, concern_person, date, bill_no, type_of_transaction, mode_of_transaction, remarks){    
+  this.ledger_store = function(userid, proid, payee_name, particulars, amount, tax_amount, bank, check_no, concern_person, date, bill_no, type_of_transaction, mode_of_transaction, remarks, type, path, file){    
     var sendData = {
       'userid':userid,
       'proid':proid,
@@ -395,12 +410,33 @@ this.getLedgerClient = function(proid){
       'bill_no':bill_no,
       'type_of_transaction':type_of_transaction,
       'mode_of_transaction':mode_of_transaction,
-      'remarks':remarks
+      'remarks':remarks,
+      'type':type,
+      'path':path,
+      'file':file
     }
     return $http({
       method:'POST',
       data:sendData,
-      url:'http://web.cafe-indica-163107.appspot.com/api/update/ledgers'
+      url:'http://web.cafe-indica-163107.appspot.com/api/store/ledgers'
+    });
+  }
+
+  this.installments_store = function(userid, proid, amount, due, due_date, paid_date, mot, tax){
+    var sendData = {
+      'userid':userid,
+      'proid':proid,
+      'amount':amount,
+      'due':due,
+      'due_date':due_date,
+      'paid_date':paid_date,
+      'mot':mot,
+      'tax':tax
+    }
+    return $http({
+      method:'POST',
+      data:sendData,
+      url: 'http://web.cafe-indica-163107.appspot.com/api/store/installements'
     });
   }
 
